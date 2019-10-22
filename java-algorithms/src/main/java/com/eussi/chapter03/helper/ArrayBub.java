@@ -1,5 +1,6 @@
 package com.eussi.chapter03.helper;
 
+
 // bubbleSort.java
 // demonstrates bubble sort
 // to run this program: C>java BubbleSortApp
@@ -37,6 +38,55 @@ public class ArrayBub
             if( a[in] > a[in+1] )       // out of order?
                swap(in, in+1);          // swap them
       }  // end bubbleSort()
+
+      //编程作业3.1
+      public void bubbleSort1()
+      {
+         int outLeft = 0;
+         int outRight = nElems - 1;
+         int in = 0;
+         int dest = 0;
+
+         while(outLeft<outRight) {
+            //考虑方向
+            if(dest==0) {//正向
+               if (in == outRight) {
+                  dest = 1;//调整方向
+                  in = outRight --;
+               } else {
+                  if (a[in] > a[in + 1]) {
+                     swap(in, in + 1);
+                  }
+                  in ++;
+               }
+            } else {
+               if(in == outLeft) {
+                  dest = 0;
+                  in = outLeft ++;
+               } else {
+                  if(a[in-1] > a[in]) {
+                     swap(in-1, in);
+                  }
+                  in --;
+               }
+            }
+         }
+
+      }  // end bubbleSort()
+
+      public void bubbleSort2() {
+         int leftout = 0, rightout = nElems - 1, in; // leftout,rightout为左右两端指针
+
+         for (; rightout > leftout; rightout--, leftout++) {
+            for (in = leftout; in < rightout; in++)
+               if (a[in] > a[in + 1])
+                  swap(in, in + 1);
+            for (in = rightout-1; in > leftout; in--)//注意，in=rightout-1,因为rightout已经是最大了
+               if (a[in] < a[in - 1])
+                  swap(in, in - 1);
+         }
+      }
+
 //--------------------------------------------------------------
    private void swap(int one, int two)
       {
