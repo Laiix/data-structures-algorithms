@@ -1,8 +1,6 @@
 package com.eussi.chapter04;
 
-import com.eussi.chapter04.helper.BracketChecker;
-import com.eussi.chapter04.helper.Queue;
-import com.eussi.chapter04.helper.StackX;
+import com.eussi.chapter04.helper.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -123,6 +121,84 @@ public class Stack$Queue {
          * 为空时,也可能呈现相同的位置关系。于是在同一时间,队列似乎可能是满的,也可能是空的。
          *      这个问题可以这样解决,让数组容量比队列数据项个数的最大值还要大一。
          */
+        testQueue2();
+        /**
+         * 队列的效率
+         *      和栈一样，队列中插入数据项和移除数据项的时间复杂度均为O(1)
+         * 双端队列
+         *      双端队列就是一个两端都是结尾的队列。队列的每一端都可以插入数据项和移除数据项。这些
+         * 方法可以叫作 insertLeft()和 insertRight(),以及 removeLeft()和 removeRight()。
+         *      如果严格禁止调用 insertLeft()和 removeLeft()方法(或禁用右端的操作),双端队列功能就和栈
+         * 样。禁止调用 insertleft()和 moveright()方法(或相反的另一对方法),它的功能就和队列一样了
+         *      双端队列与栈或队列相比，是一种多用途的数据结构，在容器类库中有时会用双端队列来提供栈和队
+         * 列中的两种功能。但是，双端队列不像栈和队列那么常用， 因此这次不再详述。
+         */
+
+        /**
+         * 优先级队列
+         *      优先级队列是比栈和队列更专用的数据结构。但它在很多的情况下都很有用。像普通队列一样
+         * 优先级队列有一个队头和一个队尾,并且也是从队头移除数据项。不过在优先级队列中,数据项按
+         * 关键字的值有序,这样关键字最小的数据项(或者在某些实现中是关键字最大的数据项)总是在队
+         * 头。数据项插入的时候会按照顺序插入到合适的位置以确保队列的顺序。
+         *      像栈和队列一样,优先级队列也经常用作程序员编程的工具。后面图的算法中,可以看到在图的最
+         * 小生成树算法中应用优先级队列
+         *      像普通的队列一样,优先级队列在某些计算机系统中也有很多应用。例如,在抢先式多仼务橾
+         * 作系统中,程序排列在优先级队列中,这样优先级最高的程序就会先得到时间片并得以运行。
+         *      很多情况下需要访问具有最小关键字值的数据项(比如要寻找最便宜的方法或最短的路径去做
+         * 某件事)。因此,具有最小关键字值的数据项具有最高的优先级。这里略微有点专断,假定所有情
+         * 况都是这样的,尽管有很多情况都是最大关键字具有最高的优先级。
+         *      除了可以快速访问最小关键值的数据项,优先级队列还应该可以实现相当快的插入数据项。因
+         * 此,正如前面提到过的,优先级队列通常使用一种称为堆的数据结构来实现。第12章将会介绍堆
+         * 本章使用简单的数组实现优先级队列。这种实现方法插入比较慢,但是它比较简单,适用于数据量
+         * 比较小并且不是特别注重插入速度的情况。
+         */
+        testPriorityQ();
+    }
+
+    private static void testPriorityQ() {
+        PriorityQ thePQ = new PriorityQ(5);
+        thePQ.insert(30);
+        thePQ.insert(50);
+        thePQ.insert(10);
+        thePQ.insert(40);
+        thePQ.insert(20);
+
+        while( !thePQ.isEmpty() )
+        {
+            long item = thePQ.remove();
+            System.out.print(item + " ");  // 10, 20, 30, 40, 50
+        }  // end while
+        System.out.println("");
+    }
+
+    private static void testQueue2() {
+        Queue2 theQueue = new Queue2(5);  // queue holds 5 items
+
+        theQueue.insert(10);            // insert 4 items
+        theQueue.insert(20);
+        theQueue.insert(30);
+        theQueue.insert(40);
+        System.out.println("FULL?" + theQueue.isFull());
+        theQueue.insert(50);            // insert 4 more items
+        System.out.println("FULL?" + theQueue.isFull());
+
+
+        theQueue.remove();              // remove 3 items
+        theQueue.remove();              //    (10, 20, 30)
+        theQueue.remove();
+
+
+        theQueue.insert(60);            //    (wraps around)
+        theQueue.insert(70);
+        theQueue.insert(80);
+
+        while( !theQueue.isEmpty() )    // remove and display
+        {                            //    all items
+            long n = theQueue.remove();  // (40, 50, 60, 70, 80)
+            System.out.print(n);
+            System.out.print(" ");
+        }
+        System.out.println("");
     }
 
     private static void testQueue() {
