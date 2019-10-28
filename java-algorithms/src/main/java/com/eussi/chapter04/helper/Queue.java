@@ -57,6 +57,15 @@ public class Queue
       {
       return nItems;
       }
+
+      //作业清单 4.1
+      public void display() {
+         System.out.print("Queue:");
+      for(int i=0; i<nItems; i++) {
+         System.out.print(queArray[(front+i)%maxSize] + " ");
+      }
+         System.out.println();
+      }
 //--------------------------------------------------------------
    }  // end class Queue
 ////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-package com.eussi.chapter02.exercises;
+package com.eussi.chapter02;
 
 import com.eussi.chapter02.helper.HighArray;
 import com.eussi.chapter02.helper.OrdArray;
@@ -10,7 +10,7 @@ import java.util.Random;
  * @create 2019-10-18 10:57
  * @description
  */
-public class Excrcise {
+public class Exercise {
     public static void main(String[] args) {
         /**
          * 编程作业

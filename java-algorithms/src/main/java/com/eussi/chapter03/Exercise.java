@@ -1,4 +1,4 @@
-package com.eussi.chapter03.exercises;
+package com.eussi.chapter03;
 
 import com.eussi.chapter03.helper.ArrayBub;
 import com.eussi.chapter03.helper.ArrayIns;
@@ -9,7 +9,7 @@ import com.eussi.chapter03.helper.ArrayOddEven;
  * @create 2019-10-22 13:52
  * @description
  */
-public class Excrcise {
+public class Exercise {
 
     public static void main(String[] args) {
         /**

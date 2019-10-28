@@ -153,6 +153,92 @@ public class Stack$Queue {
          * 比较小并且不是特别注重插入速度的情况。
          */
         testPriorityQ();
+
+        /**
+         * 解析算数表达式应用：
+         *      对计算机的算法来说如果直接求算数表达式的值还是相当困难的。因此，分两步实现算法比较容易：
+         *      1、将算数表达式转换为成另一种形式：后缀表达式
+         *      2、计算后缀表达式的值
+         *      第一个步骤比较麻烦，第二部简单，但是不管怎么说，这种分两步的算法比直接解析算数表达式的
+         * 方法容易。
+         * 后缀表达式：
+         *      后缀表达式也称作波兰逆序表达式（Reverse Polish Notation），或者RPN，它是由一位波兰的
+         * 数学家发明的，操作符跟在两个操作数的后面。如：
+         *      A+B                     AB+
+         *      A+B*C                   ABC*+
+         *      ((A+B)*C)-D             AB+C*D-
+         *      A+B*(C-D/(E+F))         ABCDEF+/-*+
+         *      有些计算机语言也用一个操作符标识乘方（通常，用"^"符号），这里暂不讨论这种表示
+         * 除了中缀和后缀表达式，还有一种前缀表达式，操作符写在两个操作数的前面，如A+B为+AB。这
+         * 中表达方法与后缀表达式功能类似，但是很少使用。
+         * 中缀表达式转后缀表达式
+         *      计算中缀表达式时，既要向前，又要向后读表达式。向前（从左到右）读操作数和操作符，
+         * 等到读到足够的信息来执行一个运算时，向后去找出两个操作数和一个操作符，执行运算。
+         *      有时后面如果是更高级别的操作符或者括号时，就必须推迟此运算。这种情况下，必须先
+         * 执行后面级别高的运算，然后再回头执行前面的运算。
+         *      我们可以直接编写这样求值的算法，但是，先把表达式转换成后缀表达式计算会更容易。
+         *      通过栈来存储操作符是一个很好的方法。操作符在中缀表达式中的初始顺序与后缀表达式中
+         * 的顺序有些颠倒的感觉，这与栈的FILO有些相似之处。
+         *      从某方面说，由栈中弹出数据项实际上能从右向左扫描输入字符串。但是因为在读输入串的
+         * 时候已经被压入栈中，所以只需要出栈即可实现逆序重调用他们。
+         *      操作数在中缀表达式中出现的顺序是相同的，因此可以读到操作数的时候就输出他们，它们
+         * 不需要存储在栈里
+         * 算法概述：
+         *      扫描表达式，如果遇到：
+         *          操作数：
+         *              直接写到输出
+         *          左括号（：
+         *              入栈
+         *          右括号）：
+         *              栈非空循环
+         *                  弹出一项
+         *                  是（退出循环，否则写至输出
+         *          操作符：
+         *              栈不为空循环
+         *                  弹出一项
+         *                  若是（
+         *                      （入栈，退出循环
+         *                  否则
+         *                      如果出栈操作符优先级小于当前读入，出栈数据入栈，并且退出循环
+         *                      如果出栈操作符优先级大于等于当前读入，输出出栈数据
+         *              当前操作符入栈
+         *           结束：
+         *              栈非空时，弹出所有数据，写至输出
+         */
+        testInfix();
+        /**
+         * 后缀表达式求值：
+         * 算法概述：
+         *      扫描表达式，如果遇到：
+         *          操作数：
+         *              入栈
+         *          操作符：
+         *              从栈中提出两个操作数，用操作数将其执行运算。结果入栈
+         */
+        testPostfix();
+
+        /**
+         * ！！！！！！！！！注意以上两个栈的应用程序都没有检查输入错误，如果输入了一个不正确的后缀表达式，结果将难以预测。
+         */
+
+    }
+
+    private static void testPostfix() {
+        String input = "352-/61-*";         // read a string from kbd
+        System.out.println("postfix: " + input);
+
+        Postfix postfix = new Postfix(input);
+        int output = postfix.doParse();  // do the evaluation
+        System.out.println("Evaluates to " + output);
+    }
+
+    private static void testInfix() {
+        String input = "A+B*(C+(D-E))"; //ABCDE-+*+
+        System.out.println("infix: " + input);
+        // make a translator
+        InToPost theTrans = new InToPost(input);
+        String output = theTrans.doTrans(); // do the translation
+        System.out.println("Postfix is " + output + '\n');
     }
 
     private static void testPriorityQ() {
@@ -239,7 +325,7 @@ public class Stack$Queue {
     }
 
     private static void testStackX() {
-        StackX theStack = new StackX(10);  // make new stack
+        StackX<Integer> theStack = new StackX<Integer>(10);  // make new stack
         theStack.push(20);               // push items onto stack
         theStack.push(40);
         theStack.push(60);
