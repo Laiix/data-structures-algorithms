@@ -195,6 +195,166 @@ public class LinklistMain {
          */
         testInsertSort();
 
+        /**
+         * 双向链表（不要和双端链表产生混淆）
+         *      传统链表的一个潜在问题是沿链表的反向遍历是困难的。双向链表提供了向前遍历的能力。
+         * 原因在于每个链节点有两个指向其他链节点的引用，而不是一个。一个向普通链表一样指向下一
+         * 个链节点，第二个指向前一个链节点。
+         *      双向链表的缺点是每次插入或删除一个链结点的时候,要处理四个链结点的引用,而不是两个。
+         * 两个连接前一个链结点,两个连接后一个链结点。当然,由于多了两个引用,链结点的占用空间也
+         * 变大了一点。
+         *      双向链表不必是双端链表(保持一个对链表最后一个元素的引用),但这种方式是有用的,所
+         * 以在后面的例子中将包含双端的性质。
+         *
+         */
+        testDoublyLinkedList();
+        /**
+         * 基于双向链表的双端队列
+         *      双向链表可以用来作为双端队列的基础。在双端队列中,可以从任何一
+         * 头插入和删除,双向链表提供了这个能力。
+         */
+
+
+        /**
+         * 迭代器
+         *      已经看到链表的用户怎样使用 find()方法来查找一个含有给定值的链结点。这个方法从表头开
+         * 始考察每个链结点,直到找到一个链结点的值和给定值匹配。其他的一些操作,例如删除指定链结
+         * 点,在指定链结点的前面或后面插入新链结点,也含有链表上的搜索工作,以找到指定的链结点
+         * 然而,这些方法没有提供给用户任何遍历上的控制手段,以便找到指定链结点。
+         *      假定你要遍历一个链表,并在某些特定的链结点上执行一些操作。例如,用一个链表存储的职
+         * 员表。你可能需要提高所有拿最低工资的员工的工资,而不影晌那些已经高于最低工资的员工。或
+         * 者假设一个订阅邮件用户的链表,你需要删除所有近六个月没有订阅任何邮件的用户
+         *      在数组中,这种操作非常容易,因为可以用数组下标跟踪所在位置。可以在这个链结点上进行
+         * 操作,然后通过下标指向下一项,看那一这项是否符合操作条件。然而在链表中,链结点没有固定
+         * 的下标。怎样才能提供给链表用户类似于数组下标的东西呢?虽然可以反复使用find方法在链表
+         * 中查找到合乎要求的链结点,但是为查找每个链结点这个方法需要进行很多次比较。如果能从链结
+         * 点到链结点步进,检查每个链结点是否符合某个标准,若符合标准就执行适当的操作,这样效率会
+         * 高得多。
+         */
+        testIterator();
+        /**
+         * 选代器指向哪里?
+         *      迭代器类的一个设计问题是决定在不同的操作后,迭代器应该指向哪里。
+         *      当用 delete Current删除一项后,迭代器应该放在下一链结点,前一链结点,还是回到表头呢?
+         * 把迭代器保持在被删除链结点的附近是方便的,因为类的用户将在那里执行其他的操作。然而,不
+         * 能把它移动到前一个结果,因为无法把链表的 previous字段置成前一项。(要完成这个任务,需要
+         * 个双向链表。)解决办法是把迭代器移动到被删除链结点的下一个链结点。如果恰巧删除链表的
+         * 最后一个数据项,迭代器复位指向表头。
+         *      执行 insertBefore()方法和 insertAfter()方法后,让 current指向新插入的链结点。
+         * atEnd()方法
+         *      还有关于atEnd()方法的另一个问题。有两种做法:当迭代器指向链表最后一个有效链结点时,
+         * 它返回ture,或者当迭代器指向最后一个链结点的“下一个”时(这时,它不是指向一个有效链结
+         * 点),它返回true。
+         *      用第一种方法,按这种循环条件,遍历链表显得很笨拙。因为需要在最后一个链结点上仍执行
+         * 循环体内的操作,然而一旦检查出它是最后一个链结点,循环却中止了,没有来得及做操作。
+         *      在第二种方法中,一直不知是否到链表的结尾,一旦发现到了表尾,想对最后一个链结点做什
+         * 么事都已经太晚了。(例如,找到最后一个链结点,并删除它。)这是因为当 atEnd()变成true时,迭
+         * 代器将不再指向最后的链结点(或其他确切的有效链结点),迭代器在单链表中也不能“倒退”。
+         * 所以在这里还是采用第一种方法,用这种方法迭代器总是能指向一个有效链结点。然而,正如
+         * 下面将要看到的那样,在写这种遍历链表的循环时要格外小心
+         */
+
+    }
+
+    private static void testIterator() {
+        LinkList3 theList = new LinkList3();           // new list
+        ListIterator iter1 = theList.getIterator();  // new iter
+        long value;
+
+        iter1.insertAfter(20);             // insert items
+        iter1.insertAfter(40);
+        iter1.insertAfter(80);
+        iter1.insertBefore(60);
+
+        System.out.print("Enter first letter of show, reset, ");
+        System.out.println("next, get, before, after, delete: ");
+        for(char c:new char[]{'s','g','b','s','g','a','s','g','r','g', 'c', 'd', 's', 'g'}) {
+            System.out.println("Let's say I have input:" + c);
+            int choice = c;         // get user's option
+            switch(choice)
+            {
+                case 's':                    // show list
+                    if( !theList.isEmpty() )
+                        theList.displayList();
+                    else
+                        System.out.println("List is empty");
+                    break;
+                case 'r':                    // reset (to first)
+                    iter1.reset();
+                    break;
+                case 'n':                    // advance to next item
+                    if( !theList.isEmpty() && !iter1.atEnd() )
+                        iter1.nextLink();
+                    else
+                        System.out.println("Can't go to next link");
+                    break;
+                case 'g':                    // get current item
+                    if( !theList.isEmpty() )
+                    {
+                        value = iter1.getCurrent().dData;
+                        System.out.println("Returned " + value);
+                    }
+                    else
+                        System.out.println("List is empty");
+                    break;
+                case 'b':                    // insert before current
+                    value = 9999;
+                    System.out.println("Enter value to insert: " + value);
+                    iter1.insertBefore(value);
+                    break;
+                case 'a':                    // insert after current
+                    value = 8888;
+                    System.out.println("Enter value to insert: " + value);
+                    iter1.insertAfter(value);
+                    break;
+                case 'd':                    // delete current item
+                    if( !theList.isEmpty() )
+                    {
+                        value = iter1.deleteCurrent();
+                        System.out.println("Deleted " + value);
+                    }
+                    else
+                        System.out.println("Can't delete");
+                    break;
+                default:
+                    System.out.println("Invalid entry");
+            }  // end switch
+        }  // end while
+        System.out.println("==========================");
+        iter1.reset();
+        value = iter1.getCurrent().dData;
+        System.out.print(value + " ");
+        while(!iter1.atEnd()) {             //atEnd的实现是current指向最后一个时，作为标志
+            iter1.nextLink();               //以上代码之所以可以完成遍历，注意，在循环前已经输出第一个，在循环中，调用了next
+            value = iter1.getCurrent().dData;   //while条件只能进行到链表的第二个元素
+            System.out.print(value + " ");
+        }
+    }
+
+    private static void testDoublyLinkedList() {
+        DoublyLinkedList theList = new DoublyLinkedList();
+
+        theList.insertFirst(22);      // insert at front
+        theList.insertFirst(44);
+        theList.insertFirst(66);
+
+        theList.insertLast(11);       // insert at rear
+        theList.insertLast(33);
+        theList.insertLast(55);
+
+        theList.displayForward();     // display list forward
+        theList.displayBackward();    // display list backward
+
+        theList.deleteFirst();        // delete first item
+        theList.deleteLast();         // delete last item
+        theList.deleteKey(11);        // delete item with key 11
+
+        theList.displayForward();     // display list forward
+
+        theList.insertAfter(22, 77);  // insert 77 after 22
+        theList.insertAfter(33, 88);  // insert 88 after 33
+
+        theList.displayForward();     // display list forward
     }
 
     private static void testInsertSort() {
