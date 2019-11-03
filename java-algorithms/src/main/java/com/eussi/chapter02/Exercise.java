@@ -1,9 +1,8 @@
 package com.eussi.chapter02;
 
-import com.eussi.chapter02.helper.HighArray;
-import com.eussi.chapter02.helper.OrdArray;
-
-import java.util.Random;
+import com.eussi.chapter02.util.HighArray;
+import com.eussi.chapter02.util.OrdArray;
+import com.eussi.util.Util;
 
 /**
  * @author wangxueming
@@ -38,7 +37,8 @@ public class Exercise {
          */
 
         testHighArray();
-        System.out.println("===============================================");
+        Util.printDivide();
+
         testOrdArray();
 
 

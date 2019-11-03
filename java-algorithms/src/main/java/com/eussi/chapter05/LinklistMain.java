@@ -1,6 +1,7 @@
 package com.eussi.chapter05;
 
-import com.eussi.chapter05.helper.*;
+import com.eussi.chapter05.util.*;
+import com.eussi.util.Util;
 
 /**
  * @author wangxueming
@@ -45,10 +46,12 @@ public class LinklistMain {
          * 单链表
          */
         testLinklist();
+        Util.printDivide();
         /**
          * 查找和删除指定链节点
          */
         testLinklist2();
+        Util.printDivide();
 
         /**
          * 双端链表
@@ -63,6 +66,7 @@ public class LinklistMain {
          * 一个双向链表。（当然也可以遍历删除，但是效率较低）
          */
         testFirstLastList();
+        Util.printDivide();
         /**
          * 链表的效率
          *      在表头插入和删除速度很快。仅需要改变一两个引用值,所以花费O(1)的时间。
@@ -171,6 +175,7 @@ public class LinklistMain {
          * 限于一个固定的大小中。但是,有序链表实现起来比有序数组更困难一些。
          */
         testSortedList();
+        Util.printDivide();
         /**
          * 有序链表的效率
          * 在有序链表插入和删除某一项最多需要O(N)次比较(平均N/2),因为必须沿着链表上一步
@@ -194,6 +199,7 @@ public class LinklistMain {
          * 组排序是比较便利的。
          */
         testInsertSort();
+        Util.printDivide();
 
         /**
          * 双向链表（不要和双端链表产生混淆）
@@ -208,10 +214,11 @@ public class LinklistMain {
          *
          */
         testDoublyLinkedList();
+        Util.printDivide();
         /**
          * 基于双向链表的双端队列
          *      双向链表可以用来作为双端队列的基础。在双端队列中,可以从任何一
-         * 头插入和删除,双向链表提供了这个能力。
+         * 头插入和删除,双向链表提供了这个能力。见习题 5.2
          */
 
 

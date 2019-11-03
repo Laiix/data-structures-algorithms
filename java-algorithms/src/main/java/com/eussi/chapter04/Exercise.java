@@ -1,6 +1,7 @@
 package com.eussi.chapter04;
 
-import com.eussi.chapter04.helper.*;
+import com.eussi.chapter04.util.*;
+import com.eussi.util.Util;
 
 import java.io.IOException;
 
@@ -38,15 +39,19 @@ public class Exercise {
 
         //习题4.1
         testQueueDisplay();
+        Util.printDivide();
 
         //习题4.2
         testDeque();
+        Util.printDivide();
 
         //习题4.3
         testStackY();
+        Util.printDivide();
         
         //习题4.4
         testPriority2();
+        Util.printDivide();
         
         //习题4.5
         testSupermarket();

@@ -1,6 +1,7 @@
 package com.eussi.chapter02;
 
-import com.eussi.chapter02.helper.OrdArray;
+import com.eussi.chapter02.util.OrdArray;
+import com.eussi.util.Util;
 
 /**
  * @author wangxueming
@@ -27,6 +28,7 @@ public class Arrays {
          *
          */
         testOrdArray();//有序数组测试
+        Util.printDivide();
 
         /**
          * 有序数组的优点

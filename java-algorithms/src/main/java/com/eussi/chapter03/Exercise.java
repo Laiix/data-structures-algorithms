@@ -1,8 +1,9 @@
 package com.eussi.chapter03;
 
-import com.eussi.chapter03.helper.ArrayBub;
-import com.eussi.chapter03.helper.ArrayIns;
-import com.eussi.chapter03.helper.ArrayOddEven;
+import com.eussi.chapter03.util.ArrayBub;
+import com.eussi.chapter03.util.ArrayIns;
+import com.eussi.chapter03.util.ArrayOddEven;
+import com.eussi.util.Util;
 
 /**
  * @author wangxueming
@@ -54,9 +55,11 @@ public class Exercise {
 
         //习题3.1
         testBubbleSort1();
+        Util.printDivide();
 
         //测试去重 习题3.3
         testInsertSort();
+        Util.printDivide();
 
         //测试奇偶排序 习题3.4
         /**
@@ -65,6 +68,7 @@ public class Exercise {
          * 直到数组全部有序。
          */
         testOddEvenSort();
+        Util.printDivide();
         /**
          * 奇偶排序实际上在多处理器环境中很有用，处理器可以分别同时处理每一个奇数时，然后又同时处理偶数对。
          * 因为奇数对是彼此独立的，每一对都可以用不同的处理器比较和交换，这样可以非常快速的排序。
