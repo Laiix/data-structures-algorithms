@@ -6,7 +6,7 @@ package com.eussi.util;
  * @description
  */
 public class Util {
-    public static void printDivide() {
+    public static void printSeparator() {
         System.out.println();
         System.out.println("--");
         System.out.println();
