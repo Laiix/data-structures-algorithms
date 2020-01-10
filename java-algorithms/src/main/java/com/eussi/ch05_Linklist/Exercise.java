@@ -66,7 +66,7 @@ public class Exercise {
         testCircleList();
         Util.printSeparator();
 
-        //编程作业 5.4
+        //习题 5.4
         //这个题目有问题，题目要求实现的是栈，这里实现的是队列，栈用单向循环链表实现比较麻烦
         testQueue();
         Util.printSeparator();

@@ -265,7 +265,7 @@ public class Recursion {
         Util.printSeparator();
 
         /**
-         * 一些有趣的递归应用：
+         * 深度优先搜索实现排列组合
          */
 
 
