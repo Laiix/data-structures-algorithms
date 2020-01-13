@@ -266,9 +266,67 @@ public class Recursion {
 
         /**
          * 深度优先搜索实现排列组合
+         *
+         * 问题1：
+         * 假设袋子里有编号为1,2,...,m这m个球。现在每次从袋子中取一个球几下编号，放回袋中再取，取n次作为一组，枚举所有可能的情况。
+         * 分析：
+         * 每一次取都有m种可能的情况，因此一共有种情况。
+         * 这里我们取m = 3, n = 4，则有3^4=81种不同的情况。
+         *
+         * 方法参数：
+         *      minv   - 小球编号的最小值
+         *      maxv   - 小球编号的最大值
+         *      curnum - 当前已经确定的小球的个数
+         *      maxnum - 要选取的小球的数目
          */
+        permuteCombine_1(1, 3, 0, 3);
+        Util.printSeparator();
 
+        /**
+         * 问题2：                                                                                                                                                                        
+         * 假设袋子里有编号为1,2,...,m这m个球。先后从袋子中取出n个球，依次记录编号，枚举所有可能的情况。
+         * 分析：
+         * 这是排列问题，应该有A(m,n)种情况。
+         * 这里取m = 5, n = 3，A(5,3)=5*4*3=60。
+         * 和问题1相比，唯一的区别是排列中不可以有重复。因此开了used数组用以标记是否已经访问。
+         *
+         * 方法参数：
+         *      minv   - 小球编号的最小值
+         *      maxv   - 小球编号的最大值
+         *      curnum - 当前已经确定的小球的个数
+         *      maxnum - 要选取的小球的数目
+         */
+        permuteCombine_2(1, 3, 0, 3);
+        Util.printSeparator();
 
+        /**
+         * 问题3：                                                                                                                                                                        
+         * 从m个球里（编号为1,2,3...,m）一次取n个球，其中m>n，记录取出球的编号，枚举所有的可能性。
+         * 分析：
+         * 这是组合问题。应该有C(m,n)种可能性。
+         * 这里，我们取m = 8, n = 4. 因此有C(8,4)=A(8,4)/4!=(8*7*6*5)/(4*3*2*1)=70种可能。
+         *
+         * 方法参数：
+         *     curmaxv - 当前已经抓取小球中最大的编号
+         *     maxv    - 待抓取小球中最大的编号
+         *     curnum - 当前已经抓取的小球数目
+         *     maxnum - 需要抓取小球的数目
+         *
+         */
+        permuteCombine_3(0, 4, 0, 3);
+
+    }
+
+    public static void permuteCombine_1(int minv, int maxv, int curnum, int maxnum){
+        PermuteCombine_1.dfs(minv, maxv, curnum, maxnum);
+    }
+
+    public static void permuteCombine_2(int minv, int maxv, int curnum, int maxnum){
+        PermuteCombine_2.dfs(minv, maxv, curnum, maxnum);
+    }
+
+    public static void permuteCombine_3(int curmaxv, int maxv, int curnum, int maxnum){
+        PermuteCombine_3.dfs(curmaxv, maxv, curnum, maxnum);
     }
 
     public static void mergeSort()

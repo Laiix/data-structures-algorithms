@@ -63,13 +63,10 @@ public class Exercise {
 
         //习题 6-4
         bags(new int[]{11, 8, 7, 6, 5, 4, 3}, 20);
+        Util.printSeparator();
 
         //习题 6-5
         group(new char[] { 'A', 'B', 'C', 'D', 'E' }, 3);
-
-
-
-
 
     }
 

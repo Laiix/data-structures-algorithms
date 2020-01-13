@@ -49,7 +49,7 @@ public class Group {
             System.out.println();
             return;
         }
-        if (totalNumber < teamNumber) { // totalNuber< teamNumber,无解
+        if (totalNumber < teamNumber) { // totalNumber< teamNumber,无解
             return;
         }
         //选择了一个人

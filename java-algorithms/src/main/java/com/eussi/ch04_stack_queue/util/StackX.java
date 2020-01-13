@@ -1,5 +1,7 @@
 package com.eussi.ch04_stack_queue.util;
 
+import java.util.Arrays;
+
 // StackX.java
 // demonstrates stacks
 // to run this program: C>java StackApp
@@ -58,6 +60,15 @@ public class StackX<T>
             System.out.print(' ');
          }
          System.out.println("");
+      }
+
+      @Override
+      public String toString() {
+         StringBuilder sb = new StringBuilder("[");
+         for(int i=0; i<this.size(); i++) {
+            sb.append(this.stackArray[i]).append(", ");
+         }
+         return sb.toString().substring(0, sb.toString().length()-2) + "]";
       }
    }  // end class StackX
 ////////////////////////////////////////////////////////////////
