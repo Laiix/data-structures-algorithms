@@ -15,6 +15,11 @@ public class ListIterator
       reset();
       }
 //--------------------------------------------------------------
+      public void clearAll() {
+         ourList.setFirst(null);
+         reset();
+      }
+
    public void reset()            // start at 'first'
       {
       current = ourList.getFirst();
