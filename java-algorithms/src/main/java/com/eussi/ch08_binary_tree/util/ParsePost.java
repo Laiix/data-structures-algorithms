@@ -34,45 +34,14 @@ public class ParsePost {
             {
                 num2 = theStack.pop();          // pop operands
                 num1 = theStack.pop();
-                CharTree temp;
-                switch (ch)                      // do arithmetic
-                {
-                    case '+':
-                        temp = new CharTree();
-                        temp.root = new CharNode('+');
-                        temp.root.leftChild = num1.root;
-                        temp.root.rightChild = num2.root;
-                        theStack.push(temp);
-                        break;
-                    case '-':
-                        temp = new CharTree();
-                        temp.root = new CharNode('-');
-                        temp.root.leftChild = num1.root;
-                        temp.root.rightChild = num2.root;
-                        theStack.push(temp);
-                        break;
-                    case '*':
-                        temp = new CharTree();
-                        temp.root = new CharNode('*');
-                        temp.root.leftChild = num1.root;
-                        temp.root.rightChild = num2.root;
-                        theStack.push(temp);
-                        break;
-                    case '/':
-                        temp = new CharTree();
-                        temp.root = new CharNode('/');
-                        temp.root.leftChild = num1.root;
-                        temp.root.rightChild = num2.root;
-                        theStack.push(temp);
-                        break;
-                    default:
-                        // interAns = 0;
-                }  // end switch
-                // theStack.push(interAns); // push result
+                CharTree temp = new CharTree();
+                temp.root = new CharNode(ch);
+                temp.root.leftChild = num1.root;
+                temp.root.rightChild = num2.root;
+                theStack.push(temp);
             }  // end else
         }  // end for
-        interAns = theStack.pop();            // get answer
-        return interAns;
+        return theStack.pop();            // get answer
     }  // end doParse()
 
 }

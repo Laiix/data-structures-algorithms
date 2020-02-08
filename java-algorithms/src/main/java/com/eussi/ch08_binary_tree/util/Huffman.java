@@ -1,8 +1,4 @@
 package com.eussi.ch08_binary_tree.util;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 /**
@@ -11,12 +7,8 @@ import java.util.*;
  * @description
  */
 public class Huffman {
-    public static Map<Character, String> map_char_code;
-    public static Map<String, Character> map_code_char;
-    static {
-        map_char_code = new HashMap<Character, String>(); // 编码用代码表
-        map_code_char = new HashMap<String, Character>(); // 解码用代码表
-    }
+    public static Map<Character, String> map_char_code = new HashMap<Character, String>(); // 编码用代码表
+    public static Map<String, Character> map_code_char = new HashMap<String, Character>(); // 解码用代码表
 
     // 编码分为四步
     // 1.统计字符频率
@@ -44,7 +36,7 @@ public class Huffman {
         Iterator<Map.Entry<Character, Integer>> it = set.iterator();
         while (it.hasNext()) { // 生成单节点树
             Map.Entry<Character, Integer> en = it.next();
-            CharTree temp = new CharTree();
+            CharTree temp = new CharTree();        //实现compare接口
             temp.root = new CharNode(en.getKey());
             temp.weight = en.getValue();
             forest.add(temp);
@@ -62,8 +54,7 @@ public class Huffman {
         CharTree t = forest.remove(); // 最后一棵树
 
         // 3.生成编解码用map
-        String code = "";
-        preOrder(t.root, code, map_char_code, map_code_char);
+        preOrder(t.root, "", map_char_code, map_code_char);
 
         // 4.编码字符串
         StringBuffer output = new StringBuffer();
@@ -78,7 +69,8 @@ public class Huffman {
                                  Map<Character, String> map_char_code,
                                  Map<String, Character> map_code_char) {
         if (localRoot != null) {
-            if (localRoot.cchar != '\0') {
+//            if (localRoot.cchar != '\0') { //也可以判断叶子结点
+              if (localRoot.leftChild==null && localRoot.rightChild==null) { //也可以判断叶子结点
                 map_char_code.put(localRoot.cchar, code);
                 map_code_char.put(code, localRoot.cchar);
             }
@@ -90,7 +82,7 @@ public class Huffman {
     }
 
     // 解码
-    // 根据确码代码表还原信息
+    // 根据确码代码表还原信息，也可以使用BinaryTree中描述的沿着树的路径来解码
     public static String decode(String str) {
         StringBuffer result = new StringBuffer();
         StringBuffer sb = new StringBuffer();
@@ -103,21 +95,4 @@ public class Huffman {
         }
         return result.toString();
     }
-
-    public static void main(String[] args) {
-        String code = encode("SUSIE SAYS IT IS EASY!");
-        System.out.println(code);
-        String str = decode(code);
-        System.out.println(str);
-    }
-
-    // -------------------------------------------------------------
-
-    public static String getString() throws IOException {
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
-        String s = br.readLine();
-        return s;
-    }
-
 }

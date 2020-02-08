@@ -2,7 +2,9 @@ package com.eussi.ch08_binary_tree;
 
 import com.eussi.ch08_binary_tree.util.CharNode;
 import com.eussi.ch08_binary_tree.util.CharTree;
+import com.eussi.ch08_binary_tree.util.Huffman;
 import com.eussi.ch08_binary_tree.util.ParsePost;
+import com.eussi.util.Util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,16 +49,16 @@ public class Exercise {
          *   		母要从上到下以及从左到右有序，好像就是建立了一个字符的金字塔。
          *   		（这种排列方法与本章前面讨论的三种遍历方法都不对应。）因此，
          *   		字符串ABCDEFGHIJ会排列成下面的样子：
-         * 			                       A
-         * 		            B                              C
-         * 		    D              E              F              G
-         * 		H      I      J      --      --      --      --      --
-         * 		建立这种树的一种方法是从上到下，而不是像编程作业中前两题那样
-         * 		从底向上。从建立一个作为最后树的根的节点开始。如果节点编号和
-         * 		字母排顺序一样，1是根，则编号为n的节点的左子节点的编号为2*n+1。
-         * 		可以用递归方法，创建两个了节点并在每个子节点中调用它自己的。
-         * 		节点创建的顺序不需要和它们插入到树中的顺序相同。像编程作业中
-         * 		前面的题那样，可以删掉Tree类中搜索树的一些方法。
+         * 	    		                       A
+         * 	    	            B                              C
+         * 	    	    D              E              F              G
+         * 	    	H      I      J      --      --      --      --      --
+         * 	    	建立这种树的一种方法是从上到下，而不是像编程作业中前两题那样
+         * 	    	从底向上。从建立一个作为最后树的根的节点开始。如果节点编号和
+         * 	    	字母排顺序一样，1是根，则编号为n的节点的左子节点的编号为2*n+1。
+         * 	    	可以用递归方法，创建两个了节点并在每个子节点中调用它自己的。
+         * 	    	节点创建的顺序不需要和它们插入到树中的顺序相同。像编程作业中
+         * 	    	前面的题那样，可以删掉Tree类中搜索树的一些方法。
          *   	8.4	编写程序根据后缀表达式建立树，如本章图8.11中所示。需要修改
          *   		tree.java程序（清单8.1）中的Tree类，和第4单postfix.java程序
          *   		(清单4.8)中的ParsePost类。更多细节参考图8.11的解。建好树之后，
@@ -75,17 +77,42 @@ public class Exercise {
          *
          */
         //习题 8-1
-        code8_4();
+        code8_1("abcde");
+        Util.printSeparator();
+
+        //习题 8-2
+        code8_2("abcde");
+        System.out.println("递归****************************");
+        code8_2_1("abcde");
+        Util.printSeparator();
+
+        //习题 8-3
+        code8_3("ABCDEFGH");
+        Util.printSeparator();
+
+        //习题 8-4
+        code8_4("234+*");
+        Util.printSeparator();
+
+        //习题 8-5
+        code8_5("SUSIE SAYS IT IS EASY!");
 
     }
 
-    public static void code8_4() throws IOException {
-        String input;
+    public static void code8_5(String input) {
+        System.out.println("Input data: " + input);
+        Huffman huffman = new Huffman();
+        String code = huffman.encode(input);
+        System.out.println(code);
+        String str = huffman.decode(code);
+        System.out.println(str);
+    }
+
+    public static void code8_4(String input) throws IOException {
+
+        System.out.println("Enter postfix: " + input);
         CharTree output;
 
-        System.out.print("Enter postfix: ");
-        System.out.flush();
-        input = getString();         // read a string from kbd
         if (input.equals(""))       // quit if [Enter]
             return;
         // make a parser
@@ -98,116 +125,31 @@ public class Exercise {
         output.traverse(3);
     }  // end main()
 
-
-
-    // 编程作业 8.1
-    public static void code8_1() throws IOException {
-        System.out.println("请输入至少字符串（至少两个字符）:");
-        String str = getString();
-        CharTree[] array = new CharTree[str.length()];
-        for (int i = 0; i < str.length(); i++) {// 建立单节点树数组
-            CharTree temp = new CharTree();
-            temp.root = new CharNode(str.charAt(i));
-            array[i] = temp;
-        }
-        for (int i = 1; i < str.length(); i++) {
-            CharTree temp = new CharTree();
-            temp.root = new CharNode('+');
-            temp.root.leftChild = array[i - 1].root;
-            temp.root.rightChild = array[i].root;
-            array[i] = temp;
-        }
-        CharTree lastTree = array[str.length() - 1];
-        lastTree.displayTree();
-    }
-
-    // 编程作业 8.2
-    // 这是按题目8.2要求来的平衡二叉树
-    public static void code8_2() throws IOException {
-        System.out.println("请输入至少字符串（至少两个字符）:");
-        String str = getString();
-        CharTree[] array = new CharTree[str.length()];
-        for (int i = 0; i < array.length; i++) {// 建立单节点树数组
-            CharTree temp = new CharTree();
-            temp.root = new CharNode(str.charAt(i));
-            array[i] = temp;
-        }
-
-        CharTree[] tempArray;
-        while (array.length > 1) {
-            tempArray = new CharTree[(array.length - 1) / 2 + 1];
-            int j = -1;
-            int i = 0;
-            for (; i + 1 < array.length; i += 2) {
-                CharTree temp = new CharTree();
-                temp.root = new CharNode('+');
-                temp.root.leftChild = array[i].root;
-                temp.root.rightChild = array[i + 1].root;
-                tempArray[++j] = temp;
-            }
-            if (i < array.length) {
-                CharTree temp = new CharTree();
-                temp.root = new CharNode('+');
-                temp.root.leftChild = array[array.length - 1].root;
-                tempArray[++j] = temp;
-                // tempArray[++j] = array[i];
-            }
-            array = tempArray;
-        }
-        CharTree lastTree = array[array.length - 1];
-        lastTree.displayTree();
-    }
-
-    // 编程作业 8.2
-    // 这才是真正的平衡二叉树
-    public static void code8_2_1() throws IOException {
-        System.out.println("请输入至少字符串（至少两个字符）:");
-        String str = getString();
-        CharTree[] array = new CharTree[str.length()];
-        for (int i = 0; i < array.length; i++) {// 建立单节点树数组
-            CharTree temp = new CharTree();
-            temp.root = new CharNode(str.charAt(i));
-            array[i] = temp;
-        }
-
-        CharTree lastTree = connectTree(array, 0, array.length - 1);
-        lastTree.displayTree();
-    }
-
-    private static CharTree connectTree(CharTree[] array, int left, int right) {
-        if (left == right) {
-            return array[left];
-        } else {
-            CharTree tempTree = new CharTree();
-            tempTree.root = new CharNode('+');
-            tempTree.root.leftChild = connectTree(array, left,
-                    (right + left) / 2).root;
-            tempTree.root.rightChild = connectTree(array,
-                    (right + left) / 2 + 1, right).root;
-            return tempTree;
-        }
-    }
-
     // 编程作业 8.3
-    public static void code8_3() throws IOException {
-        System.out.println("请输入至少字符串（至少两个字符）:");
-        String str = getString();
-        CharTree[] array = new CharTree[str.length()];
+    public static void code8_3(String input) {
+        System.out.println("输入字符串（至少两个字符）: " + input);
+        CharTree[] array = new CharTree[input.length()];
         for (int i = 0; i < array.length; i++) {// 建立单节点树数组
             CharTree temp = new CharTree();
-            temp.root = new CharNode(str.charAt(i));
+            temp.root = new CharNode(input.charAt(i));
             array[i] = temp;
         }
         CharTree lastTree = connectTree1(array, 0);
         lastTree.displayTree();
     }
-
+    /**
+     * 递归：
+     *      从根开始，找他的左右子节点，然后返回根，找左右子节点是，需要判断是否有左右子节点
+     * @param array
+     * @param index
+     * @return
+     */
     private static CharTree connectTree1(CharTree[] array, int index) {
         if (index * 2 + 1 > array.length - 1) { // 没有子树
             return array[index];
         } else if (index * 2 + 2 > array.length - 1) { // 有左子树
             CharTree temp = array[index];
-            temp.root.leftChild = connectTree1(array, index * 2 + 1).root;
+            temp.root.leftChild = connectTree1(array, index * 2 + 1).root;      //index*2+1 左子树 index*2+2 右子树
             return temp;
         } else { // 有左右子树
             CharTree temp = array[index];
@@ -217,24 +159,97 @@ public class Exercise {
         }
     }
 
-    public static String getString() throws IOException {
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
-        String s = br.readLine();
-        return s;
+    // 编程作业 8.2
+    // 这是按题目8.2要求来的平衡二叉树
+    public static void code8_2(String input) throws IOException {
+        System.out.println("输入字符串（至少两个字符）: " + input);
+        CharTree[] array = new CharTree[input.length()];
+        for (int i = 0; i < array.length; i++) {// 建立单节点树数组
+            CharTree temp = new CharTree();
+            temp.root = new CharNode(input.charAt(i));
+            array[i] = temp;
+        }
+
+        CharTree[] tempArray;
+        while (array.length > 1) {
+            tempArray = new CharTree[(array.length - 1) / 2 + 1]; //刚好计算能够容纳，计算技巧，举例即可知原因
+            int j = -1;            //新树的数组
+            int i = 0;
+            for (; i + 1 < array.length; i += 2) {      //从零开始，每两个组一棵树，i+1<array.length导致如果有奇数个数，最后一个会剩下
+                CharTree temp = new CharTree();
+                temp.root = new CharNode('+');
+                temp.root.leftChild = array[i].root;
+                temp.root.rightChild = array[i + 1].root;
+                tempArray[++j] = temp;
+            }
+            if (i < array.length) {         //如果还有一个无法组成一个完成的二叉树，如果array里有奇数个数，会进入此if
+                CharTree temp = new CharTree();
+                temp.root = new CharNode('+');
+                temp.root.leftChild = array[array.length - 1].root;
+                tempArray[++j] = temp;
+            }
+            array = tempArray;
+        }
+        CharTree lastTree = array[array.length - 1];
+        lastTree.displayTree();
     }
 
-    // -------------------------------------------------------------
-    public static char getChar() throws IOException {
-        String s = getString();
-        return s.charAt(0);
+    // 编程作业 8.2
+    public static void code8_2_1(String input) throws IOException {
+        System.out.println("输入字符串（至少两个字符）: " + input);
+        CharTree[] array = new CharTree[input.length()];
+        for (int i = 0; i < array.length; i++) {// 建立单节点树数组
+            CharTree temp = new CharTree();
+            temp.root = new CharNode(input.charAt(i));
+            array[i] = temp;
+        }
+
+        CharTree lastTree = connectTree(array, 0, array.length - 1);
+
+        lastTree.displayTree();
     }
 
-    // -------------------------------------------------------------
-    public static int getInt() throws IOException {
-        String s = getString();
-        return Integer.parseInt(s);
+    /**
+     * 递归解法：
+     *      因为是平衡数，需要将一定是各一半（如果是奇数，右侧少一个）在根的左右节点上，这样
+     *  每次分一半，最终一直到无法再分为止。
+     * @param array
+     * @param left
+     * @param right
+     * @return
+     */
+    private static CharTree connectTree(CharTree[] array, int left, int right) {
+        if (left == right) {
+            return array[left];
+        } else {
+            CharTree tempTree = new CharTree();
+            tempTree.root = new CharNode('+');
+
+            tempTree.root.leftChild = connectTree(array, left, (right + left) / 2).root;
+            tempTree.root.rightChild = connectTree(array, (right + left) / 2 + 1, right).root;
+
+            return tempTree;
+        }
     }
-    // -------------------------------------------------------------
+
+    // 编程作业 8.1
+    public static void code8_1(String input) {
+        System.out.println("输入字符串（至少两个字符）: " + input);
+        CharTree[] array = new CharTree[input.length()];
+        for (int i = 0; i < input.length(); i++) {// 建立单节点树数组
+            CharTree temp = new CharTree();
+            temp.root = new CharNode(input.charAt(i));
+            array[i] = temp;
+        }
+        for (int i = 1; i < input.length(); i++) {
+            CharTree temp = new CharTree();
+            temp.root = new CharNode('+');
+            temp.root.leftChild = array[i - 1].root;
+            temp.root.rightChild = array[i].root;
+            array[i] = temp;
+        }
+        CharTree lastTree = array[input.length() - 1];
+        lastTree.displayTree();
+    }
 
 }
