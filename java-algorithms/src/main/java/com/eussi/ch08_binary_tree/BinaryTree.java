@@ -238,6 +238,25 @@ public class BinaryTree {
          * 向后继。
          *      4.把 current的左子节点移出来,把它插到后继的 leftChild字段。
          *      第1步和第2步由 getSuccessor()方法完成,第3步和第4步由 delete()方法完成。
+         *                               50             <--parent
+         *                                \
+         *                                75            <--delNode/current
+         *                              /    \
+         *                             62    87         <--successorParent
+         *                                 /    \
+         *              successor-->     77     93
+         *                                \
+         *                                 79
+         *
+         *                               删除后
+         *                               50
+         *                                \
+         *                                77
+         *                              /    \
+         *                             62    87
+         *                                 /    \
+         *                               79     93
+         *
          *      1. successorParent.leftChild = successor.rightChild;
          *      2. successor.rightChild = delNode.rightChild;
          *      3. parent.rightChild = successor;(或parent.leftChild = successor;)
