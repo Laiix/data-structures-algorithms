@@ -67,6 +67,8 @@ public class Tree234 {
         } else                              // this node not the root
             parent = thisNode.getParent();    // get parent
 
+        //**********************************************************************
+        //此处逻辑在于，当插入时，星号范围内循环中表示可能还需要移动子树的位置，满足关键字的大小规则
         // deal with parent
         itemIndex = parent.insertItem(itemB); // item B to parent
         int n = parent.getNumItems();         // total items?
@@ -78,7 +80,7 @@ public class Tree234 {
         }
         // connect newRight to parent
         parent.connectChild(itemIndex + 1, newRight);
-
+        //***************************************************************************
         // deal with newRight
         newRight.insertItem(itemC);       // item C to newRight
         newRight.connectChild(0, child2); // connect to 0 and 1
@@ -101,7 +103,7 @@ public class Tree234 {
 
     // -------------------------------------------------------------
     public void displayTree() {
-        recDisplayTree(root, 0, 0);
+        recDisplayTree(root, 0, 0);//深度优先遍历
         System.out.println("\n+++\n");
     }
 
