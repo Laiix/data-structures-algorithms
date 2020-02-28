@@ -123,6 +123,64 @@ public class Tree234 {
                 return;
         }
     }  // end recDisplayTree()
+
+
+    //编程作业10.1
+    public long getMinValue() {
+        Node parent = root;
+        Node current = root;
+        while (current != null) {
+            parent = current;
+            current = current.getChild(0);
+        }
+        return parent.getItem(0).dData;
+    }
+
+    // 编程作业 10.2
+    public void inOrderIter() {
+        inOrder(this.root);
+    }
+
+    private void inOrder(Node root) {
+        if (root == null) {
+            return;
+        }
+        int i = 0;
+        for (; i < root.getNumItems(); i++) {
+            inOrder(root.getChild(i));
+            System.out.print(root.getItem(i).dData + " ");
+        }
+        if (i != 0) {
+            inOrder(root.getChild(i));
+        }
+    }
+
+    // 编程作业 10.3
+    public void sort(long[] array) {
+        this.root = new Node();
+        for (int i = 0; i < array.length; i++) {
+            this.insert(array[i]);
+        }
+        inOrderForSort(array, root, 0);
+    }
+
+
+    private int inOrderForSort(long[] array, Node root, int arrayIndex) {
+        if (root == null) {
+            return arrayIndex;
+        }
+        int i = 0;
+        for (; i < root.getNumItems(); i++) {
+            arrayIndex = inOrderForSort(array, root.getChild(i), arrayIndex);
+            array[arrayIndex++] = root.getItem(i).dData; // arrayIndex只在这里增加
+        }
+        if (i != 0) {
+            arrayIndex = inOrderForSort(array, root.getChild(i), arrayIndex);
+        }
+        return arrayIndex;
+    }
+
+
 // -------------------------------------------------------------\
 }  // end class Tree234App
 ////////////////////////////////////////////////////////////////
