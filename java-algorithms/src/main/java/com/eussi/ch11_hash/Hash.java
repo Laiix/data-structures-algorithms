@@ -1,6 +1,7 @@
 package com.eussi.ch11_hash;
 
 import com.eussi.ch11_hash.util.DataItem;
+import com.eussi.ch11_hash.util.DoubleHashTable;
 import com.eussi.ch11_hash.util.HashTable;
 import com.eussi.util.Util;
 
@@ -293,9 +294,150 @@ public class Hash {
          * 字。然而,这种优化没有多少用,因为只需检查几个数字,就会找到一个质数
          *      Java提供了 Vector类,这个类似数组的数据结构的类可以扩展。然而,它没有太大帮助,因为
          * 数组容量改变后需要重新哈希化所有数据项。
+         *
+         * 二次探测
+         *      前面已经看到,在开放地址法的线性探测中会发生聚集。一旦聚集形成,它会变得越来越大
+         * 那些哈希化后的落在聚集范围内的数据项,都要一步一步移动,并且插在聚集的最后,因此使聚集
+         * 变得更大。聚集越大,它增长得也越快
+         *      这就像人群,当某个人在商场晕倒,人群就慢慢聚集。最初的人聚过来是因为看到了那个倒下
+         * 的人;后面的人聚过来因为他们想知道每个人都在看什么。人群聚得越大,吸引的人就会越多
+         * 已填入哈希表的数据项和表长的比率叫做装填因子。有1000单元的哈希表填入667个数
+         * 据后,它的装填因子是2/3。
+         *      loadFactor = nItems / arraySize;
+         *      当装填因子不太大时,聚集分布得比较连贯。哈希表的某个部分可能包含大量的聚集,而另
+         * 个部分还很稀疏。聚集降低了哈希表的性能。
+         *      二次探测是防止聚集产生的一种尝试。思想是探测相隔较远的单元,而不是和原始位置相邻的
+         * 单元
+         *  - 步骤是步数的平方
+         *      在线性探测中,如果哈希函数计算的原始下标是x,线性探测就是x+1,x+2,x+3,依此类推。
+         * 而在二次探测中,探测的过程是x+1,x+4,x+9,x+16,x+25,依此类推。到原始位置的距离是步数的
+         * 平方:x+1^2,x+2^2,x+3^2,x+4^2,x+5^2,等等。
+         *      当二次探测的搜索变长时,好像它变得越来越绝望。第一次,它查找相邻的单元。如果这个单
+         * 元被占用,它认为这里可能有一个小的聚集,所以,它尝试距离为4的单元。如果这里也被占用
+         * 它变得有些焦虑,认为这里有一个大的聚集,然后尝试距离为9的单元。如果这里还被占用,它感
+         * 到一丝恐慌,跳到距离为16的单元。很快,它会歇斯底里地飞跃整个数组空间。当哈希表几乎填
+         * 满时,就会出现这种情况
+         *  - 提示
+         *      重要:数组容量总是选一个质数。例如用59代替60。(小于60的质数还有53,47,43,41,
+         * 37,31,29,23,19,17,13,11,7,5,3和2。)如果数组容量不是质数,在探测过程中
+         * 步长序列就会变得无限长。
+         *  - 二次探测的问题
+         *      二次探测消除了在线性探测中产生的聚集问题,这种聚集问题叫做原始聚集。然而,二次探测
+         * 生了另外一种,更细的聚集问题。之所以会发生,是因为所有映射到同一个位置的关键字在寻找
+         * 空位时,探测的单元都是一样的
+         *      如将184,302,420和544依次插入到表中,它们都映射到7。那么302需要以一为步长的
+         * 探测,420需要以四为步长的探测,544需要以九为步长的探测。只要有一项,其关键字映射到7,
+         * 就需要更长步长的探测。这个现象叫做二次聚集。
+         *      二次聚集不是一个严重的问题,但是,二次探测不会经常使用,因为还有稍微好些的解决方
+         * 案。
+         *
+         * 再哈希法
+         *      为了消除原始聚集和二次聚集,可以使用另外的一个方法:再哈希法。二次聚集产生的原因是
+         * 二次探测的算法产生的探测序列步长总是固定的:1,4,9,16,依此类推
+         *      现在需要的一种方法是产生一种依赖关键字的探测序列,而不是每个关键字都一样。那么,不
+         * 同的关键字即使映射到相同的数组下标,也可以使用不同的探测序列。
+         *      方法是把关键字用不同的哈希函数再做一遍哈希化,用这个结果作为步长。对指定的关键字
+         * 步长在整个探测中是不变的,不过不同的关键字使用不同的步长。
+         *      经验说明,第二个哈希函数必须具备如下特点
+         *       - 和第一个哈希函数不同
+         *       - 不能输出0〈否则,将没有步长;每次探测都是原地踏步,算法将陷入死循环)
+         *      专家们已经发现下面形式的哈希函数工作得非常好:
+         *          stepSize= constant - (key % constant );
+         *      其中, constant是质数,且小于数组容量。例如,
+         *          stepSize=5 - (key % 5);
+         */
+        TestHash_2();
+        Util.printSeparator();
+        /**
+         *  - 表的容量是一个质数
+         *      再哈希法要求哈希表的容量是一个质数。为了考察为什么会有这个限制,假设表的容量不是质
+         * 数。例如,假设表长是15(下标从0到14),有一个特定关键字映射到0,步长为5。探测序列是0,
+         * 5,10,0,5,10,依此类推,一直循环下去。算法只尝试这三个单元,所以不可能找到某些空白
+         * 单元,例如位置1,2,3或其他位置。算法最终会导致崩溃
+         *      如果数组容量是13,即一个质数,探测序列最终会访问所有单元。即0,5,10,2,7,12,4,
+         * 9,1,6,11,3,一直下去。只要表中有一个空位,就可以探测到它。用质数作为数组容量使得任
+         * 何数想整除它都是不可能的,因此探测序列最终会捡査所有单元。
+         *      类似的影响在二次探测中也存在。然而,由于每步的步长都在变化,且最终会超出变量的范围,
+         * 所以避免了无限的循环
+         *      使用开放地址策略时,探测序列通常用再哈希法生成
+         *
+         * 链地址法
+         *      开放地址法中,通过在哈希表中再寻找一个空位解决冲突问题。另一个方法是在哈希表每个单
+         * 元中设置链表。某个数据项的关键字值还是像通常一样映射到哈希表的单元,而数据项本身插入到
+         * 这个单元的链表中。其他同样映射到这个位置的数据项只需要加到链表中;不需要在原始的数组中
+         * 寻找空位。
          */
 
     }
+
+    private static void TestHash_2() {
+        DataItem aDataItem;
+        int size = 11;
+        int n = 4;
+        int aKey, keysPerCell; //关键字范围比例
+        // get sizes
+        System.out.println("size of hash table: " + size);
+        System.out.println("initial number of items: " + n);
+        keysPerCell = 10;
+        // make table
+        DoubleHashTable theHashTable = new DoubleHashTable(size);
+        theHashTable.displayTable();
+
+        for(int j=0; j<n; j++)        // insert data
+        {
+            aKey = (int)(Math.random() *
+                    keysPerCell * size);
+            aDataItem = new DataItem(aKey);
+            theHashTable.insert(aDataItem);
+        }
+
+        theHashTable.displayTable();
+
+        aKey = 11;
+        System.out.println("key value to insert: " + aKey);
+        aDataItem = new DataItem(aKey);
+        theHashTable.insert(aDataItem);
+        theHashTable.displayTable();
+
+        aKey = 11;
+        System.out.println("key value to delete: " + aKey);
+        theHashTable.delete(aKey);
+        theHashTable.displayTable();
+
+        aKey = 12;
+        System.out.println("key value to insert: " + aKey);
+        aDataItem = new DataItem(aKey);
+        theHashTable.insert(aDataItem);
+        theHashTable.displayTable();
+
+        aKey = 11;
+        System.out.println("key value to insert: " + aKey);
+        aDataItem = new DataItem(aKey);
+        theHashTable.insert(aDataItem);
+        theHashTable.displayTable();
+
+        aKey = 13;
+        System.out.println("key value to find: " + aKey);
+        aDataItem = theHashTable.find(aKey);
+        if(aDataItem != null)
+        {
+            System.out.println("Found " + aKey);
+        }
+        else
+            System.out.println("Could not find " + aKey);
+
+
+        aKey = 11;
+        System.out.println("key value to find: " + aKey);
+        aDataItem = theHashTable.find(aKey);
+        if(aDataItem != null)
+        {
+            System.out.println("Found " + aKey);
+        }
+        else
+            System.out.println("Could not find " + aKey);
+
+    }  // end main()
 
     private static void findPrime() {
         //质数是指在大于1的自然数中，除了1和它本身以外不再有其他因数的自然数。
@@ -321,7 +463,7 @@ public class Hash {
 
     private static void TestHash_1() {
         DataItem aDataItem;
-        int size = 10;
+        int size = 11;
         int n = 4;
         int aKey, keysPerCell; //关键字范围比例
         // get sizes
