@@ -348,7 +348,6 @@ public class HeapApp {
 
 
     public static void TestHeap() {
-        int value, value2;
         Heap theHeap = new Heap(31);  // make a HeapApp; max size 31
         boolean success;
 

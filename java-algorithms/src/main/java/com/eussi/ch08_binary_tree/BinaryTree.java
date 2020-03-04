@@ -525,5 +525,9 @@ public class BinaryTree {
         theTree.traverse(1);
         theTree.traverse(2);
         theTree.traverse(3);
+
+
+        System.out.println("\n========================\n");
+        theTree.displayTree2();
     }  // end main()
 }
