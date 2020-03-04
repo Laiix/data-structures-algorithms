@@ -29,11 +29,21 @@ public class Heap {
     }  // end insert()
 
     // -------------------------------------------------------------
+    public void insertAt(int index, Node newNode) {
+        heapArray[index] = newNode;
+    }
+
+    // -------------------------------------------------------------
+    public void incrementSize() {
+        currentSize++;
+    }
+
+    // -------------------------------------------------------------
     public void trickleUp(int index) {
         int parent = (index - 1) / 2;
         Node bottom = heapArray[index];
 
-        while (index > 0 &&
+        while (index > 0 &&     //到根节点，但是根节点不能进入循环
                 heapArray[parent].getKey() < bottom.getKey()) {
             heapArray[index] = heapArray[parent];  // move it down
             index = parent;
@@ -55,6 +65,7 @@ public class Heap {
     public void trickleDown(int index) {
         int largerChild;
         Node top = heapArray[index];       // save root
+        //index < currentSize / 2 根据完全树的最后一层节点特点判断 ，1,2,4,8,16
         while (index < currentSize / 2)       // while node has at
         {                               //    least one child,
             int leftChild = 2 * index + 1;
@@ -101,7 +112,7 @@ public class Heap {
         System.out.println();
         // heap format
         int nBlanks = 32;
-        int itemsPerRow = 1;
+        int itemsPerRow = 1;    //记录每行中应该打印的元素数
         int column = 0;
         int j = 0;                          // current item
         String dots = "...............................";
@@ -130,5 +141,11 @@ public class Heap {
         }  // end for
         System.out.println("\n" + dots + dots); // dotted bottom line
     }  // end displayHeap()
+
+    public void displayArray() {
+        for (int j = 0; j < maxSize; j++)
+            System.out.print(heapArray[j].getKey() + " ");
+        System.out.println("");
+    }
 // -------------------------------------------------------------
 }  // end class HeapApp
