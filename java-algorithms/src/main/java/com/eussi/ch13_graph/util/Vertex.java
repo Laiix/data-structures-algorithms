@@ -7,7 +7,7 @@ package com.eussi.ch13_graph.util;
  */
 public class Vertex {
     public char label;        // label (e.g. 'A')
-    public boolean wasVisited;
+    public boolean wasVisited;  //有向图拓扑排序时，无需此字段
 
     // ------------------------------------------------------------
     public Vertex(char lab)   // constructor

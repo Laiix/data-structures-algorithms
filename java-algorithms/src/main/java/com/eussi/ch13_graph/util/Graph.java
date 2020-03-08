@@ -105,6 +105,65 @@ public class Graph {
     }  // end bfs()
 
     // ------------------------------------------------------------
+
+    public void mst()  // minimum spanning tree (depth first)
+    {                                  // start at 0
+        vertexList[0].wasVisited = true;   // mark it
+        theStack.push(0);                  // push it
+
+        while( !theStack.isEmpty() )       // until stack empty
+        {                               // get stack top
+            int currentVertex = theStack.peek();
+            // get next unvisited neighbor
+            int v = getAdjUnvisitedVertex(currentVertex);
+            if(v == -1)                     // if no more neighbors
+                theStack.pop();              //    pop it away
+            else                            // got a neighbor
+            {
+                vertexList[v].wasVisited = true;  // mark it
+                theStack.push(v);                 // push it
+                // display edge
+                displayVertex(currentVertex);     // from currentV
+                displayVertex(v);                 // to v
+                System.out.print(" ");
+            }
+        }  // end while(stack not empty)
+
+        // stack is empty, so we're done
+        for(int j=0; j<nVerts; j++)          // reset flags
+            vertexList[j].wasVisited = false;
+    }  // end mst()
+
+
+    //通过bfs实现
+    public void mst2()                   // breadth-first search
+    {                                // begin at vertex 0
+        vertexList[0].wasVisited = true; // mark it
+//        displayVertex(0);                // display it
+        theQueue.insert(0);              // insert at tail
+        int v2;
+
+        while( !theQueue.isEmpty() )     // until queue empty,
+        {
+            int v1 = theQueue.remove();   // remove vertex at head
+            // until it has no unvisited neighbors
+            while( (v2=getAdjUnvisitedVertex(v1)) != -1 )
+            {                                  // get one,
+                vertexList[v2].wasVisited = true;  // mark it
+                displayVertex(v1);     // from currentV
+                displayVertex(v2);                 // to v
+                System.out.print(" ");
+                theQueue.insert(v2);               // insert it
+            }   // end while
+        }  // end while(queue not empty)
+
+        // queue is empty, so we're done
+        for(int j=0; j<nVerts; j++)             // reset flags
+            vertexList[j].wasVisited = false;
+    }
+
+
+
     // returns an unvisited vertex adj to v
 
     /**
