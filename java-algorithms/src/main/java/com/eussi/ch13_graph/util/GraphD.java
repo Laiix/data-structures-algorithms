@@ -11,6 +11,7 @@ public class GraphD {
     private int adjMat[][];      // adjacency matrix
     private int nVerts;          // current number of vertices
     private char sortedArray[];
+    private StackX<Integer> theStack;   //use for exercise 13.3
 
     // -------------------------------------------------------------
     public GraphD()               // constructor
@@ -23,6 +24,7 @@ public class GraphD {
             for (int k = 0; k < MAX_VERTS; k++)   //    matrix to 0
                 adjMat[j][k] = 0;
         sortedArray = new char[MAX_VERTS];  // sorted vert labels
+        theStack = new StackX<Integer>();  //use for exercise 13.3
     }  // end constructor
 
     // -------------------------------------------------------------
@@ -115,5 +117,69 @@ public class GraphD {
         for (int row = 0; row < length; row++)
             adjMat[row][col] = adjMat[row][col + 1];
     }
-// -------------------------------------------------------------
+
+    // -------------------------------------------------------------
+    public int getAdjUnvisitedVertex(int v) {
+        for (int j = 0; j < nVerts; j++)
+            if (adjMat[v][j] == 1 && vertexList[j].wasVisited == false)
+                return j;
+        return -1;
+    }  // end getAdjUnvisitedVertex()
+
+    // 编程作业 13.3
+    // Connectivity 连通性
+    // 通过修改dfs()方法得来
+    public void getConnectivity() {
+        for (int i = 0; i < nVerts; i++) {   //遍历所有节点
+            vertexList[i].wasVisited = true;  // mark it
+            displayVertex(i); // display it
+            theStack.push(i);                 // push it
+            while (!theStack.isEmpty())      // until stack empty,
+            {
+                // get an unvisited vertex adjacent to stack top
+                int v = getAdjUnvisitedVertex(theStack.peek());
+                if (v == -1)                    // if no such vertex,
+                    theStack.pop();
+                else                           // if it exists,
+                {
+                    vertexList[v].wasVisited = true;  // mark it
+                    displayVertex(v);                 // display it
+                    theStack.push(v);                 // push it
+                }
+            }  // end while
+            // stack is empty, so we're done
+            for (int j = 0; j < nVerts; j++)
+                // reset flags
+                vertexList[j].wasVisited = false;
+            System.out.println();
+        }
+    }
+
+    // ============================================================
+    // 编程作业 13.4
+    // TransitiveClosure 传递闭包
+    // Warshall算法
+    public void doTransitiveClosure() {
+        for (int x = 0; x < adjMat.length; x++) { // 行
+            for (int y = 0; y < adjMat.length; y++) { // 列
+                if (adjMat[x][y] == 1) { // x -> y
+                    for (int z = 0; z < adjMat.length; z++) {// 行
+                        if (adjMat[z][x] == 1) { // z -> x
+                            adjMat[z][y] = 1; // x -> y
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // ============================================================
+    public void displayMat() {
+        for (int i = 0; i < nVerts; i++) {
+            for (int j = 0; j < nVerts; j++) {
+                System.out.print(adjMat[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 }

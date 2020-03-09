@@ -10,7 +10,7 @@ public class Graph {
     private Vertex vertexList[]; // list of vertices
     private int adjMat[][];      // adjacency matrix
     private int nVerts;          // current number of vertices
-    private StackX theStack;
+    private StackX<Integer> theStack;
     private Queue theQueue;
 
     // ------------------------------------------------------------
