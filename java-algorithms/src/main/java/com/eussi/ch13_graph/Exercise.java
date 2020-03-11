@@ -90,7 +90,7 @@ public class Exercise {
         theGraph.addVertex('D');    // 3
         theGraph.addVertex('E');    // 4
 
-        theGraph.addEdge(0, 2);     // AC          from GraphApp Line 481
+        theGraph.addEdge(0, 2);     // AC          from GraphWApp Line 481
         theGraph.addEdge(1, 0);     // BA
         theGraph.addEdge(1, 4);     // BE
         theGraph.addEdge(3, 4);     // DE

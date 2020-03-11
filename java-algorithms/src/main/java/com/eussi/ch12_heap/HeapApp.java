@@ -331,6 +331,7 @@ public class HeapApp {
         System.out.print("Random: ");
         theHeap.displayArray();  // display random array
 
+        // size / 2 - 1 从最后一个元素的父元素开始排，因为单个元素不需要排，已经是堆了
         for (j = size / 2 - 1; j >= 0; j--)  // make random array into heap
             theHeap.trickleDown(j);
 
