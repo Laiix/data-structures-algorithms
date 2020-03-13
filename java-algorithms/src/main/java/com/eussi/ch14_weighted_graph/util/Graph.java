@@ -15,6 +15,9 @@ public class Graph
     private int currentVert;
     private PriorityQ thePQ;
     private int nTree;           // number of verts in tree
+
+    //14.5
+    private int vertexs[];		// array for index of vertex in vertexList
     // -------------------------------------------------------------
     public Graph()               // constructor
     {
@@ -110,5 +113,58 @@ public class Graph
             thePQ.insert(theEdge);
         }
     }  // end putInPQ()
+
+
+    // ===========================================================
+    public void displayWord() {
+        for (int j = 0; j < nVerts; j++) {
+            System.out.print(" " + vertexList[vertexs[j]].label);
+        }
+        System.out.println(" " + vertexList[vertexs[0]].label);
+    }
+
+    // ===========================================================
+    // 编程作业 14.5
+    public void travelingSalesman() {
+        vertexs = new int[nVerts];
+        for (int i = 0; i < nVerts; i++) {
+            vertexs[i] = i;
+        }
+        doAnagram(vertexs.length);
+    }
+
+    // ===========================================================
+    public void doAnagram(int newSize) {
+        if (newSize == 1) {                    // if too small,
+            for (int i = 0; i < nVerts - 1; i++) {
+                if (adjMat[vertexs[i]][vertexs[i + 1]] == INFINITY) {
+                    return;
+                }
+            }
+            if (adjMat[vertexs[nVerts - 1]][vertexs[0]] != INFINITY) {// 最后一个顶点到起始点
+                displayWord();
+            }
+            return;
+        }                          // go no further
+        for (int j = 0; j < newSize; j++)         // for each position,
+        {
+            doAnagram(newSize - 1);             // anagram remaining
+            rotate(newSize);
+        }
+    }
+
+    // ===========================================================
+    public void rotate(int newSize)
+    // rotate left all chars from position to end
+    {
+        int j;
+        int position = nVerts - newSize;
+        int temp = vertexs[position];       // save first letter
+        for (j = position + 1; j < nVerts; j++)
+            // shift others left
+            vertexs[j - 1] = vertexs[j];
+        vertexs[j - 1] = temp;                 // put first on right
+    }
+    // ===========================================================
 // -------------------------------------------------------------
 }  // end class Graph
