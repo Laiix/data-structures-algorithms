@@ -7,3 +7,9 @@ java-algorithms/target/
 java-algorithms/.idea/*
 java-algorithms/*.iml
 java-algorithms/out
+
+**/__pycache__/**
+**/.idea/**
+**/.idea/**
+**/target/**
+**/out/**
