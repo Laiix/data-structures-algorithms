@@ -18,13 +18,22 @@ public class Main {
      */
     public static void main(String[] args) {
         //斐波那契数列
+        System.out.println("斐波那契数列");
         Fibonacci.fibonacci(20);
 
         //凑零钱问题
+        System.out.println("凑零钱问题");
         MakeTheChange.coinChange(new int[]{1,2,5}, 11);
 
         //最长递增子序列
+        System.out.println("最长递增子序列");
         LongestIncreasingSubsequence.lengthOfLIS(new int[]{10,9,2,5,3,7,101,18});
+
+        //最小编辑距离
+        System.out.println("最小编辑距离");
+        MinimumEditDistance.MinimumEditDistance("rad", "apple");
+        MinimumEditDistance.MinimumEditDistance("intention", "execution");
+        MinimumEditDistance.MinimumEditDistance("horse", "ros");
     }
 
 
