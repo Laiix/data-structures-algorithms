@@ -22,14 +22,14 @@ public class Fibonacci {
         System.out.println(fib_4(n));
     }
 
-    private static int fib_1(int n) {
+    public static int fib_1(int n) {
         if(n==0) return 0;
         if(n==1 || n==2) return 1;
 
         return fib_1(n-1) + fib_1(n-2);
     }
 
-    private static int fib_2(int n) {
+    public static int fib_2(int n) {
         if(n<1) return 0;
         int[] memo = new int[n+1];
         return helper(memo, n);
@@ -43,7 +43,7 @@ public class Fibonacci {
         return memo[n];
     }
 
-    private static int fib_3(int n) {
+    public static int fib_3(int n) {
         int[] dp = new int[n+1];
         dp[1] = dp[2] = 1;
         for(int i=3; i<=n; i++)
@@ -51,7 +51,7 @@ public class Fibonacci {
         return dp[n];
     }
 
-    private static int fib_4(int n) {
+    public static int fib_4(int n) {
         //当前状态只和之前的两个状态有关，其实并不需要那么⻓的⼀个 DP table 来存储所有的状态
         if(n<1) return 0;
         if (n==2 || n==1) return 1;

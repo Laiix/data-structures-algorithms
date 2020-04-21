@@ -38,7 +38,7 @@ public class MinimumEditDistance {
         System.out.println(med_4(s1, s2));
     }
 
-    private static String med_4(String s1, String s2) {
+    public static String med_4(String s1, String s2) {
         Node[][] dp = new Node[s1.length()+1][s2.length()+1];
         for(int i=0; i<=s1.length(); i++) {
             dp[i][0] = new Node(i, 'd');
@@ -123,7 +123,7 @@ public class MinimumEditDistance {
     }
 
 
-    private static int med_3(String s1, String s2) {
+    public static int med_3(String s1, String s2) {
         int[][] dp = new int[s1.length()+1][s2.length()+1];
         for(int i=0; i<=s1.length(); i++) {
             dp[i][0] = i;
@@ -147,7 +147,7 @@ public class MinimumEditDistance {
         return dp[s1.length()][s2.length()];
     }
 
-    private static int med_2(String s1, String s2) {
+    public static int med_2(String s1, String s2) {
         int[][] memo = new int[s1.length()][s2.length()];
         return dp(s1, s2, s1.length()-1, s2.length()-1, memo);
     }
@@ -169,7 +169,7 @@ public class MinimumEditDistance {
         return memo[i][j];
     }
 
-    private static int med(String s1, String s2, int i, int j) {
+    public static int med(String s1, String s2, int i, int j) {
         if(i==-1) return j+1;
         if(j==-1) return i+1;
 

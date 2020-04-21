@@ -34,6 +34,10 @@ public class Main {
         MinimumEditDistance.MinimumEditDistance("rad", "apple");
         MinimumEditDistance.MinimumEditDistance("intention", "execution");
         MinimumEditDistance.MinimumEditDistance("horse", "ros");
+
+        //青蛙跳台
+        System.out.println("青蛙跳台");
+        MaximumFrogJumps.maximumFrogJumps(4);
     }
 
 

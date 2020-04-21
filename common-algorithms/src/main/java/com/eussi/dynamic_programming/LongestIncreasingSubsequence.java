@@ -29,7 +29,7 @@ public class LongestIncreasingSubsequence {
         System.out.println(lis_2(nums));
     }
 
-    private static int lis_1(int[] nums) {
+    public static int lis_1(int[] nums) {
         int[] dp = new int[nums.length];
         //数组全部序列化为1
         Arrays.fill(dp, 1);

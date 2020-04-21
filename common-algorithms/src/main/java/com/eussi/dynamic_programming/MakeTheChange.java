@@ -22,7 +22,7 @@ public class MakeTheChange {
         System.out.println(dp_3(coins, amount));
     }
 
-    private static int dp_1(int[] coins, int amount) {
+    public static int dp_1(int[] coins, int amount) {
         if(amount==0) return 0;
         if(amount<0) return -1;
 
@@ -37,7 +37,7 @@ public class MakeTheChange {
         return res;
     }
 
-    private static int dp_2(int[] coins, int amount) {
+    public static int dp_2(int[] coins, int amount) {
         if(amount==0) return 0;
         if(amount<0) return -1;
 
@@ -58,7 +58,7 @@ public class MakeTheChange {
         return res;
     }
 
-    private static int dp_3(int[] coins, int amount) {
+    public static int dp_3(int[] coins, int amount) {
         int[] dp = new int[amount+1];
 
         for(int i=0; i<dp.length; i++) {
