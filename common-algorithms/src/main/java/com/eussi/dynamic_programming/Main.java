@@ -38,6 +38,10 @@ public class Main {
         //青蛙跳台
         System.out.println("青蛙跳台");
         MaximumFrogJumps.maximumFrogJumps(4);
+
+        //动态博弈
+        System.out.println("动态博弈");
+        Game.game(new int[]{3, 9, 1, 2});
     }
 
 
