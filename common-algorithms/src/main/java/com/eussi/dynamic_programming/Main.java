@@ -42,6 +42,10 @@ public class Main {
         //动态博弈
         System.out.println("动态博弈");
         Game.game(new int[]{3, 9, 1, 2});
+
+        //区间调度问题
+        System.out.println("区间调度问题");
+        IntervalScheduling.intervalScheduling(new int[][]{{1, 3}, {2, 4}, {3, 6}});
     }
 
 
