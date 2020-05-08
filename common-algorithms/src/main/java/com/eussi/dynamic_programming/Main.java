@@ -46,6 +46,11 @@ public class Main {
         //区间调度问题
         System.out.println("区间调度问题");
         IntervalScheduling.intervalScheduling(new int[][]{{1, 3}, {2, 4}, {3, 6}});
+
+        //KMP算法
+        System.out.println("KMP算法");
+        KMPString.kmpString("aaaabaaabbc", "aaabb");
+        KMPString.kmpString("aaaabaaabbc", "saabb");
     }
 
 
