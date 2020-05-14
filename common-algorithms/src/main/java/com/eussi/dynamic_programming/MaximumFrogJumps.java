@@ -1,5 +1,7 @@
 package com.eussi.dynamic_programming;
 
+import java.util.LinkedList;
+
 /**
  * @author wangxueming
  * @create 2020-04-21 19:45
@@ -18,9 +20,57 @@ public class MaximumFrogJumps {
 
         //打印路路径
         System.out.println(frogJumps_4(n));
+        System.out.println("\n---\n");
 
         //打印路路径
         System.out.println(frogJumps_5(n));
+        System.out.println("\n---\n");
+
+        //回溯算法
+        frogJumps_6(n);
+        System.out.println("\n---\n");
+
+        //回溯算法
+        frogJumps_7(n);
+
+    }
+
+    //跳一步或者两步
+    private static void frogJumps_6(int n) {
+        LinkedList<Integer> res = new LinkedList<Integer>();
+        int[] nums = new int[]{1, 2};
+        backtrack(nums, n, res);
+
+    }
+
+    //跳任意步
+    private static void frogJumps_7(int n) {
+        LinkedList<Integer> res = new LinkedList<Integer>();
+        int[] nums = new int[n];
+        for(int i=0; i<nums.length; i++) {
+            nums[i] = i+1;
+        }
+
+        backtrack(nums, n, res);
+
+    }
+
+    private static void backtrack(int[] nums, int n, LinkedList<Integer> res) {
+        if(n==0) {
+            System.out.println(res);
+            return;
+        }
+        if(n<0)
+            return;
+
+        for(int i=0; i<nums.length; i++) {
+            res.add(nums[i]);
+
+            backtrack(nums, n-nums[i], res);
+
+            res.removeLast();
+        }
+
     }
 
     public static int frogJumps_1(int n) {
