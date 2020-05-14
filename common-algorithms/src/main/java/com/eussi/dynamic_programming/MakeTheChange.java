@@ -58,6 +58,8 @@ public class MakeTheChange {
         return res;
     }
 
+
+    //dp[i]=x 表示，当目前金额为i时，
     public static int dp_3(int[] coins, int amount) {
         int[] dp = new int[amount+1];
 
