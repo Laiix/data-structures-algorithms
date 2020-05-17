@@ -8,6 +8,11 @@ import java.util.Arrays;
  * @description
  */
 public class LongestIncreasingSubsequence {
+    public static void main(String[] args) {
+        //最长递增子序列
+        System.out.println("最长递增子序列");
+        lengthOfLIS(new int[]{10,9,2,5,3,7,101,18});
+    }
     /**
      * 给定一个无序的整数数组，找出其中最长上升子序列的长度
      * 实例：

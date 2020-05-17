@@ -6,6 +6,11 @@ package com.eussi.dynamic_programming;
  * @description
  */
 public class Game {
+    public static void main(String[] args) {
+        //动态博弈
+        System.out.println("动态博弈");
+        game(new int[]{3, 9, 1, 2});
+    }
     /**
      * 你和你的朋友面前有一排石头堆，⽤一个数组 piles 表示，piles[i] 表示第 i
      * 堆石子有多少个。你们轮流拿石头，一次拿一堆，但是只能拿走最左边或者

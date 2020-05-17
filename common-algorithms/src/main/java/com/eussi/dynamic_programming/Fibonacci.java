@@ -6,6 +6,12 @@ package com.eussi.dynamic_programming;
  * @description
  */
 public class Fibonacci {
+    public static void main(String[] args) {
+        //斐波那契数列
+        System.out.println("斐波那契数列");
+        fibonacci(20);
+    }
+
     /**
      * 斐波那契数列的例子严格来说不算动态规划，因为没有涉及求最
      * 值，以上旨在演示算法设计螺旋上升的过程

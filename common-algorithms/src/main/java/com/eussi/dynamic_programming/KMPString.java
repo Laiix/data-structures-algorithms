@@ -6,6 +6,13 @@ package com.eussi.dynamic_programming;
  * @description
  */
 public class KMPString {
+    public static void main(String[] args) {
+        //KMP算法
+        System.out.println("KMP算法");
+        kmpString("aaaabaaabbc", "aaabb");
+        kmpString("aaaabaaabbc", "saabb");
+    }
+
     public static void kmpString(String txt, String pat) {
         //暴力解法
         System.out.println(violentSolution(txt, pat));

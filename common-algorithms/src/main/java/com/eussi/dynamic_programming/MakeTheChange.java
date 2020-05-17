@@ -6,6 +6,11 @@ package com.eussi.dynamic_programming;
  * @description
  */
 public class MakeTheChange {
+    public static void main(String[] args) {
+        //凑零钱问题
+        System.out.println("凑零钱问题");
+        coinChange(new int[]{1,2,5}, 11);
+    }
     /**
      * 给你 k 种面值的硬币，面值分别为 c1, c2 ... ck ，每种硬
      * 币的数量无限，再给⼀个总金额 amount ，问你最少需要几枚硬币凑出这个

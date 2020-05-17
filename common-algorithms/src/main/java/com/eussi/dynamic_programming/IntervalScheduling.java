@@ -6,6 +6,12 @@ package com.eussi.dynamic_programming;
  * @description
  */
 public class IntervalScheduling {
+    public static void main(String[] args) {
+        //区间调度问题
+        System.out.println("区间调度问题");
+        intervalScheduling(new int[][]{{1, 3}, {2, 4}, {3, 6}});
+    }
+
     public static void intervalScheduling(int[][] intvs) {
         int[][] orderIntvs = sort(intvs);
 

@@ -8,6 +8,11 @@ import java.util.Arrays;
  * @description
  */
 public class CountPrimes {
+    public static void main(String[] args) {
+        //高效寻找素数
+        CountPrimes.countPrimes(100);
+    }
+
     public static void countPrimes(int n) {
         //效率较低
         System.out.println(getPrimes_1(n));

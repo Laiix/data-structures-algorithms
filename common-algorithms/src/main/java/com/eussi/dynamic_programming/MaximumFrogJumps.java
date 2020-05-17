@@ -8,6 +8,12 @@ import java.util.LinkedList;
  * @description
  */
 public class MaximumFrogJumps {
+    public static void main(String[] args) {
+        //青蛙跳台
+        System.out.println("青蛙跳台");
+        maximumFrogJumps(4);
+    }
+
     public static void maximumFrogJumps(int n) {
         //暴力解法
         System.out.println(frogJumps_1(n));

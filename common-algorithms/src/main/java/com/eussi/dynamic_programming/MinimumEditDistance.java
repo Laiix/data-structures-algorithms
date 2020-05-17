@@ -6,6 +6,13 @@ package com.eussi.dynamic_programming;
  * @description
  */
 public class MinimumEditDistance {
+    public static void main(String[] args) {
+        //最小编辑距离
+        System.out.println("最小编辑距离");
+        MinimumEditDistance.MinimumEditDistance("rad", "apple");
+        MinimumEditDistance.MinimumEditDistance("intention", "execution");
+        MinimumEditDistance.MinimumEditDistance("horse", "ros");
+    }
     /**
      * 给定两个字符串s1和S2,计算出将S1转换成S2所使用的最少操作数。
      * 你可以对一个字符串进行如下三种操作：
