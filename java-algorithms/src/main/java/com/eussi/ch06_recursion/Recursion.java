@@ -171,6 +171,8 @@ public class Recursion {
          * 骤
          */
 
+        doTowersNoOutput(3, 'A', 'B', 'C');
+        System.out.println("\n+++++++++++++++++++++++++\n");
         doTowers(0, 3, 'A', 'B', 'C');
         Util.printSeparator();
 
@@ -362,6 +364,18 @@ public class Recursion {
         Merge merge = new Merge();
         merge.merge(arrayA, 4, arrayB, 6, arrayC);
         merge.display(arrayC, 10);
+    }
+
+    public static void doTowersNoOutput(int topN, char src, char inter, char dest) {
+        if(topN==1) {
+            System.out.println("Base case: move disk 1 from " + src + " to " + dest);
+        } else {
+            doTowersNoOutput(topN-1, src, dest, inter);   // src to inter
+
+            System.out.println("Move bottom disk " + topN + " from " + src + " to " + dest);
+
+            doTowersNoOutput(topN-1, inter, src, dest);   // inter to dest
+        }
     }
 
     public static void doTowers(int level, int topN, char src, char inter, char dest) {

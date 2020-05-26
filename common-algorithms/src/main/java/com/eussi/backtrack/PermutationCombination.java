@@ -1,4 +1,4 @@
-package com.eussi.algorithm_thinking;
+package com.eussi.backtrack;
 
 import java.util.*;
 
@@ -11,8 +11,6 @@ public class PermutationCombination {
     public static void main(String[] args) {
         System.out.println("排列组合：");
         PermutationCombination.permutationCombination(new int[]{1, 2, 3, 4}, 2);
-
-
     }
 
 
