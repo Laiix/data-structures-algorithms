@@ -1,5 +1,8 @@
 package com.eussi.ch02_arrays.util;
 
+import static com.eussi.util.PrintUtil.print;
+import static com.eussi.util.PrintUtil.println;
+
 /**
  * @author wangxueming
  * @create 2019-10-18 10:58
@@ -9,14 +12,12 @@ public class HighArray {
     private long[] a; // ref to array a
     private int nElems; // number of data items
 
-    // -----------------------------------------------------------
     public HighArray(int max) // constructor
     {
         a = new long[max]; // create the array
         nElems = 0; // no items yet
     }
 
-    // -----------------------------------------------------------
     public boolean find(long searchKey) { // find specified value
         int j;
         for (j = 0; j < nElems; j++)
@@ -29,20 +30,20 @@ public class HighArray {
             return true; // no, found it
     } // end find()
 
-    // -----------------------------------------------------------
     public void insert(long value) // put element into array
     {
         a[nElems] = value; // insert it
         nElems++; // increment size
     }
 
-    // -----------------------------------------------------------
     public boolean delete(long value) {
         int j;
-        for (j = 0; j < nElems; j++)
+        for (j = 0; j < nElems; j++) {
             // look for it
             if (value == a[j])
                 break;
+        }
+
         if (j == nElems) // can't find it
             return false;
         else // found it
@@ -55,18 +56,16 @@ public class HighArray {
         }
     } // end delete()
 
-    // -----------------------------------------------------------
     public void display() // displays array contents
     {
-        for (int j = 0; j < nElems; j++)
+        print("[");
+        for (int j = 0; j < nElems-1; j++)
             // for each element,
-            System.out.print(a[j] + " "); // display it
-        System.out.println("");
+            print(a[j] + ", "); // display it
+        print(a[nElems-1]);
+        println("]");
     }
 
-    // -----------------------------------------------------------
-
-    // ==========================================================
     // p50(69) 编程作业2.1
     public long getMax() {
         long max = -1;// 最大元素的值
@@ -78,7 +77,6 @@ public class HighArray {
         return max;
     }
 
-    // ==========================================================
     // p50(69) 编程作业2.2
     public long removeMax() {
         long max = -1; // 最大元素的值
@@ -98,7 +96,6 @@ public class HighArray {
         return max;
     }
 
-    // ==========================================================
     // p50(69) 编程作业2.6
     // 第一种方法
     public void noDup() {
@@ -134,18 +131,16 @@ public class HighArray {
             }
         }
 
-        int order = 0;
-        for (int temp = 0; temp < nElems; temp++) {
-            if (a[temp] != NULL) {// 因为a[0]不可能等于NULL所以才可以用这种方法? 等于NULL也可以吧？
-                if (temp > order) {
-                    a[order] = a[temp];
+        int index = 0;//最终数组数字应该在的正确位置
+        for (int i = 0; i < nElems; i++) {
+            if (a[i] != NULL) {
+                if (i > index) { //不大于没必要移动
+                    a[index] = a[i];
                 }
-                order++;
+                index++;
             }
         }
-        nElems = order;
+        nElems = index;
     }
 
-    // ==========================================================
 } // end class HighArray
-// //////////////////////////////////////////////////////////////

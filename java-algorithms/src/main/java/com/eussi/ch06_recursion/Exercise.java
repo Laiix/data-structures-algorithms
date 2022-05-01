@@ -2,9 +2,7 @@ package com.eussi.ch06_recursion;
 
 import com.eussi.ch06_recursion.util.Group;
 import com.eussi.ch06_recursion.util.Knapsack;
-import com.eussi.util.Util;
-
-import java.util.Arrays;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -51,19 +49,19 @@ public class Exercise {
 
         //习题 6-1
         System.out.println(mult(5, 4));
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 6-2
         showTree(16);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 6-3
         System.out.println(power(2,3));
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 6-4
         bags(new int[]{11, 8, 7, 6, 5, 4, 3}, 20);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 6-5
         group(new char[] { 'A', 'B', 'C', 'D', 'E' }, 3);

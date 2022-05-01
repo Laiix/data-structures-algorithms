@@ -2,9 +2,7 @@ package com.eussi.ch10_tree234;
 
 import com.eussi.ch10_tree234.util.Tree23;
 import com.eussi.ch10_tree234.util.Tree234;
-import com.eussi.util.Util;
-
-import java.io.IOException;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -32,19 +30,19 @@ public class Exercise {
          */
         // 编程作业 10.1
         test10_1();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         // 编程作业 10.2
         test10_2();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         // 编程作业 10.3
         test10_3();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         // 编程作业 10.4
         test10_4();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         // 编程作业 10.5
         test10_5();

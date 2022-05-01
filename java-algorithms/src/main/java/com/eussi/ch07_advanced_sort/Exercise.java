@@ -2,7 +2,7 @@ package com.eussi.ch07_advanced_sort;
 
 import com.eussi.ch07_advanced_sort.util.ArrayPar;
 import com.eussi.ch07_advanced_sort.util.RadixSort;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -58,15 +58,15 @@ public class Exercise {
         partion(3);
         System.out.println("-------------------");
         partion(10);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 7.3
         median(11);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 7.4
         findIndex(3, 2);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 7.5
         radixSort(10);

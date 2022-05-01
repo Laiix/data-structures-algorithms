@@ -1,7 +1,7 @@
 package com.eussi.ch05_Linklist;
 
 import com.eussi.ch05_Linklist.util.*;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -56,24 +56,24 @@ public class Exercise {
 
         //习题 5.1
         testPriorityQ();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 5.2
         testDuqueue();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 5.3
         testCircleList();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 5.4
         //这个题目有问题，题目要求实现的是栈，这里实现的是队列，栈用单向循环链表实现比较麻烦
         testQueue();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 5.5
         testJosephus(7);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 5.6
         testTwoDimensionLinkList();

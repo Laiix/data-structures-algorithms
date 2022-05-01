@@ -3,7 +3,7 @@ package com.eussi.ch03_simple_sort;
 import com.eussi.ch03_simple_sort.util.ArrayBub;
 import com.eussi.ch03_simple_sort.util.ArrayIns;
 import com.eussi.ch03_simple_sort.util.ArrayOddEven;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -55,11 +55,11 @@ public class Exercise {
 
         //习题3.1
         testBubbleSort1();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //测试去重 习题3.3
         testInsertSort();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //测试奇偶排序 习题3.4
         /**
@@ -68,7 +68,7 @@ public class Exercise {
          * 直到数组全部有序。
          */
         testOddEvenSort();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 奇偶排序实际上在多处理器环境中很有用，处理器可以分别同时处理每一个奇数时，然后又同时处理偶数对。
          * 因为奇数对是彼此独立的，每一对都可以用不同的处理器比较和交换，这样可以非常快速的排序。

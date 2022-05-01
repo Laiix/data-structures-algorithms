@@ -1,7 +1,7 @@
 package com.eussi.ch04_stack_queue;
 
 import com.eussi.ch04_stack_queue.util.*;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 import java.io.IOException;
 
@@ -59,14 +59,14 @@ public class Stack$Queue {
          * 是那么小，例如，解析一个很长的算数表达式只需要十几个单元的栈即可
          */
         testStackX();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 栈的应用：
          * 1-单词逆序输入，入栈再出栈即可实现
          * 2-分隔符匹配：
          */
         testBracketChecker();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 栈是一个概念上的辅助工具
          *      由上可见,匹配分隔符使用栈是多么方便。同样也可以利用普通数组来完成栈的操
@@ -110,7 +110,7 @@ public class Stack$Queue {
          * 头指针在队尾指针的下面。数据项也恢复为单一的连续的序列。
          */
         testQueue();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 没有数据项计数字段的队列实现
          *      在 Queue类中包含数据项计数字段 nItems会使 insert()和 remove()方法增加一点额外的操作
@@ -124,7 +124,7 @@ public class Stack$Queue {
          *      这个问题可以这样解决,让数组容量比队列数据项个数的最大值还要大一。
          */
         testQueue2();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 队列的效率
          *      和栈一样，队列中插入数据项和移除数据项的时间复杂度均为O(1)
@@ -156,7 +156,7 @@ public class Stack$Queue {
          * 比较小并且不是特别注重插入速度的情况。
          */
         testPriorityQ();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 解析算数表达式应用：
@@ -210,7 +210,7 @@ public class Stack$Queue {
          *              栈非空时，弹出所有数据，写至输出
          */
         testInfix();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 后缀表达式求值：
          * 算法概述：

@@ -1,9 +1,7 @@
 package com.eussi.ch11_hash;
 
 import com.eussi.ch11_hash.util.*;
-import com.eussi.util.Util;
-
-import java.io.IOException;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -269,7 +267,7 @@ public class Hash {
          * 整个数组容量的一半,最多到三分之二。(在本章最后将讨哈希表的装填数据的程度和探测长度的数学关系。)
          */
         TestHash_1();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 扩展数组
          *      当哈希表变得太满时,一个选择是扩展数组。在Java中,数组有固定的大小,而且不能扩展。
@@ -286,7 +284,7 @@ public class Hash {
         System.out.println("大于100的第一个质数是：");
         System.out.println(getPrime(100));
         findPrime();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          *      例程最终不会混合。例如,在 getPrime(方法中,可以检查2,然后只检查奇数,而不是每个数
          * 字。然而,这种优化没有多少用,因为只需检查几个数字,就会找到一个质数
@@ -345,7 +343,7 @@ public class Hash {
          *          stepSize=5 - (key % 5);
          */
         TestHash_2();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          *  - 表的容量是一个质数
          *      再哈希法要求哈希表的容量是一个质数。为了考察为什么会有这个限制,假设表的容量不是质

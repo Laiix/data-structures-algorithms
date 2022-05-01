@@ -2,7 +2,7 @@ package com.eussi.ch13_graph;
 
 import com.eussi.ch13_graph.util.Graph;
 import com.eussi.ch13_graph.util.GraphD;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -247,7 +247,7 @@ public class GraphApp {
          *      线代表栈:它“记住”了走向某个特定点的路径
          */
         dfs();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 深度优先搜索和游戏仿真
          *      深度优先搜索通常用在游戏仿真中(以及真实世界中与游戏相似的情况)。在一般的游戏中
@@ -332,7 +332,7 @@ public class GraphApp {
          * (飞机航线)的所有顶点被访问,然后是相距两条边的所有顶点被访问,依此类推。
          */
         bfs();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          *      广度优先搜索有一个有趣的属性:它首先找到与起始点相距一条边的所有顶点,然后是与起始
          * 点相距两条边的顶点,依此类推。如果要寻找起始顶点到指定顶点的最短距离,那么这个属性非常
@@ -357,7 +357,7 @@ public class GraphApp {
          * 别就是mst() 方法必须记录走过的边。
          */
         mst();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          *      注意，这里仅是能够创建的众多最小生成树中的一种可能。例如，用不同的起始点，可以产生
          * 不同的树。所以可以在代码中作些小的调整， 例如在getAdjUnvisitedVertex()方法中从数组vertexList[]

@@ -3,7 +3,7 @@ package com.eussi.ch03_simple_sort;
 import com.eussi.ch03_simple_sort.util.ArrayBub;
 import com.eussi.ch03_simple_sort.util.ArrayIns;
 import com.eussi.ch03_simple_sort.util.ArraySel;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -32,7 +32,7 @@ public class Sort {
          *      冒泡算法名称的由来主要是因为在执行算法的时候，最大的数据项总是“冒泡”到数组的顶端。
          */
         testBubbleSort();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          *      这个算法的思路是要将最小的数据项放在数组的最开始(数组下标为0),并将最大的数据项放
          * 在数组的最后(数组下标为 nelms-1)。外层for循环的计数器out从数组的最后开始,即out等于
@@ -83,7 +83,7 @@ public class Sort {
          * 左边(较小的下标值),而在冒泡排序中则是排列在队列右边的。
          */
         testSelSort();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 算法描述：
          *      外层循环用循环变量out,从数组开头开始(数组下标为0)向高位增长。内层循环用循环变量

@@ -1,7 +1,7 @@
 package com.eussi.ch12_heap;
 
 import com.eussi.ch12_heap.util.*;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -40,19 +40,19 @@ public class Exercise {
          */
         //练习 12.1
         Test_1();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //练习 12.2
         Test_2();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //练习 12.3
         Test_3();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //练习 12.4
         Test_4();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //练习 12.5
         Test_5();

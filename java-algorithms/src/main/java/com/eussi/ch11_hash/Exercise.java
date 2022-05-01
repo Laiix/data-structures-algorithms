@@ -1,7 +1,7 @@
 package com.eussi.ch11_hash;
 
 import com.eussi.ch11_hash.util.*;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -36,11 +36,11 @@ public class Exercise {
          */
         //习题 1,3,4
         Test_1();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 2
         Test_2();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 5
         Test_3();

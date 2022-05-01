@@ -1,7 +1,7 @@
 package com.eussi.ch06_recursion;
 
 import com.eussi.ch06_recursion.util.*;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -34,7 +34,7 @@ public class Recursion {
          * 首先，可以使用循环查找第n项：
          */
         System.out.println(triangle(3));
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 使用递归查找第n项：
          *      循环的方法好像是非常易懂的,但是还可以通过另外一种方式来看这个问题。第n项的值可以
@@ -57,7 +57,7 @@ public class Recursion {
          * 了,所以到此为止不再推卸责任。可以给 triangle方法增加一个条件来表示
          */
         System.out.println(triangle1(3));
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 注意，在最内层方法返回1之前，实际上在同一时刻有3个不同的triangle1()方法的实例。
          *
@@ -102,7 +102,7 @@ public class Recursion {
          * 能用于实际,因为基于循环的方法效率更高。
          */
         System.out.println(factorial(3));
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 全排列单词：
@@ -113,7 +113,7 @@ public class Recursion {
          *
          */
         doAnagram();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 递归的二分查找:
@@ -135,7 +135,7 @@ public class Recursion {
          * 组分别进行排序)
          */
         binarySearch();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 汉诺( Hanoi)塔问题
@@ -174,7 +174,7 @@ public class Recursion {
         doTowersNoOutput(3, 'A', 'B', 'C');
         System.out.println("\n+++++++++++++++++++++++++\n");
         doTowers(0, 3, 'A', 'B', 'C');
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 归并排序
@@ -198,7 +198,7 @@ public class Recursion {
          *      归并过程如下：
          */
         merge();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 通过归并进行排序
          *      归并排序的思想是把一个数组分成两半,排序每一半,然后用 merge(方法把数组的两半归并成
@@ -215,7 +215,7 @@ public class Recursion {
          * 这个过程一直持续下去，数组越来越大直到整个数组有序
          */
         mergeSort();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 归并排序的效率
          *      正如前面提到的那样,归并排序的运行时间是O(N*logN)。如何知道这个时间的呢?首先看在
@@ -252,7 +252,7 @@ public class Recursion {
          */
         StackTriangle stackTriangle = new StackTriangle();
         stackTriangle.doTriangle(4);
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 这证明了什么?
          *      在stackTriangle中,有一个程序,它多少是系统地把一个递归程序转换成了使
@@ -264,7 +264,7 @@ public class Recursion {
          */
         StackTriangle2 stackTriangle2 = new StackTriangle2();
         stackTriangle2.doTriangle(4);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 深度优先搜索实现排列组合
@@ -282,7 +282,7 @@ public class Recursion {
          *      maxnum - 要选取的小球的数目
          */
         permuteCombine_1(1, 3, 0, 3);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 问题2：                                                                                                                                                                        
@@ -299,7 +299,7 @@ public class Recursion {
          *      maxnum - 要选取的小球的数目
          */
         permuteCombine_2(1, 3, 0, 3);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 问题3：                                                                                                                                                                        

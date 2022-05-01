@@ -2,7 +2,7 @@ package com.eussi.ch14_weighted_graph;
 
 import com.eussi.ch14_weighted_graph.util.Graph;
 import com.eussi.ch14_weighted_graph.util.GraphD;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -193,7 +193,7 @@ public class GraphWApp {
          * 反一下优先级队列的设计思想。
          */
         mstw(); // minimum spanning tree weighted
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          *      算法在while循环中执行，循环结束条件是所有顶点都己在树中。循环中完成下面的操作：
          *          1.当前顶点放在树中。

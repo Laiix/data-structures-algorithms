@@ -4,7 +4,7 @@ import com.eussi.ch13_graph.util.Chess;
 import com.eussi.ch13_graph.util.Graph;
 import com.eussi.ch13_graph.util.GraphD;
 import com.eussi.ch13_graph.util.GraphWithLink;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -56,19 +56,19 @@ public class Exercise {
 
         //习题 13.1
         test_1();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 13.2
         test_2();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 13.3
         test_3();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 13.4
         test_4();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 13.5
         test_5(5, 5);

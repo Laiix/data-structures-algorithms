@@ -4,11 +4,9 @@ import com.eussi.ch08_binary_tree.util.CharNode;
 import com.eussi.ch08_binary_tree.util.CharTree;
 import com.eussi.ch08_binary_tree.util.Huffman;
 import com.eussi.ch08_binary_tree.util.ParsePost;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * @author wangxueming
@@ -78,21 +76,21 @@ public class Exercise {
          */
         //习题 8-1
         code8_1("abcde");
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 8-2
         code8_2("abcde");
         System.out.println("递归****************************");
         code8_2_1("abcde");
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 8-3
         code8_3("ABCDEFGH");
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 8-4
         code8_4("234+*");
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 8-5
         code8_5("SUSIE SAYS IT IS EASY!");

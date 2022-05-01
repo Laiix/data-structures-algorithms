@@ -3,7 +3,7 @@ package com.eussi.ch14_weighted_graph;
 import com.eussi.ch14_weighted_graph.util.Graph;
 import com.eussi.ch14_weighted_graph.util.GraphD2;
 import com.eussi.ch14_weighted_graph.util.GraphD;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -39,19 +39,19 @@ public class Exercise {
          */
         //习题 14.1
         test_1();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 14.2
         test_2();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 14.3 这个算法可以算出自己到自己的距离，但是Dijkstra算法不可以，因为该算法不会在考虑自己
         test_3();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 14.4
         test_4();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题 14.5   方法与14.4一致，只不过一个在无向图，一个在有向图中
         test_5();

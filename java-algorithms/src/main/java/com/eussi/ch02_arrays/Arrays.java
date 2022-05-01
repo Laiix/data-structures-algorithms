@@ -1,7 +1,7 @@
 package com.eussi.ch02_arrays;
 
 import com.eussi.ch02_arrays.util.OrdArray;
-import com.eussi.util.Util;
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -28,7 +28,6 @@ public class Arrays {
          *
          */
         testOrdArray();//有序数组测试
-        Util.printSeparator();
 
         /**
          * 有序数组的优点
@@ -149,7 +148,7 @@ public class Arrays {
     }
 
     private static void testOrdArray() {
-        System.out.println("Order Array:");
+        println("Order Array:");
         int maxSize = 100;             // array size
         OrdArray arr;                  // reference to array
         arr = new OrdArray(maxSize);   // create the array
@@ -161,22 +160,24 @@ public class Arrays {
         arr.insert(22);
         arr.insert(88);
         arr.insert(11);
-        arr.insert(00);
+        arr.insert(0);
         arr.insert(66);
         arr.insert(33);
+        print("After insert: ");
+        arr.display();
         // search for item
         int searchKey = 55;
+        println("SearchKey:" + searchKey);
         if( arr.find(searchKey) != arr.size() )
-            System.out.println("Found " + searchKey);
+            println("Found " + searchKey);
         else
-            System.out.println("Can't find " + searchKey);
-        // display items
-        arr.display();
+            println("Can't find " + searchKey);
         // delete 3 items
-        arr.delete(00);
+        arr.delete(0);
         arr.delete(55);
         arr.delete(99);
         // display items again
+        print("Delete 0,55,99, after: ");
         arr.display();
     }
 }

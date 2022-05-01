@@ -4,7 +4,7 @@ package com.eussi.ch07_advanced_sort;
 import com.eussi.ch07_advanced_sort.util.ArrayIns;
 import com.eussi.ch07_advanced_sort.util.ArrayPar;
 import com.eussi.ch07_advanced_sort.util.ArraySh;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -94,7 +94,7 @@ public class Sort {
          *
          */
         shellSort(10);
-        Util.printSeparator();
+        PrintUtil.sep();
 
         /**
          * 其他间隔序列
@@ -199,7 +199,7 @@ public class Sort {
          * 法;
          */
         partion(16);
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 相等的关键字
          *      下面是要在 partitionIt()方法中做的另一个细微的改变。如果想要对所有与枢纽相等的数据项运
@@ -241,7 +241,7 @@ public class Sort {
          * 的讲解顺序,先列出快速排序的Java代码。
          */
         quickSort1();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 如上面代码，有三个步骤：
          *      1.把数组或者子数组划分成左边(较小的关键字)的一组和右边(较大的关键字)的一组
@@ -334,7 +334,7 @@ public class Sort {
          * 也提高了划分算法内部循环的执行速度,并稍稍减少了必须要划分的数据项数目。
          */
         quickSort2();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          *      程序使用了另一个新方法 manualSort(),对只有三个或者更少数据项的子数组进行排序。当子
          * 数组中只有一个数据项(或者更少)时方法立即返回,有两个数据项时,如果需要则交换这两个数

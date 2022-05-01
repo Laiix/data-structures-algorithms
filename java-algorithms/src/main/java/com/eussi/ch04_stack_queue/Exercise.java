@@ -1,7 +1,7 @@
 package com.eussi.ch04_stack_queue;
 
 import com.eussi.ch04_stack_queue.util.*;
-import com.eussi.util.Util;
+import com.eussi.util.PrintUtil;
 
 import java.io.IOException;
 
@@ -39,19 +39,19 @@ public class Exercise {
 
         //习题4.1
         testQueueDisplay();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题4.2
         testDeque();
-        Util.printSeparator();
+        PrintUtil.sep();
 
         //习题4.3
         testStackY();
-        Util.printSeparator();
+        PrintUtil.sep();
         
         //习题4.4
         testPriority2();
-        Util.printSeparator();
+        PrintUtil.sep();
         
         //习题4.5
         testSupermarket();

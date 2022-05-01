@@ -2,9 +2,7 @@ package com.eussi.ch12_heap;
 
 import com.eussi.ch12_heap.util.Heap;
 import com.eussi.ch12_heap.util.Node;
-import com.eussi.util.Util;
-
-import java.io.IOException;
+import com.eussi.util.PrintUtil;
 
 /**
  * @author wangxueming
@@ -155,7 +153,7 @@ public class HeapApp {
          * 判断最后一个堆占用单元位置的惟一方法是根据数组当前的大小求得。
          */
         TestHeap();
-        Util.printSeparator();
+        PrintUtil.sep();
         /**
          * 扩展堆数组
          *      在程序运行的过程中,如果插入太多的数据项,超出了堆数组的容量会发生什么情况呢?可以
