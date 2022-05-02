@@ -3,8 +3,7 @@ package com.eussi.ch03_simple_sort;
 import com.eussi.common.DisorderedArray;
 
 import static com.eussi.util.Func.getDisorderedArray;
-import static com.eussi.util.PrintUtil.print;
-import static com.eussi.util.PrintUtil.sep;
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming

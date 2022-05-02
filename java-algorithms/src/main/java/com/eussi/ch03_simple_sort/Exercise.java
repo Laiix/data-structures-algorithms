@@ -1,14 +1,8 @@
 package com.eussi.ch03_simple_sort;
 
-import com.eussi.ch03_simple_sort.util.ArrayBub;
-import com.eussi.ch03_simple_sort.util.ArrayIns;
-import com.eussi.ch03_simple_sort.util.ArrayOddEven;
 import com.eussi.common.DisorderedArray;
-import com.eussi.util.Func;
-import com.eussi.util.PrintUtil;
 
-import static com.eussi.util.Func.getDisorderedArray;
-import static com.eussi.util.Func.getDisorderedArrayWithDupData;
+import static com.eussi.util.Func.*;
 import static com.eussi.util.PrintUtil.*;
 
 /**
