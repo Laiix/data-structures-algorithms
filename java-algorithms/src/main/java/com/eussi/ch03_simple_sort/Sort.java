@@ -1,9 +1,10 @@
 package com.eussi.ch03_simple_sort;
 
-import com.eussi.ch03_simple_sort.util.ArrayBub;
-import com.eussi.ch03_simple_sort.util.ArrayIns;
-import com.eussi.ch03_simple_sort.util.ArraySel;
-import com.eussi.util.PrintUtil;
+import com.eussi.common.DisorderedArray;
+
+import static com.eussi.util.Func.getDisorderedArray;
+import static com.eussi.util.PrintUtil.print;
+import static com.eussi.util.PrintUtil.sep;
 
 /**
  * @author wangxueming
@@ -32,16 +33,16 @@ public class Sort {
          *      冒泡算法名称的由来主要是因为在执行算法的时候，最大的数据项总是“冒泡”到数组的顶端。
          */
         testBubbleSort();
-        PrintUtil.sep();
+        sep();
         /**
          *      这个算法的思路是要将最小的数据项放在数组的最开始(数组下标为0),并将最大的数据项放
-         * 在数组的最后(数组下标为 nelms-1)。外层for循环的计数器out从数组的最后开始,即out等于
+         * 在数组的最后(数组下标为 nelems-1)。外层for循环的计数器out从数组的最后开始,即out等于
          * nelms-1,每经过一次循环out减一。下标大于out的数据项都已经是排好序的了。变量out在每完
          * 成一次内部循环(计数器为in)后就左移一位,因此算法就不再处理那些已经排好序的数据了。
          *      内层for循环计数器in从数组的最开始算起,即in=0,每完成一次内部循环体加一,当它等于
          * out时结束一次循环。在内层for循环体中,数组下标为in和in+1的两个数据项进行比较,如果下
          * 标为in的数据项大于下标为in+1的数据项,则交换两个数据项。
-         *      为了清晰起见,使用了一个独立的swap(方法来执行交换操作。它只是交换数组中的两个数据
+         *      为了清晰起见,使用了一个独立的swap()方法来执行交换操作。它只是交换数组中的两个数据
          * 项的值,使用一个临时变量来存储第一个数据项的值,然后把第二项的值赋给第一项,之后让第二
          * 项的值等于临时变量的值。实际上,使用一个独立的 swap()方法不一定好,因为方法调用会增加
          * 些额外的消耗。如果写自己使用的排序程序,最好将交换操作这段代码直接放到程序中,这样可以
@@ -83,7 +84,7 @@ public class Sort {
          * 左边(较小的下标值),而在冒泡排序中则是排列在队列右边的。
          */
         testSelSort();
-        PrintUtil.sep();
+        sep();
         /**
          * 算法描述：
          *      外层循环用循环变量out,从数组开头开始(数组下标为0)向高位增长。内层循环用循环变量
@@ -170,71 +171,23 @@ public class Sort {
     }
 
     private static void testInsertSort() {
-        int maxSize = 100;            // array size
-        ArrayIns arr;                 // reference to array
-        arr = new ArrayIns(maxSize);  // create the array
-
-        arr.insert(77);               // insert 10 items
-        arr.insert(99);
-        arr.insert(44);
-        arr.insert(55);
-        arr.insert(22);
-        arr.insert(88);
-        arr.insert(11);
-        arr.insert(00);
-        arr.insert(66);
-        arr.insert(33);
-
-        arr.display();                // display items
-
-        arr.insertionSort();          // insertion-sort them
-
+        DisorderedArray arr = getDisorderedArray();
+        arr.insertionSort();        // insert-sort them
+        print("after insert sort: ");
         arr.display();                // display them again
     }
 
     private static void testSelSort() {
-        int maxSize = 100;            // array size
-        ArraySel arr;                 // reference to array
-        arr = new ArraySel(maxSize);  // create the array
-
-        arr.insert(77);               // insert 10 items
-        arr.insert(99);
-        arr.insert(44);
-        arr.insert(55);
-        arr.insert(22);
-        arr.insert(88);
-        arr.insert(11);
-        arr.insert(00);
-        arr.insert(66);
-        arr.insert(33);
-
-        arr.display();                // display items
-
-        arr.selectionSort();          // selection-sort them
-
+        DisorderedArray arr = getDisorderedArray();
+        arr.selectionSort();        // selection-sort them
+        print("after selection sort: ");
         arr.display();                // display them again
     }
 
     private static void testBubbleSort() {
-        int maxSize = 100;            // array size
-        ArrayBub arr;                 // reference to array
-        arr = new ArrayBub(maxSize);  // create the array
-
-        arr.insert(77);               // insert 10 items
-        arr.insert(99);
-        arr.insert(44);
-        arr.insert(55);
-        arr.insert(22);
-        arr.insert(88);
-        arr.insert(11);
-        arr.insert(00);
-        arr.insert(66);
-        arr.insert(33);
-
-        arr.display();                // display items
-
+        DisorderedArray arr = getDisorderedArray();
         arr.bubbleSort();             // bubble sort them
-
+        print("after bubble sort: ");
         arr.display();                // display them again
     }
 }

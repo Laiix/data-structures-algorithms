@@ -1,6 +1,6 @@
 package com.eussi.ch02_arrays;
 
-import com.eussi.ch02_arrays.util.OrdArray;
+import com.eussi.common.OrderedArray;
 import static com.eussi.util.PrintUtil.*;
 
 /**
@@ -150,8 +150,8 @@ public class Arrays {
     private static void testOrdArray() {
         println("Order Array:");
         int maxSize = 100;             // array size
-        OrdArray arr;                  // reference to array
-        arr = new OrdArray(maxSize);   // create the array
+        OrderedArray arr;                  // reference to array
+        arr = new OrderedArray(maxSize);   // create the array
         // insert 10 items
         arr.insert(77);
         arr.insert(99);

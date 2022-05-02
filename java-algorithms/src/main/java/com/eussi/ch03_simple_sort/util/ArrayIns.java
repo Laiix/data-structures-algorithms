@@ -80,28 +80,7 @@ public class ArrayIns
 
       // ==========================================================
       // 编程作业3.6 P79(98)
-      public void insertionSort2() {
-         int in, out, count = 0;
-         for (out = 1; out < nElems; out++) // out is dividing line
-         {
-            long temp = a[out]; // remove marked item
-            in = out; // start shifts at out
-            while (in > 0 && a[in - 1] >= temp && a[in - 1] != -1) // until one is smaller,
-            {
-               if (a[in - 1] == temp) {
-                  temp = -1;
-                  count++;
-               }
-               a[in] = a[in - 1]; // shift item to right
-               --in; // go left one position
-            }
-            a[in] = temp; // insert marked item
-         } // end for
-         nElems -= count;
-         for (int i = 0; i < nElems; i++) {
-            a[i] = a[i + count]; // 把排好序的元素向前移动count个位置
-         }
-      } // end insertionSort()
+
 
       // ===========================================================
       // 编程作业3.3 P78(97)
