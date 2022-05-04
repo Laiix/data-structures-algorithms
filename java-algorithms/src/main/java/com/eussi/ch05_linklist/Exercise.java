@@ -1,21 +1,31 @@
 package com.eussi.ch05_linklist;
 
-import com.eussi.ch05_linklist.util.*;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._05.*;
+
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
  * @create 2019-11-02 0:24
- * @description
+ * @description 编程作业
  */
 public class Exercise {
     public static void main(String[] args) {
         /**
-         * 	编程作业:
-         * 	5.1	实现一个基于有序链表的优先级队例。队列的删除操作应该删除具有最小
-         * 		关键字的链结点。
-         * 	5.2	实现一个基于双向链表的双端队列。（参考前一章上机作业4.2。）使用
-         * 		都应该能够执行双端队列的基本操作。
+         *5.1	实现一个基于有序链表的优先级队例。队列的删除操作应该删除具有最小
+         *	关键字的链结点。
+         */
+        printExercise("5.1");
+        exercise_1();
+
+        /**
+         *5.2 实现一个基于双向链表的双端队列。（参考前一章练习4.2。）使用
+         *	都应该能够执行双端队列的基本操作。
+         */
+        sepExercise("5.2");
+        exercise_2();
+
+        /**
          * 	5.3	循环链表是一种链表，它的最后一个链结点指向第一个链结点。设计循环
          * 		链表有许多方法。有时，用一个指向链表"开始"的指针。然面这么做使链
          * 		表不像一个真正的环，而更像一个传统的链表，只不过这个链表的表头和
@@ -28,8 +38,19 @@ public class Exercise {
          * 		）你也应该可以显示链表（尽管需要在循环链表的某处切断环，以把它们
          * 		打印到屏幕上）。step()方法可以把current移动到下一个链结点，在这
          * 		个程序中可能也会派上用场。
+         */
+        sepExercise("5.3");
+        exercise_3();
+
+        /**
          * 	5.4	实现一个基于上题循环链表的栈类。这个练习不是太难。（然而，实现一
          * 		个队列有些难度。除非把循环链表做成双向的。）
+         */
+        sepExercise("5.4");
+        println("这个题目有问题，题目要求实现的是栈，这里实现的是队列，栈用单向循环链表实现比较麻烦");
+        exercise_4();
+
+        /**
          * 	5.5	Josephus问题是古代一个著名的数学难题。围绕这个问题有很多故事。其
          * 		中一个说Josephus是一群被罗马人抓获的犹太人中的一个，为了不被奴役，
          * 		他们选择自杀。他们排成一个圆圈，从某个人开始，沿着圆圈计数。每报
@@ -42,6 +63,11 @@ public class Exercise {
          * 		继续从他左边那个人开始计数（假设沿顺时针旋转）。这有一个例子。有7
          * 		个人，从1到7，从第一个人开始报数，报到4出圆圈，最后被消去的人的顺
          * 		序是4，1，6，5，7，3。最后剩下的人是2。
+         */
+        sepExercise("5.5");
+        exercise_5(7);
+
+        /**
          * 	5.6	下面尝试一些不同的事情：二维链表，通常叫矩阵。这是二维数组的链表
          * 		版本。它可以用于某些应用，例如电子表格程序。如果电子表格是基于数
          * 		组的，那么在顶端附近插入一个新行时，需要移动下面N*M个单元，这可
@@ -53,70 +79,55 @@ public class Exercise {
          * 		固定的大小（例如7*10）。应该可以在某个链结点处插入值，并显示矩阵
          * 		的内容。
          */
-
-        //习题 5.1
-        testPriorityQ();
-        PrintUtil.sep();
-
-        //习题 5.2
-        testDuqueue();
-        PrintUtil.sep();
-
-        //习题 5.3
-        testCircleList();
-        PrintUtil.sep();
-
-        //习题 5.4
-        //这个题目有问题，题目要求实现的是栈，这里实现的是队列，栈用单向循环链表实现比较麻烦
-        testQueue();
-        PrintUtil.sep();
-
-        //习题 5.5
-        testJosephus(7);
-        PrintUtil.sep();
-
-        //习题 5.6
-        testTwoDimensionLinkList();
-
-
+        sepExercise("5.6");
+        exercise_6();
 
     }
 
-    private static void testTwoDimensionLinkList() {
-        TwoDimensionLinkList list = new TwoDimensionLinkList(5, 5);
+    private static void exercise_6() {
+        TwoDimensionLinklist list = new TwoDimensionLinklist(5, 5);
+        println("init: ");
+        list.display();
         list.addRow(1);
         list.addColumn(1);
-        list.deleteColumn(1);
-        list.deleteRow(1);
+        println("addRow & andColumn: ");
+        list.display();
+
         list.insert(1, 1, 5);
         list.insert(2, 2, 6);
         list.insert(3, 3, 7);
         list.insert(4, 4, 8);
         list.insert(5, 5, 9);
+        println("insert data: ");
+        list.display();
+
+        list.deleteColumn(1);
+        list.deleteRow(1);
+        println("deleteColumn & deleteRow: ");
         list.display();
 
     }
 
-    private static void testJosephus(int number) {
-        CircleList circleList = new CircleList();
+    private static void exercise_5(int number) {
+        CircleLinklist<Integer> circleList = new CircleLinklist<>();
         for (int i = 1; i <= number; i++) { // number个人排成环
             circleList.insert(i);
         }
-        System.out.print("原始圈子：");
+        print("原始圈子：");
         circleList.display();
-        System.out.print("出圈顺序：");
+        print("出圈顺序：");
         for (int i = 1; i < number; i++) { // 要删掉number-1个人
             for (int j = 1; j < 4; j++) { //不能数到四，因为remove()方法删掉的是下一个
                 circleList.step();
             }
-            System.out.print(circleList.remove() + " ");
+            print(circleList.remove() + " ");
         }
-        System.out.println();
-        System.out.println("Josephus的编号是:" + circleList.peek());
+        println();
+        println("Josephus的编号是:" + circleList.peek());
     }
 
-    private static void testQueue() {
-        Queue theQueue = new Queue(5); // queue holds 5 items
+    private static void exercise_4() {
+        LinklistQueue<Integer> theQueue = new LinklistQueue<>(5); // queue holds 5 items
 
         theQueue.insert(10); // insert 4 items
         theQueue.insert(20);
@@ -137,14 +148,14 @@ public class Exercise {
 
         theQueue.display();
         long n = theQueue.remove(); // (40, 50, 60, 70, 80)
-        System.out.println("删掉" + n);
-        System.out.println("队头元素是" + theQueue.peek());
+        println("删掉" + n);
+        println("队头元素是" + theQueue.peek());
         theQueue.display();
 
     }
 
-    private static void testCircleList() {
-        CircleList theList = new CircleList(); // make new list
+    private static void exercise_3() {
+        CircleLinklist<Integer> theList = new CircleLinklist<>(); // make new list
 
         theList.insert(10); // insert four items
         theList.insert(20); // insert four items
@@ -152,21 +163,20 @@ public class Exercise {
         theList.insert(30); // insert four items
         theList.display(); // display list
         System.out.println("最早插入的元素" + theList.peek());
-        Link2 link = theList.find(40);
+        Link<Integer> link = theList.find(40);
         if (link != null) {
-            System.out.println("find 40!");
+            println("find 40!");
         } else {
-            System.out.println("not find 40!");
+            println("not find 40!");
         }
         long aLink = theList.remove(); // delete link
-        System.out.println("Deleted " + aLink); // display it
+        println("Deleted " + aLink); // display it
 
         theList.display(); // display list
     }
 
-    private static void testDuqueue() {
-
-        DuQueue theQueue = new DuQueue(); // queue holds 5 items
+    private static void exercise_2() {
+        DuQueue<Integer> theQueue = new DuQueue<>(); // queue holds 5 items
         theQueue.display();
 
         theQueue.insertRight(10); // insert 4 items
@@ -192,8 +202,8 @@ public class Exercise {
         theQueue.display();
     }
 
-    private static void testPriorityQ() {
-        PriorityQ thePQ = new PriorityQ();
+    private static void exercise_1() {
+        LinklistPriorityQ thePQ = new LinklistPriorityQ();
         thePQ.insert(30);
         thePQ.insert(50);
         thePQ.insert(10);
@@ -202,8 +212,8 @@ public class Exercise {
         thePQ.display();
         while (!thePQ.isEmpty()) {
             long item = thePQ.remove();
-            System.out.print(item + " "); // 10, 20, 30, 40, 50
+            print(item + " "); // 10, 20, 30, 40, 50
         } // end while
-        System.out.println("");
+        println("");
     }
 }

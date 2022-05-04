@@ -1,6 +1,6 @@
 package com.eussi.util;
 
-import com.eussi.common.DisorderedArray;
+import com.eussi.data._02.DisorderedArray;
 
 import static com.eussi.util.PrintUtil.print;
 

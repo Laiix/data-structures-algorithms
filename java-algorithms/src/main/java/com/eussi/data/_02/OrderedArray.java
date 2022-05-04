@@ -1,4 +1,4 @@
-package com.eussi.common;
+package com.eussi.data._02;
 
 import static com.eussi.util.PrintUtil.print;
 import static com.eussi.util.PrintUtil.println;

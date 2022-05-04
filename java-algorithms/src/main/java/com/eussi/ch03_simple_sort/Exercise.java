@@ -1,6 +1,6 @@
 package com.eussi.ch03_simple_sort;
 
-import com.eussi.common.DisorderedArray;
+import com.eussi.data._02.DisorderedArray;
 
 import static com.eussi.util.Func.*;
 import static com.eussi.util.PrintUtil.*;

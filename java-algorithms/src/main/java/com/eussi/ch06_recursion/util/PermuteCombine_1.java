@@ -1,7 +1,7 @@
 package com.eussi.ch06_recursion.util;
 
 
-import com.eussi.common.StackX;
+import com.eussi.data._04.StackX;
 
 /**
  * @author wangxueming

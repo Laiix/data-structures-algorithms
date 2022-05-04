@@ -1,7 +1,8 @@
 package com.eussi.ch05_linklist;
 
-import com.eussi.ch05_linklist.util.*;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._05.*;
+
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -46,12 +47,12 @@ public class _Linklist {
          * 单链表
          */
         testLinklist();
-        PrintUtil.sep();
+        sep();
         /**
          * 查找和删除指定链节点
          */
-        testLinklist2();
-        PrintUtil.sep();
+        testLinklistOper();
+        sep();
 
         /**
          * 双端链表
@@ -66,7 +67,7 @@ public class _Linklist {
          * 一个双向链表。（当然也可以遍历删除，但是效率较低）
          */
         testFirstLastList();
-        PrintUtil.sep();
+        sep();
         /**
          * 链表的效率
          *      在表头插入和删除速度很快。仅需要改变一两个引用值,所以花费O(1)的时间。
@@ -91,7 +92,7 @@ public class _Linklist {
          * 栈和队列，如用单链表实现栈，双向链表实现队列。这将展示栈和队列的“抽象”特性:即如何脱离
          * 具体实现来考虑栈和队列。
          *      栈和队列是概念上的实体,独立于它们的具体实现。用数组或是用链表实现栈都是一样的。栈
-         * 的重要性在于它的 push(操作和pop(操作,以及如何使用它们;而不是实现这些操作的内在机制。
+         * 的重要性在于它的 push()操作和pop()操作,以及如何使用它们;而不是实现这些操作的内在机制。
          *      什么时候应该使用链表而不是数组来实现栈或队列呢?这一点要取决于是否能精确地预测栈
          * 或队列需要容纳的数据量。如果这点不甚清楚,链表就比数组表现出更好的适应性。两者都很快
          * 所以速度可能不是考虑重点。
@@ -126,7 +127,7 @@ public class _Linklist {
          * 域)的描述和能够在数据上执行的一系列操作(方法)以及如何使用这些操作的说明。每个方法
          * 如何执行任务的细节肯定不包括在内。作为类的用户,只会被告知可以调用哪些方法,如何调用它
          * 们,以及可望得到的结果,但是不包括内部如何运作的。
-         *      当“抽象数据类型”用于像栈和队列这样的数据结构时,它的意义被进一步扩展了。和其他类
+         *      当“抽象数据类型”用于像栈和队列这样的数据结构时,它的意义被进一步扩展了。和其他类一
          * 样,它意味着数据和在数据上执行的操作,即使在这种情况下,如何存储数据的基本原则对于类
          * 用户来说也是不可见的。用户不仅不知道方法怎样运作,也不知道数据是如何存储的。
          *      对于栈来说,用户只知道 push()方法和pop()方法(也许还有一些其他方法)的存在和如何用它
@@ -175,7 +176,7 @@ public class _Linklist {
          * 限于一个固定的大小中。但是,有序链表实现起来比有序数组更困难一些。
          */
         testSortedList();
-        PrintUtil.sep();
+        sep();
         /**
          * 有序链表的效率
          *      在有序链表插入和删除某一项最多需要O(N)次比较(平均N/2),因为必须沿着链表上一步
@@ -199,7 +200,7 @@ public class _Linklist {
          * 组排序是比较便利的。
          */
         testInsertSort();
-        PrintUtil.sep();
+        sep();
 
         /**
          * 双向链表（不要和双端链表产生混淆）
@@ -214,7 +215,7 @@ public class _Linklist {
          *
          */
         testDoublyLinkedList();
-        PrintUtil.sep();
+        sep();
         /**
          * 基于双向链表的双端队列
          *      双向链表可以用来作为双端队列的基础。在双端队列中,可以从任何一
@@ -237,9 +238,7 @@ public class _Linklist {
          * 中查找到合乎要求的链结点,但是为查找每个链结点这个方法需要进行很多次比较。如果能从链结
          * 点到链结点步进,检查每个链结点是否符合某个标准,若符合标准就执行适当的操作,这样效率会
          * 高得多。
-         */
-        testIterator();
-        /**
+         *
          * 选代器指向哪里?
          *      迭代器类的一个设计问题是决定在不同的操作后,迭代器应该指向哪里。
          *      当用 delete Current删除一项后,迭代器应该放在下一链结点,前一链结点,还是回到表头呢?
@@ -260,86 +259,14 @@ public class _Linklist {
          * 所以在这里还是采用第一种方法,用这种方法迭代器总是能指向一个有效链结点。然而,正如
          * 下面将要看到的那样,在写这种遍历链表的循环时要格外小心
          */
+        testIterator();
 
     }
 
-    private static void testIterator() {
-        LinkList3 theList = new LinkList3();           // new list
-        ListIterator iter1 = theList.getIterator();  // new iter
-        long value;
 
-        iter1.insertAfter(20);             // insert items
-        iter1.insertAfter(40);
-        iter1.insertAfter(80);
-        iter1.insertBefore(60);
-
-        System.out.print("Enter first letter of show, reset, ");
-        System.out.println("next, get, before, after, delete: ");
-        for(char c:new char[]{'s','g','b','s','g','a','s','g','r','g', 'c', 'd', 's', 'g'}) {
-            System.out.println("Let's say I have input:" + c);
-            int choice = c;         // get user's option
-            switch(choice)
-            {
-                case 's':                    // show list
-                    if( !theList.isEmpty() )
-                        theList.displayList();
-                    else
-                        System.out.println("List is empty");
-                    break;
-                case 'r':                    // reset (to first)
-                    iter1.reset();
-                    break;
-                case 'n':                    // advance to next item
-                    if( !theList.isEmpty() && !iter1.atEnd() )
-                        iter1.nextLink();
-                    else
-                        System.out.println("Can't go to next link");
-                    break;
-                case 'g':                    // get current item
-                    if( !theList.isEmpty() )
-                    {
-                        value = iter1.getCurrent().dData;
-                        System.out.println("Returned " + value);
-                    }
-                    else
-                        System.out.println("List is empty");
-                    break;
-                case 'b':                    // insert before current
-                    value = 9999;
-                    System.out.println("Enter value to insert: " + value);
-                    iter1.insertBefore(value);
-                    break;
-                case 'a':                    // insert after current
-                    value = 8888;
-                    System.out.println("Enter value to insert: " + value);
-                    iter1.insertAfter(value);
-                    break;
-                case 'd':                    // delete current item
-                    if( !theList.isEmpty() )
-                    {
-                        value = iter1.deleteCurrent();
-                        System.out.println("Deleted " + value);
-                    }
-                    else
-                        System.out.println("Can't delete");
-                    break;
-                default:
-                    System.out.println("Invalid entry");
-            }  // end switch
-        }  // end while
-        System.out.println("==========================");
-        iter1.reset();
-        value = iter1.getCurrent().dData;
-        System.out.print(value + " ");
-        while(!iter1.atEnd()) {             //atEnd的实现是current指向最后一个时，作为标志
-            iter1.nextLink();               //以上代码之所以可以完成遍历，注意，在循环前已经输出第一个，在循环中，调用了next
-            value = iter1.getCurrent().dData;   //while条件只能进行到链表的第二个元素
-            System.out.print(value + " ");
-        }
-    }
 
     private static void testDoublyLinkedList() {
-        DoublyLinkedList theList = new DoublyLinkedList();
+        DoublyLinkedList<Integer> theList = new DoublyLinkedList<>();
 
         theList.insertFirst(22);      // insert at front
         theList.insertFirst(44);
@@ -367,35 +294,34 @@ public class _Linklist {
     private static void testInsertSort() {
         int size = 10;
         // create array of links
-        Link2[] linkArray = new Link2[size];
+        Link<Integer>[] linkArray = new Link[size];
 
-        for(int j=0; j<size; j++)  // fill array with links
-        {                            // random number
+        for(int j=0; j<size; j++) {                            // random number
             int n = (int)(Math.random()*99);
-            Link2 newLink = new Link2(n);  // make link
+            Link<Integer> newLink = new Link<>(n);  // make link
             linkArray[j] = newLink;      // put in array
         }
         // display array contents
-        System.out.print("Unsorted array: ");
+        print("Unsorted array: ");
         for(int j=0; j<size; j++)
-            System.out.print( linkArray[j].dData + " " );
-        System.out.println("");
+            print( linkArray[j].data + " " );
+        println();
 
         // create new list
-        SortedList2 theSortedList = new SortedList2(linkArray);
+        OrderedLinklist<Integer> theSortedList = new OrderedLinklist<>(linkArray);
 
         for(int j=0; j<size; j++)  // links from list to array
             linkArray[j] = theSortedList.remove();
 
         // display array contents
-        System.out.print("Sorted Array:   ");
+        print("Sorted Array:   ");
         for(int j=0; j<size; j++)
-            System.out.print(linkArray[j].dData + " ");
-        System.out.println("");
+            print(linkArray[j].data.toString() + " ");
+        println();
     }
 
     private static void testSortedList() {
-        SortedList theSortedList = new SortedList();
+        OrderedLinklist<Integer> theSortedList = new OrderedLinklist<>();
         theSortedList.insert(20);    // insert 2 items
         theSortedList.insert(40);
 
@@ -413,7 +339,7 @@ public class _Linklist {
     }
 
     private static void testFirstLastList() {
-        FirstLastList theList = new FirstLastList();
+        FirstLastLinkList<Integer> theList = new FirstLastLinkList<>();
 
         theList.insertFirst(22);       // insert at front
         theList.insertFirst(44);
@@ -431,48 +357,120 @@ public class _Linklist {
         theList.displayList();         // display again
     }
 
-    private static void testLinklist2() {
-        Linklist2 theList = new Linklist2();  // make list
+    private static void testLinklistOper() {
+        Linklist<SimpleLinkData> theList = new Linklist<>();  // make list
 
-        theList.insertFirst(22, 2.99);      // insert 4 items
-        theList.insertFirst(44, 4.99);
-        theList.insertFirst(66, 6.99);
-        theList.insertFirst(88, 8.99);
+        theList.insertFirst(new SimpleLinkData(22, 2.99));      // insert 4 items
+        theList.insertFirst(new SimpleLinkData(44, 4.99));
+        theList.insertFirst(new SimpleLinkData(66, 6.99));
+        theList.insertFirst(new SimpleLinkData(88, 8.99));
 
         theList.displayList();              // display list
 
-        Link f = theList.find(44);          // find item
+        Link<SimpleLinkData> f = theList.find(new SimpleLinkData(44, 4.99));          // find item
         if( f != null)
-            System.out.println("Found link with key " + f.iData);
+            println("Found link with key " + f.data);
         else
-            System.out.println("Can't find link");
+            println("Can't find link");
 
-        Link d = theList.delete(66);        // delete item
+        Link<SimpleLinkData> d = theList.delete(new SimpleLinkData(66, 6.99));        // delete item
         if( d != null )
-            System.out.println("Deleted link with key " + d.iData);
+            println("Deleted link with key " + d.data.toString());
         else
-            System.out.println("Can't delete link");
+            println("Can't delete link");
 
         theList.displayList();              // display list
     }
 
     private static void testLinklist() {
-        Linklist theList = new Linklist();  // make new list
+        Linklist<SimpleLinkData> theList = new Linklist<>();  // make new list
 
-        theList.insertFirst(22, 2.99);      // insert four items
-        theList.insertFirst(44, 4.99);
-        theList.insertFirst(66, 6.99);
-        theList.insertFirst(88, 8.99);
+        theList.insertFirst(new SimpleLinkData(22, 2.99));      // insert four items
+        theList.insertFirst(new SimpleLinkData(44, 4.99));
+        theList.insertFirst(new SimpleLinkData(66, 6.99));
+        theList.insertFirst(new SimpleLinkData(88, 8.99));
 
         theList.displayList();              // display list
 
-        while( !theList.isEmpty() )         // until it's empty,
-        {
-            Link aLink = theList.deleteFirst();   // delete link
+        while( !theList.isEmpty() ) {
+            Link<SimpleLinkData> aLink = theList.deleteFirst();   // delete link
             System.out.print("Deleted ");         // display it
             aLink.displayLink();
             System.out.println("");
         }
         theList.displayList();              // display list
     }
+
+    private static void testIterator() {
+        Linklist<Integer> theList = new Linklist<>();           // new list
+        ListIterator<Integer> iter = theList.getIterator();  // new iter
+        int value;
+
+        iter.insertAfter(20);             // insert items
+        iter.insertAfter(40);
+        iter.insertAfter(80);
+        iter.insertBefore(60);
+
+        println("Enter first letter of show, reset, next, get, before, after, delete: ");
+        for(char c: new char[]{'s','g','b','s','g','a','s','g','r','g', 'c', 'd', 's', 'g'}) {
+            println("==> input:" + c);
+            int choice = c;         // get user's option
+            switch(choice) {
+                case 's':                    // show list
+                    if( !theList.isEmpty() )
+                        theList.displayList();
+                    else
+                        println("List is empty");
+                    break;
+                case 'r':                    // reset (to first)
+                    iter.reset();
+                    break;
+                case 'n':                    // advance to next item
+                    if( !theList.isEmpty() && !iter.atEnd() )
+                        iter.nextLink();
+                    else
+                        println("Can't go to next link");
+                    break;
+                case 'g':                    // get current item
+                    if( !theList.isEmpty() ) {
+                        value = iter.getCurrent().data;
+                        println("Returned " + value);
+                    }
+                    else
+                        println("List is empty");
+                    break;
+                case 'b':                    // insert before current
+                    value = 9999;
+                    println("Enter value to insert: " + value);
+                    iter.insertBefore(value);
+                    break;
+                case 'a':                    // insert after current
+                    value = 8888;
+                    println("Enter value to insert: " + value);
+                    iter.insertAfter(value);
+                    break;
+                case 'd':                    // delete current item
+                    if( !theList.isEmpty() ) {
+                        value = iter.deleteCurrent();
+                        println("Deleted " + value);
+                    } else
+                        println("Can't delete");
+                    break;
+                default:
+                    println("Invalid entry");
+            }  // end switch
+        }  // end while
+        println("==========================");
+        iter.reset();
+        while(!iter.atEnd()) {             //atEnd的实现是current指向最后一个时，作为标志
+            value = iter.getCurrent().data;   //while条件只能进行到链表的第二个元素
+            print(value + " ");
+            iter.nextLink();
+        }
+        value = iter.getCurrent().data;//遍历需要小心
+        print(value + " ");
+
+        println();
+    }
+
 }

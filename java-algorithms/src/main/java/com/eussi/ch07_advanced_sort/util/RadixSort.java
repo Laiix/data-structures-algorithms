@@ -1,7 +1,7 @@
 package com.eussi.ch07_advanced_sort.util;
 
-import com.eussi.ch05_linklist.util.LinkList3;
-import com.eussi.ch05_linklist.util.ListIterator;
+import com.eussi.data._05.Linklist;
+import com.eussi.data._05.ListIterator;
 
 /**
  * @author wangxueming
@@ -29,9 +29,9 @@ public class RadixSort {
         // radix 代表基数
         // distance 代表排序元素的位数 //大于或等于最大的元素的位数
         int length = array.length;
-        ListIterator[] temp = new ListIterator[radix];// 用于暂存元素
+        ListIterator<Long>[] temp = new ListIterator[radix];// 用于暂存元素
         for (int x = 0; x < radix; x++) { // 初始化数组
-            temp[x] = new LinkList3().getIterator();
+            temp[x] = new Linklist<Long>().getIterator();
         }
         int divide = 1;
 
@@ -45,11 +45,11 @@ public class RadixSort {
             for (int k = 0; k < temp.length; k++) { // 把分好组的元素复制回原数组
                 if(temp[k].getCurrent()!=null) {
                     temp[k].reset();
-                    array[l++] = temp[k].getCurrent().dData;
+                    array[l++] = temp[k].getCurrent().data;
 
                     while (!temp[k].atEnd()) {
                         temp[k].nextLink();
-                        array[l++] = temp[k].getCurrent().dData;
+                        array[l++] = temp[k].getCurrent().data;
                     }
                     temp[k].clearAll();
                 }

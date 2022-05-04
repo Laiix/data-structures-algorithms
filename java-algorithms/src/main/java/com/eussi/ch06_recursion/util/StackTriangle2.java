@@ -1,5 +1,5 @@
 package com.eussi.ch06_recursion.util;// StackTriangle2.java
-import com.eussi.common.StackX;
+import com.eussi.data._04.StackX;
 
 ////////////////////////////////////////////////////////////////
 public class StackTriangle2

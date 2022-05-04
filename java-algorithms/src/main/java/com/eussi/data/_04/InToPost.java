@@ -1,4 +1,4 @@
-package com.eussi.common;// InToPost.java
+package com.eussi.data._04;// InToPost.java
 
 /**
  * 计算后缀表达式

@@ -1,6 +1,6 @@
 package com.eussi.ch02_arrays;
 
-import com.eussi.common.OrderedArray;
+import com.eussi.data._02.OrderedArray;
 import static com.eussi.util.PrintUtil.*;
 
 /**

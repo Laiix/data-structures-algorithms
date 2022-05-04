@@ -1,4 +1,4 @@
-package com.eussi.common;
+package com.eussi.data._04;
 
 /**
  * 优先级对列

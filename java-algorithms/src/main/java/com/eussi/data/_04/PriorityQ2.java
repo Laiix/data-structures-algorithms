@@ -1,8 +1,11 @@
-package com.eussi.common;
+package com.eussi.data._04;
 
 import static com.eussi.util.PrintUtil.print;
 import static com.eussi.util.PrintUtil.println;
 
+/**
+ * 基于数组的插入快，移除慢的优先级队列
+ */
 public class PriorityQ2 {
     // array in sorted order, from max at 0 to min at size-1
     private int maxSize;

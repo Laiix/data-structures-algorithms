@@ -1,6 +1,6 @@
 package com.eussi.ch04_stack_queue;
 
-import com.eussi.common.*;
+import com.eussi.data._04.*;
 
 import static com.eussi.util.PrintUtil.*;
 
