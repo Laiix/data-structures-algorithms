@@ -1,7 +1,7 @@
 package com.eussi.ch07_advanced_sort.util;
 
-import com.eussi.ch05_Linklist.util.LinkList3;
-import com.eussi.ch05_Linklist.util.ListIterator;
+import com.eussi.ch05_linklist.util.LinkList3;
+import com.eussi.ch05_linklist.util.ListIterator;
 
 /**
  * @author wangxueming

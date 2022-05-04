@@ -20,6 +20,10 @@ public class PrintUtil {
         System.out.println(t);
     }
 
+    public static <T> void println() {
+        println("");
+    }
+
     public static void printExercise(String num) {
         println("Exercise " + num + ": ");
     }

@@ -1,6 +1,6 @@
-package com.eussi.ch05_Linklist;
+package com.eussi.ch05_linklist;
 
-import com.eussi.ch05_Linklist.util.*;
+import com.eussi.ch05_linklist.util.*;
 import com.eussi.util.PrintUtil;
 
 /**

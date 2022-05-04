@@ -1,4 +1,4 @@
-package com.eussi.ch05_Linklist.util;// ListIterator.java
+package com.eussi.ch05_linklist.util;// ListIterator.java
 // demonstrates iterators on a linked listListIterator
 // to run this program: C>java InterIterApp
 

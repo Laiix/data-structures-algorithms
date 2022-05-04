@@ -1,9 +1,8 @@
 package com.eussi.ch04_stack_queue;
 
-import com.eussi.ch04_stack_queue.util.*;
-import com.eussi.util.PrintUtil;
+import com.eussi.common.*;
 
-import java.io.IOException;
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -11,7 +10,7 @@ import java.io.IOException;
  * @description
  */
 public class Stack$Queue {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         /**
          * 不同的结构类型
          *      本章所讲的数据结构和算法与前面章节提到的有很大不同。在开始详细讲解新的结构之前,先
@@ -59,14 +58,14 @@ public class Stack$Queue {
          * 是那么小，例如，解析一个很长的算数表达式只需要十几个单元的栈即可
          */
         testStackX();
-        PrintUtil.sep();
+        sep();
         /**
          * 栈的应用：
          * 1-单词逆序输入，入栈再出栈即可实现
          * 2-分隔符匹配：
          */
         testBracketChecker();
-        PrintUtil.sep();
+        sep();
         /**
          * 栈是一个概念上的辅助工具
          *      由上可见,匹配分隔符使用栈是多么方便。同样也可以利用普通数组来完成栈的操
@@ -81,7 +80,7 @@ public class Stack$Queue {
 
         /**
          * 队列
-         *      “队列”( queue)这个单词是英国人说的“排”(line)(一种等待服务的方式)。在英国,“排队”
+         *      “队列”(queue)这个单词是英国人说的“排”(line)(一种等待服务的方式)。在英国,“排队”
          * 的意思就是站到一排当中去。计算机科学中,队列是一种数据结构,有点类似栈,只是在队列中第
          * 个插入的数据项也会最先被移除(先进先出,FIFO),而在栈中,最后插入的数据项最先移除
          * (LIFO)。队列的作用就像电影院前的人们站成的排一样:第一个进入队尾的人将最先到达队头买
@@ -101,6 +100,7 @@ public class Stack$Queue {
          *      这样设计的问题是队尾指针很快就会移到数组的末端(数组下标最大)。虽然在数组的开始部
          * 分有空的数据项单元,这是移除后移除的数据项的位置,但是由于因为队尾指针不能再向后移动了,
          * 因此也不能再插入新的数据项。
+         *
          * 环绕式处理
          *      为了避免队列不满却不能插入新数据项的问题,可以让队头队尾指针绕回到数组开始的位置
          * 这就是循环队列(有时也称为“缓冲环”)
@@ -109,8 +109,8 @@ public class Stack$Queue {
          *      删除足够多的数据项后,队头指针也回绕。这时队列的指针回到了初始运行时的位置状态,队
          * 头指针在队尾指针的下面。数据项也恢复为单一的连续的序列。
          */
-        testQueue();
-        PrintUtil.sep();
+        testQueueWithCount();
+        sep();
         /**
          * 没有数据项计数字段的队列实现
          *      在 Queue类中包含数据项计数字段 nItems会使 insert()和 remove()方法增加一点额外的操作
@@ -123,11 +123,12 @@ public class Stack$Queue {
          * 为空时,也可能呈现相同的位置关系。于是在同一时间,队列似乎可能是满的,也可能是空的。
          *      这个问题可以这样解决,让数组容量比队列数据项个数的最大值还要大一。
          */
-        testQueue2();
-        PrintUtil.sep();
+        testQueue();
+        sep();
         /**
          * 队列的效率
          *      和栈一样，队列中插入数据项和移除数据项的时间复杂度均为O(1)
+         *
          * 双端队列
          *      双端队列就是一个两端都是结尾的队列。队列的每一端都可以插入数据项和移除数据项。这些
          * 方法可以叫作 insertLeft()和 insertRight(),以及 removeLeft()和 removeRight()。
@@ -156,7 +157,7 @@ public class Stack$Queue {
          * 比较小并且不是特别注重插入速度的情况。
          */
         testPriorityQ();
-        PrintUtil.sep();
+        sep();
 
         /**
          * 解析算数表达式应用：
@@ -175,6 +176,7 @@ public class Stack$Queue {
          *      有些计算机语言也用一个操作符标识乘方（通常，用"^"符号），这里暂不讨论这种表示
          * 除了中缀和后缀表达式，还有一种前缀表达式，操作符写在两个操作数的前面，如A+B为+AB。这
          * 中表达方法与后缀表达式功能类似，但是很少使用。
+         *
          * 中缀表达式转后缀表达式
          *      计算中缀表达式时，既要向前，又要向后读表达式。向前（从左到右）读操作数和操作符，
          * 等到读到足够的信息来执行一个运算时，向后去找出两个操作数和一个操作符，执行运算。
@@ -210,7 +212,7 @@ public class Stack$Queue {
          *              栈非空时，弹出所有数据，写至输出
          */
         testInfix();
-        PrintUtil.sep();
+        sep();
         /**
          * 后缀表达式求值：
          * 算法概述：
@@ -230,20 +232,25 @@ public class Stack$Queue {
 
     private static void testPostfix() {
         String input = "352-/61-*";         // read a string from kbd
-        System.out.println("postfix: " + input);
-
-        Postfix postfix = new Postfix(input);
-        int output = postfix.doParse();  // do the evaluation
-        System.out.println("Evaluates to " + output);
+        println("postfix: " + input);
+        int output = doPostfixParse(input);
+        println("Evaluates to " + output);
     }
 
     private static void testInfix() {
         String input = "A+B*(C+(D-E))"; //ABCDE-+*+
-        System.out.println("infix: " + input);
+        println("infix: " + input);
         // make a translator
         InToPost theTrans = new InToPost(input);
         String output = theTrans.doTrans(); // do the translation
-        System.out.println("Postfix is " + output + '\n');
+        println("Postfix is " + output);
+
+        input = "((A+B)*C)-D";
+        println("\ninfix: " + input);
+        // make a translator
+        theTrans = new InToPost(input);
+        output = theTrans.doTrans(); // do the translation
+        println("Postfix is " + output);
     }
 
     private static void testPriorityQ() {
@@ -254,96 +261,196 @@ public class Stack$Queue {
         thePQ.insert(40);
         thePQ.insert(20);
 
-        while( !thePQ.isEmpty() )
-        {
+        println("PriorityQ remove: ");
+        while( !thePQ.isEmpty() ) {
             long item = thePQ.remove();
-            System.out.print(item + " ");  // 10, 20, 30, 40, 50
+            print(item + " ");  // 10, 20, 30, 40, 50
         }  // end while
-        System.out.println("");
-    }
-
-    private static void testQueue2() {
-        Queue2 theQueue = new Queue2(5);  // queue holds 5 items
-
-        theQueue.insert(10);            // insert 4 items
-        theQueue.insert(20);
-        theQueue.insert(30);
-        theQueue.insert(40);
-        System.out.println("FULL?" + theQueue.isFull());
-        theQueue.insert(50);            // insert 4 more items
-        System.out.println("FULL?" + theQueue.isFull());
-
-
-        theQueue.remove();              // remove 3 items
-        theQueue.remove();              //    (10, 20, 30)
-        theQueue.remove();
-
-
-        theQueue.insert(60);            //    (wraps around)
-        theQueue.insert(70);
-        theQueue.insert(80);
-
-        while( !theQueue.isEmpty() )    // remove and display
-        {                            //    all items
-            long n = theQueue.remove();  // (40, 50, 60, 70, 80)
-            System.out.print(n);
-            System.out.print(" ");
-        }
-        System.out.println("");
+        println();
     }
 
     private static void testQueue() {
-        Queue theQueue = new Queue(5);  // queue holds 5 items
+        Queue<Integer> theQueue = new Queue<>(5);  // queue holds 5 items
 
         theQueue.insert(10);            // insert 4 items
         theQueue.insert(20);
         theQueue.insert(30);
         theQueue.insert(40);
 
+        theQueue.status();
+
         theQueue.remove();              // remove 3 items
         theQueue.remove();              //    (10, 20, 30)
         theQueue.remove();
+
+        println("after three times remove");
+        theQueue.status();
 
         theQueue.insert(50);            // insert 4 more items
         theQueue.insert(60);            //    (wraps around)
         theQueue.insert(70);
         theQueue.insert(80);
 
+        println("insert 50、60、70、80");
+        theQueue.status();
+
+        println("remove all");
         while( !theQueue.isEmpty() )    // remove and display
         {                            //    all items
             long n = theQueue.remove();  // (40, 50, 60, 70, 80)
-            System.out.print(n);
-            System.out.print(" ");
+            print(n);
+            print(" ");
         }
-        System.out.println("");
+        println();
+        theQueue.status();
     }
 
-    private static void testBracketChecker() throws IOException {
-        String input;
-        System.out.print(
-                "Enter string containing delimiters: (edf[dd}df)");
-        System.out.flush();
-        input = "(edf[dd}df)";     // read a string from kbd
-        // make a BracketChecker
-        BracketChecker theChecker = new BracketChecker(input);
-        theChecker.check();      // check brackets
+    private static void testQueueWithCount() {
+        QueueWithCount<Integer> theQueue = new QueueWithCount<>(5);  // queue holds 5 items
+
+        theQueue.insert(10);            // insert 4 items
+        theQueue.insert(20);
+        theQueue.insert(30);
+        theQueue.insert(40);
+
+        theQueue.display();
+
+        theQueue.remove();              // remove 3 items
+        theQueue.remove();              //    (10, 20, 30)
+        theQueue.remove();
+
+        println("after three times remove");
+        theQueue.display();
+
+        theQueue.insert(50);            // insert 4 more items
+        theQueue.insert(60);            //    (wraps around)
+        theQueue.insert(70);
+        theQueue.insert(80);
+
+        println("insert 50、60、70、80");
+        theQueue.display();
+
+        println("remove all");
+        while( !theQueue.isEmpty() )    // remove and display
+        {                            //    all items
+            long n = theQueue.remove();  // (40, 50, 60, 70, 80)
+            print(n);
+            print(" ");
+        }
+        println();
+    }
+
+    private static void testBracketChecker() {
+        println("BracketChecker: ");
+
+        String input = "(1[3])";
+        println("check: " + input);
+        print("result: ");
+        bracketCheck(input);      // check brackets
+
+        input = "(edf[dd}df)";
+        println("check: " + input);
+        print("result: ");
+        bracketCheck(input);      // check brackets
     }
 
     private static void testStackX() {
-        StackX<Integer> theStack = new StackX<Integer>(10);  // make new stack
+        StackX<Integer> theStack = new StackX<>(10);  // make new stack
         theStack.push(20);               // push items onto stack
         theStack.push(40);
         theStack.push(60);
         theStack.push(80);
+        println(theStack.toString());
 
+        print("pop: ");
         while( !theStack.isEmpty() )     // until it's empty,
         {                             // delete item from stack
             long value = theStack.pop();
-            System.out.print(value);      // display it
-            System.out.print(" ");
+            print(value);      // display it
+            print(" ");
         }  // end while
-        System.out.println("");
+        println();
     }
 
-//--------------------------------------------------------------
+
+    /**
+     * 通过栈，检查是否括号是否配对
+     * @param input
+     */
+    private static void bracketCheck(String input) {
+        int stackSize = input.length();      // get max stack size
+        StackX<Character> theStack = new StackX<>(stackSize);  // make stack
+
+        for(int j=0; j<input.length(); j++) {
+            char ch = input.charAt(j);        // get char
+            switch(ch) {
+                case '{':                      // opening symbols
+                case '[':
+                case '(':
+                    theStack.push(ch);          // push them
+                    break;
+                case '}':                      // closing symbols
+                case ']':
+                case ')':
+                    if( !theStack.isEmpty() ) {   // if stack not empty,
+                        char chx = theStack.pop();  // pop and check
+                        if( (ch=='}' && chx!='{') ||
+                                (ch==']' && chx!='[') ||
+                                (ch==')' && chx!='(') ) {
+                            println("Error: "+ch+" at "+j);
+                            return;
+                        }
+                    } else {               // prematurely empty
+                        println("Error: " + ch + " at " + j);
+                        return;
+                    }
+                    break;
+                default:    // no action on other characters
+                    break;
+            }  // end switch
+        }  // end for
+        // at this point, all characters have been processed
+        if( theStack.isEmpty() ) {
+            println("Right!");
+        } else {
+            println("Error: missing right delimiter");
+        }
+    }
+
+    public static int doPostfixParse(String input) {
+        StackX<Integer> theStack = new StackX<Integer>(20);             // make new stack
+        char ch;
+        int j;
+        int num1, num2, interAns;
+
+        for(j=0; j<input.length(); j++) {
+            ch = input.charAt(j);              // read from input
+            theStack.displayStack(""+ch+" ");  // *diagnostic*
+            if(ch >= '0' && ch <= '9') {         // if it's a number
+                theStack.push((ch - '0')); //   push it
+            } else {
+                num2 = theStack.pop();          // pop operands
+                num1 = theStack.pop();
+                switch(ch) {
+                    case '+':
+                        interAns = num1 + num2;
+                        break;
+                    case '-':
+                        interAns = num1 - num2;
+                        break;
+                    case '*':
+                        interAns = num1 * num2;
+                        break;
+                    case '/':
+                        interAns = num1 / num2;
+                        break;
+                    default:
+                        interAns = 0;
+                }  // end switch
+                theStack.push(interAns);        // push result
+            }  // end else
+        }  // end for
+        interAns = theStack.pop();            // get answer
+        return interAns;
+    }  // end doParse()
 }

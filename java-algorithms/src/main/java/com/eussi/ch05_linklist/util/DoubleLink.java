@@ -1,17 +1,19 @@
-package com.eussi.ch05_Linklist.util;
+package com.eussi.ch05_linklist.util;
 
 /**
  * @author wangxueming
- * @create 2019-10-29 9:16
+ * @create 2019-11-01 0:14
  * @description
  */
-public class Link2 {
+public class DoubleLink {
     public long dData;                 // data item
-    public Link2 next;                  // next link in list
+    public DoubleLink next;                  // next link in list
+    public DoubleLink previous;              // previous link in list
     // -------------------------------------------------------------
-    public Link2(long d)                // constructor
+    public DoubleLink(long d)                // constructor
     { dData = d; }
     // -------------------------------------------------------------
     public void displayLink()          // display this link
     { System.out.print(dData + " "); }
+// -------------------------------------------------------------
 }

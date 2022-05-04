@@ -1,4 +1,4 @@
-package com.eussi.ch05_Linklist.util;
+package com.eussi.ch05_linklist.util;
 
 // LinklistMain.java
 // demonstrates linked list
