@@ -1,7 +1,12 @@
 package com.eussi.ch06_recursion;
 
-import com.eussi.ch06_recursion.util.*;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._02.DisorderedArray;
+import com.eussi.data._02.OrderedArray;
+import com.eussi.data._04.StackX;
+import com.eussi.data._06.*;
+
+import static com.eussi.util.Func.getDisorderedArray;
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -33,8 +38,9 @@ public class Recursion {
          *
          * 首先，可以使用循环查找第n项：
          */
-        System.out.println(triangle(3));
-        PrintUtil.sep();
+        println(triangle(3));
+        sep();
+
         /**
          * 使用递归查找第n项：
          *      循环的方法好像是非常易懂的,但是还可以通过另外一种方式来看这个问题。第n项的值可以
@@ -56,13 +62,14 @@ public class Recursion {
          * 他肯定知道结果是1,没有更小的数字需要询问别人了,也没有什么数字可以去加到其他的数字上
          * 了,所以到此为止不再推卸责任。可以给 triangle方法增加一个条件来表示
          */
-        System.out.println(triangle1(3));
-        PrintUtil.sep();
+        println(recursionTriangle(3));
+        sep();
+
         /**
-         * 注意，在最内层方法返回1之前，实际上在同一时刻有3个不同的triangle1()方法的实例。
+         * 注意，在最内层方法返回1之前，实际上在同一时刻有3个不同的recursionTriangle()方法的实例。
          *
          * 递归方法的特征：
-         *      尽管 triangle1方法很短,但是它拥有所有递归算法都具备的关键特征：
+         *      尽管 recursionTriangle 方法很短,但是它拥有所有递归算法都具备的关键特征：
          *          调用自身。
          *          当它调用自身的时候,它这样做是为了解决更小的问题。
          *          存在某个足够简单的问题的层次,在这一层算法不需要调用自己就可以直接解答,且返结果。
@@ -74,7 +81,7 @@ public class Recursion {
          *      调用一个方法会有一定的额外开销。控制必须从这个调用的位置转移到这个方法的开始处。除
          * 此之外,传给这个方法的参数以及这个方法返回的地址都要被压入到一个内部的栈里,为的是这个
          * 方法可以访问参数值和知道返回到哪里。
-         *      就 triangle1这个方法来讲,因为有上述开销而造成的结果,可能 while循环方法执行的速度比
+         *      就 recursionTriangle 这个方法来讲,因为有上述开销而造成的结果,可能 while循环方法执行的速度比
          * 递归的方法快。在此题中,递归的代价也许不算太大。但是如果由于递归方法的存在,造成了太大
          * 规模的方法调用的话,可能会考虑消除递归,在这一章的最后将会详谈一些这方面的问题。
          *      另外一个低效性反映在系统内存空间存储所有的中间参数以及返回值,如果有大量的数据需要
@@ -101,8 +108,8 @@ public class Recursion {
          *      再说一次,尽管这些计算可以很好地说明递归,但是它们不太可
          * 能用于实际,因为基于循环的方法效率更高。
          */
-        System.out.println(factorial(3));
-        PrintUtil.sep();
+        println(factorial(3));
+        sep();
 
         /**
          * 全排列单词：
@@ -112,8 +119,11 @@ public class Recursion {
          *      3、重复以上步骤 n次
          *
          */
+        println("版本一：");
         doAnagram();
-        PrintUtil.sep();
+        println("版本二：");
+        doAnagram("cat".toCharArray(), 0);
+        sep();
 
         /**
          * 递归的二分查找:
@@ -135,7 +145,7 @@ public class Recursion {
          * 组分别进行排序)
          */
         binarySearch();
-        PrintUtil.sep();
+        sep();
 
         /**
          * 汉诺( Hanoi)塔问题
@@ -167,14 +177,13 @@ public class Recursion {
          *      1.从塔座S移动包含上面的n-1个盘子的子树到塔座I上。
          *      2.从塔座S移动剩余的盘子(最大的盘子)到塔座D上
          *      3.从塔座I移动子树到塔座D
-         * 当开始的时候,源塔座是A,中介塔座是B,目标塔座是C。图6.13显示了这种情况的三个步
-         * 骤
+         * 当开始的时候,源塔座是A,中介塔座是B,目标塔座是C。
          */
 
         doTowersNoOutput(3, 'A', 'B', 'C');
-        System.out.println("\n+++++++++++++++++++++++++\n");
+        println("\n+++++++++++++++++++++++++\n");
         doTowers(0, 3, 'A', 'B', 'C');
-        PrintUtil.sep();
+        sep();
 
         /**
          * 归并排序
@@ -198,7 +207,8 @@ public class Recursion {
          *      归并过程如下：
          */
         merge();
-        PrintUtil.sep();
+        sep();
+
         /**
          * 通过归并进行排序
          *      归并排序的思想是把一个数组分成两半,排序每一半,然后用 merge(方法把数组的两半归并成
@@ -215,7 +225,8 @@ public class Recursion {
          * 这个过程一直持续下去，数组越来越大直到整个数组有序
          */
         mergeSort();
-        PrintUtil.sep();
+        sep();
+
         /**
          * 归并排序的效率
          *      正如前面提到的那样,归并排序的运行时间是O(N*logN)。如何知道这个时间的呢?首先看在
@@ -250,9 +261,9 @@ public class Recursion {
          * 模拟一个递归方法:
          *      这个程序模拟了一个方法。
          */
+        println("Triangle程序模拟消除递归：");
         StackTriangle stackTriangle = new StackTriangle();
         stackTriangle.doTriangle(4);
-        PrintUtil.sep();
         /**
          * 这证明了什么?
          *      在stackTriangle中,有一个程序,它多少是系统地把一个递归程序转换成了使
@@ -262,15 +273,23 @@ public class Recursion {
          *      然而在实践中,人们往往从一开始就重新思考基于栈的算法,而不是从递归的算法转化,这样
          * 作更为实用。如下：
          */
-        StackTriangle2 stackTriangle2 = new StackTriangle2();
-        stackTriangle2.doTriangle(4);
-        PrintUtil.sep();
+        println("Triangle栈消除递归：");
+        StackTriangleByStack stackTriangleByStack = new StackTriangleByStack();
+        stackTriangleByStack.doTriangle(4);
+        println("Triangle栈消除递归2：");
+        stackTriangleByStack = new StackTriangleByStack();
+        stackTriangleByStack.doTriangle2(4);
+
+        println("汉诺塔栈消除递归：");
+        doTowersByStack(3, 'A', 'B', 'C');
+        sep();
 
         /**
          * 深度优先搜索实现排列组合
          *
          * 问题1：
-         * 假设袋子里有编号为1,2,...,m这m个球。现在每次从袋子中取一个球几下编号，放回袋中再取，取n次作为一组，枚举所有可能的情况。
+         * 假设袋子里有编号为1,2,...,m这m个球。现在每次从袋子中取一个球几下编号，
+         * 放回袋中再取，取n次作为一组，枚举所有可能的情况。
          * 分析：
          * 每一次取都有m种可能的情况，因此一共有种情况。
          * 这里我们取m = 3, n = 4，则有3^4=81种不同的情况。
@@ -281,11 +300,11 @@ public class Recursion {
          *      curnum - 当前已经确定的小球的个数
          *      maxnum - 要选取的小球的数目
          */
-        permuteCombine_1(1, 3, 0, 3);
-        PrintUtil.sep();
+        PermuteCombine.dfs(1, 3, 0, 3);
+        sep();
 
         /**
-         * 问题2：                                                                                                                                                                        
+         * 问题2：
          * 假设袋子里有编号为1,2,...,m这m个球。先后从袋子中取出n个球，依次记录编号，枚举所有可能的情况。
          * 分析：
          * 这是排列问题，应该有A(m,n)种情况。
@@ -298,11 +317,11 @@ public class Recursion {
          *      curnum - 当前已经确定的小球的个数
          *      maxnum - 要选取的小球的数目
          */
-        permuteCombine_2(1, 3, 0, 3);
-        PrintUtil.sep();
+        PermuteCombine.dfs2(1, 3, 0, 3);
+        sep();
 
         /**
-         * 问题3：                                                                                                                                                                        
+         * 问题3：
          * 从m个球里（编号为1,2,3...,m）一次取n个球，其中m>n，记录取出球的编号，枚举所有的可能性。
          * 分析：
          * 这是组合问题。应该有C(m,n)种可能性。
@@ -315,66 +334,64 @@ public class Recursion {
          *     maxnum - 需要抓取小球的数目
          *
          */
-        permuteCombine_3(0, 4, 0, 3);
+        PermuteCombine.dfs3(0, 4, 0, 3);
 
     }
 
-    public static void permuteCombine_1(int minv, int maxv, int curnum, int maxnum){
-        PermuteCombine_1.dfs(minv, maxv, curnum, maxnum);
-    }
-
-    public static void permuteCombine_2(int minv, int maxv, int curnum, int maxnum){
-        PermuteCombine_2.dfs(minv, maxv, curnum, maxnum);
-    }
-
-    public static void permuteCombine_3(int curmaxv, int maxv, int curnum, int maxnum){
-        PermuteCombine_3.dfs(curmaxv, maxv, curnum, maxnum);
-    }
-
-    public static void mergeSort()
-    {
-        int maxSize = 100;             // array size
-        DArray arr;                    // reference to array
-        arr = new DArray(maxSize);     // create the array
-
-        arr.insert(64);                // insert items
-        arr.insert(21);
-        arr.insert(33);
-        arr.insert(70);
-        arr.insert(12);
-        arr.insert(85);
-        arr.insert(44);
-        arr.insert(3);
-        arr.insert(99);
-        arr.insert(0);
-        arr.insert(108);
-        arr.insert(36);
-
-        arr.display();                 // display items
-
+    public static void mergeSort() {
+        println("归并排序：");
+        DisorderedArray arr = getDisorderedArray();
         arr.mergeSort();               // merge sort the array
-
         arr.display();                 // display items again
     }  // end main()
 
     public static void merge() {
+        println("归并：");
         int[] arrayA = {23, 47, 81, 95};
         int[] arrayB = {7, 14, 39, 55, 62, 74};
         int[] arrayC = new int[10];
-        Merge merge = new Merge();
-        merge.merge(arrayA, 4, arrayB, 6, arrayC);
-        merge.display(arrayC, 10);
+        merge(arrayA, 4, arrayB, 6, arrayC);
+        for (int i : arrayC) {
+            print(i + " ");
+        }
+        println();
     }
 
     public static void doTowersNoOutput(int topN, char src, char inter, char dest) {
         if(topN==1) {
-            System.out.println("Base case: move disk 1 from " + src + " to " + dest);
+            println("Base case: move disk 1 from " + src + " to " + dest);
         } else {
             doTowersNoOutput(topN-1, src, dest, inter);   // src to inter
 
-            System.out.println("Move bottom disk " + topN + " from " + src + " to " + dest);
+            println("Move bottom disk " + topN + " from " + src + " to " + dest);
 
             doTowersNoOutput(topN-1, inter, src, dest);   // inter to dest
+        }
+    }
+
+    public static void doTowersByStack(int topN, char src, char inter, char dest) {
+        StackX<TowersParam> theStack = new StackX<>(10000);    // make a stack
+        theStack.push(new TowersParam(topN==1, src, inter, dest, topN));     // push value
+        TowersParam popParam;
+        while(!theStack.isEmpty()) {
+            popParam=theStack.pop();
+            if(popParam.endFlag) {
+                println("Base case: move disk " + popParam.dishN +
+                        " from " + popParam.src +
+                        " to " + popParam.dest);
+            } else {
+                //盘子标识
+                int dishN = popParam.dishN;
+                int nextDishN = dishN - 1;
+
+                src = popParam.src;
+                inter = popParam.inter;
+                dest = popParam.dest;
+
+                theStack.push(new TowersParam(nextDishN==1, inter, src, dest, nextDishN));
+                theStack.push(new TowersParam(true, src, inter, dest, dishN));
+                theStack.push(new TowersParam(nextDishN==1, src, dest, inter, nextDishN));
+            }
         }
     }
 
@@ -400,11 +417,9 @@ public class Recursion {
     }
 
     public static void binarySearch() {
-        int maxSize = 100;             // array size
-        OrdArray arr;                  // reference to array
-        arr = new OrdArray(maxSize);   // create the array
-
-        arr.insert(72);                // insert items
+        int maxSize = 100;
+        OrderedArray arr = new OrderedArray(maxSize);
+        arr.insert(72);
         arr.insert(90);
         arr.insert(45);
         arr.insert(126);
@@ -424,10 +439,10 @@ public class Recursion {
         arr.display();                 // display array
 
         int searchKey = 27;            // search for item
-        if( arr.find(searchKey) != arr.size() )
-            System.out.println("Found " + searchKey);
+        if( arr.findByRecursion(searchKey) != arr.size() )
+            println("Found " + searchKey);
         else
-            System.out.println("Can't find " + searchKey);
+            println("Can't find " + searchKey);
     }
 
     public static void doAnagram() {
@@ -435,16 +450,44 @@ public class Recursion {
         anagram.doExecute();
     }
 
-    public static int factorial(int n)
-    {
-        System.out.println("calculate " + n);
-        if(n==1) {
-            System.out.println("Returning 1");
-            return 1;
+    public static void doAnagram(char[] arr, int index) {
+        if(index==arr.length-1) {//退出条件，最后一个
+            return;
         }
-        else {
+
+        for(int i=index; i<arr.length; i++) {
+            //递归
+            doAnagram(arr, index+1);
+
+            //展示出来
+            if(index==arr.length-2) {
+                for (char c : arr) {
+                    print(c);
+                }
+                println();
+            }
+
+            //轮转
+            char temp = arr[index];
+            int j;
+            for(j=index; j<arr.length-1; j++) {
+                arr[j] = arr[j+1];
+            }
+            arr[j] = temp;
+
+        }
+
+
+    }
+
+    public static int factorial(int n) {
+        println("calculate " + n);
+        if(n==1) {
+            println("Returning 1");
+            return 1;
+        } else {
             int temp = n * factorial(n-1);
-            System.out.println("Returning " + temp);
+            println("Returning " + temp);
             return temp;
         }
     }
@@ -454,16 +497,14 @@ public class Recursion {
      * @param n
      * @return
      */
-    public static int triangle1(int n)
-    {
-        System.out.println("calculate " + n);
+    public static int recursionTriangle(int n) {
+        println("calculate " + n);
         if(n==1) {
-            System.out.println("Returning 1");
+            println("Returning 1");
             return 1;
-        }
-        else {
-            int temp = n + triangle1(n-1);
-            System.out.println("Returning " + temp);
+        } else {
+            int temp = n + recursionTriangle(n-1);
+            println("Returning " + temp);
             return temp;
         }
     }
@@ -481,4 +522,22 @@ public class Recursion {
         }
         return total;
     }
+
+    public static void merge( int[] arrayA, int sizeA,
+                              int[] arrayB, int sizeB,
+                              int[] arrayC ) {
+        int aDex=0, bDex=0, cDex=0;
+        while(aDex < sizeA && bDex < sizeB)  // neither array empty
+            if( arrayA[aDex] < arrayB[bDex] )
+                arrayC[cDex++] = arrayA[aDex++];
+            else
+                arrayC[cDex++] = arrayB[bDex++];
+
+        while(aDex < sizeA)                  // arrayB is empty,
+            arrayC[cDex++] = arrayA[aDex++];  // but arrayA isn't
+
+        while(bDex < sizeB)                  // arrayA is empty,
+            arrayC[cDex++] = arrayB[bDex++];  // but arrayB isn't
+    }  // end merge()
+
 }

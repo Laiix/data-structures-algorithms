@@ -11,8 +11,7 @@ public class OrderedArray {
     private long[] a; // ref to array a
     private int nElems; // number of data items
 
-    public OrderedArray(int max) // constructor
-    {
+    public OrderedArray(int max) {
         a = new long[max]; // create array
         nElems = 0;
     }
@@ -42,6 +41,31 @@ public class OrderedArray {
             }
         }
         return nElems;
+    }
+
+    /**
+     * 通过递归的方式进行二分法查找
+     * @param searchKey
+     * @return
+     */
+    public int findByRecursion(long searchKey) {
+        return recFind(searchKey, 0, nElems-1);
+    }
+
+    private int recFind(long searchKey,
+                        int lowerBound,
+                        int upperBound) {
+        int curIn = (lowerBound + upperBound ) / 2;
+        if(a[curIn]==searchKey)
+            return curIn;              // found it
+        else if(lowerBound > upperBound)
+            return nElems;             // can't find it
+        else {
+            if(a[curIn] < searchKey)   // it's in upper half
+                return recFind(searchKey, curIn+1, upperBound);
+            else                       // it's in lower half
+                return recFind(searchKey, lowerBound, curIn-1);
+        }
     }
 
     /**
@@ -115,8 +139,7 @@ public class OrderedArray {
         return lowerBound;
     }
 
-    public void display() // displays array contents
-    {
+    public void display() {
         print("[");
         for (int j = 0; j < nElems-1; j++)
             // for each element,
@@ -175,6 +198,37 @@ public class OrderedArray {
         }
 
         dist.nElems = i + j;
+        return dist;
+    }
+
+    /**
+     * 合并两个数组，依然有序
+     * @param orderArr
+     * @return
+     */
+    public OrderedArray merge3(OrderedArray orderArr) {
+        // 假设数组空间总是足够
+        int inElems = this.nElems;
+        int jnElems = orderArr.nElems;
+        int i = 0;
+        int j = 0;
+        int z = 0;
+        OrderedArray dist = new OrderedArray(this.nElems + orderArr.nElems);
+        while(i<inElems && j<jnElems) {
+            if(this.a[i]<orderArr.a[j]) {
+                dist.a[z++] = a[i++];
+            } else {
+                dist.a[z++] = orderArr.a[j++];
+            }
+        }
+        while(i<inElems) {
+            dist.a[z++] = a[i++];
+        }
+        while(j<jnElems) {
+            dist.a[z++] = orderArr.a[j++];
+        }
+
+        dist.nElems = z;
         return dist;
     }
 

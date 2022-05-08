@@ -12,8 +12,7 @@ public class DisorderedArray {
     private long[] a; // ref to array a
     private int nElems; // number of data items
 
-    public DisorderedArray(int max) // constructor
-    {
+    public DisorderedArray(int max) {
         a = new long[max]; // create the array
         nElems = 0; // no items yet
     }
@@ -30,8 +29,7 @@ public class DisorderedArray {
             return true; // no, found it
     } // end find()
 
-    public void insert(long value) // put element into array
-    {
+    public void insert(long value) {
         a[nElems] = value; // insert it
         nElems++; // increment size
     }
@@ -46,8 +44,7 @@ public class DisorderedArray {
 
         if (j == nElems) // can't find it
             return false;
-        else // found it
-        {
+        else {
             for (int k = j; k < nElems; k++)
                 // move higher ones down
                 a[k] = a[k + 1]; // 这里不是多移了一次 当k=nElems-1时, a[nElems-1] = a[nElems]; 此时a[nElems]为空
@@ -159,8 +156,7 @@ public class DisorderedArray {
         for (out = 1; out < nElems; out++) { // out is dividing line
             long temp = a[out]; // remove marked item
             in = out; // start shifts at out
-            while (in > 0 && a[in - 1] >= temp && a[in - 1] != -1) // until one is smaller,
-            {
+            while (in > 0 && a[in - 1] >= temp && a[in - 1] != -1)  {
                 if (a[in - 1] == temp) {
                     temp = -1;
                     count++;
@@ -268,8 +264,7 @@ public class DisorderedArray {
     public int insertionSortAndCount() {
         int compare = 0; // 比较次数
         int copy = 0; // 复制次数
-        for (int out = 1; out < nElems; out++) // out is dividing line
-        {
+        for (int out = 1; out < nElems; out++)  {
             long temp = a[out]; // remove marked item
             int in = out; // start shifts at out
             while (in > 0) // until one is smaller,
@@ -306,7 +301,7 @@ public class DisorderedArray {
     }
 
     /**
-     * 机构排序
+     * 奇偶排序
      */
     public void oddEvenSort() {
         int num = 0;
@@ -323,7 +318,7 @@ public class DisorderedArray {
             }
             num++;
         }
-        System.out.println("Sort times: " + num);
+        println("Sort times: " + num);
     }
     private boolean isOrder() {
         boolean b = true;
@@ -333,6 +328,58 @@ public class DisorderedArray {
             }
         }
         return b;
+    }
+
+
+    /**
+     * 归并排序
+     */
+    public void mergeSort() {
+        long[] workSpace = new long[nElems];
+        recMergeSort(workSpace, 0, nElems-1);
+    }
+
+    private void recMergeSort(long[] workSpace,
+                              int lowerBound,
+                              int upperBound) {
+        if(lowerBound == upperBound)            // if range is 1,
+            return;                              // no use sorting
+        else {                                    // find midpoint
+            int mid = (lowerBound+upperBound) / 2;
+            // sort low half
+            recMergeSort(workSpace, lowerBound, mid);
+            // sort high half
+            recMergeSort(workSpace, mid+1, upperBound);
+            // merge them
+            merge(workSpace, lowerBound, mid+1, upperBound);
+        }  // end else
+    }
+
+    private void merge(long[] workSpace,
+                       int lowPtr,
+                       int midPtr,
+                       int upperBound) {
+        int j = 0;                             // workspace index
+        int lowerBound = lowPtr;
+        int lowerUpperBound = midPtr-1;              //左边数组最大索引
+        int n = upperBound-lowerBound+1;       // 计算此次排序的数据个数
+
+
+
+        while(lowPtr <= lowerUpperBound && midPtr <= upperBound)
+            if( a[lowPtr] < a[midPtr] )
+                workSpace[j++] = a[lowPtr++];
+            else
+                workSpace[j++] = a[midPtr++];
+
+        while(lowPtr <= lowerUpperBound)
+            workSpace[j++] = a[lowPtr++];
+
+        while(midPtr <= upperBound)
+            workSpace[j++] = a[midPtr++];
+
+        for(j=0; j<n; j++)
+            a[lowerBound+j] = workSpace[j];
     }
 
 }

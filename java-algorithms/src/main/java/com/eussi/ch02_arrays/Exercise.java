@@ -155,6 +155,9 @@ public class Exercise {
         print("实现二：");
         arr2 = arr.merge2(arr1);
         arr2.display();
+        print("实现三：");
+        arr2 = arr.merge3(arr1);
+        arr2.display();
     }
 
     private static void exercise_6() {
