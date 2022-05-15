@@ -13,8 +13,7 @@ public class OrderedLinklist<T extends Comparable<T>> {
         first = null;
     }
 
-    public OrderedLinklist(Link<T>[] linkArr)  // constructor (array
-    {                               // as argument)
+    public OrderedLinklist(Link<T>[] linkArr) {                               // as argument)
         first = null;                        // initialize list
         for (int j = 0; j < linkArr.length; j++)  // copy array
             insert(linkArr[j].data);             // to list

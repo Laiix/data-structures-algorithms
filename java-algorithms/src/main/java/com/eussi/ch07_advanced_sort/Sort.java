@@ -1,10 +1,13 @@
 package com.eussi.ch07_advanced_sort;
 
 
-import com.eussi.ch07_advanced_sort.util.ArrayIns;
-import com.eussi.ch07_advanced_sort.util.ArrayPar;
-import com.eussi.ch07_advanced_sort.util.ArraySh;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._02.SimpleArray;
+
+import java.util.Arrays;
+
+import static com.eussi.util.Func.getRandomIntArr;
+import static com.eussi.util.Func.getRandomSimpleArray;
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -93,8 +96,15 @@ public class Sort {
          * 开始,以每一个数字作为增量进行排序。当数组用1-增量排序后,算法结束。
          *
          */
-        shellSort(10);
-        PrintUtil.sep();
+        println("希尔排序:");
+        int size = 10;
+        shellSort(size);
+
+        println("练习:");
+        int[] arr = getRandomIntArr(size, 20);
+        shellSort2(arr);
+        println(Arrays.toString(arr));
+        sep();
 
         /**
          * 其他间隔序列
@@ -106,7 +116,7 @@ public class Sort {
          * 为找到初始的间隔而计算序列;而只需要用2整除N。但是,这被证明并不是最好的数列。尽管对
          * 于大多数的数据来说这个方法还是比插入排序效果好,但是这种方法有时会使运行时间降到O(N^2),
          * 这并不比插入排序的效率更高
-         *      这个方法的一个变形是用2.2而非2来整除每一个间隔。对于n=100的数组来说,会产生序列
+         *      这个方法的一个变形是用 2.2 而非 2 来整除每一个间隔。对于n=100的数组来说,会产生序列
          * 45,20,9,4,1。这比用2整除显著改善了效果,因为这样避免了某些导致时间复杂度为O(N^2)
          * 的最坏情况的发生。不论N为何值,都需要一些额外的代码来保证序列的最后取值为1。这产生了
          * 和清单中所列的 Knuth序列差不多的结果。
@@ -123,18 +133,18 @@ public class Sort {
          *
          * 希尔排序的效率
          *      迄今为止,除了在一些特殊的情况下,还没有人能够从理论上分析希尔排序的效率。有各种各
-         * 样基于试验的评估,估计它的时间级从O(N^3/2)到O(N^7/6)。
+         * 样基于试验的评估,估计它的时间级从O(N^(3/2))到O(N^(7/6))。
          *      下表对比速度较慢的插入排序和速度较快的快速排序,列出了希尔排序一些估计的O()值。它
          * 显示了对应于不同N值的理论时间。注意N^x/y的意思是N的x方的y次方根。因此,如果N等于
-         * 100,N^3/2就是100^3的平方根,结果是1000。另外,(logN)^2意思是N对数的平方。它通常写作log^(2)N,
+         * 100,N^(3/2)就是100^3的平方根,结果是1000。另外,(logN)^2意思是N对数的平方。它通常写作log^(2)N,
          * 但这很容易和log2N(以2为底的N的对数)混淆。
          *      希尔排序运行时间的估计
          *      O()值          排序类型            10项         100项        1000项           10000项
          *      N^2             插入等             100         10000       1000000         100000000
-         *      N^3/2           希尔排序            32          1000        32000           1000000
+         *      N^(3/2)           希尔排序            32          1000        32000           1000000
          *      N*(logN)^2      希尔排序            10          400         9000            160000
-         *      N^5/4           希尔排序            18          316         5600            100000
-         *      N^7/6           希尔排序            14          215         3200            46000
+         *      N^(5/4)           希尔排序            18          316         5600            100000
+         *      N^(7/6)           希尔排序            14          215         3200            46000
          *      N*logN          快速排序等           10          200         3000            40000
          *      对大多数数据来说,评估值越高,如N^3/2,很可能就越真实。
          */
@@ -198,8 +208,9 @@ public class Sort {
          * 所以需要在外层的 while循环中增加两个附加的语句强迫指针变化。空操作指令是最有效的解决办
          * 法;
          */
-        partion(16);
-        PrintUtil.sep();
+        partition(16);
+        sep();
+
         /**
          * 相等的关键字
          *      下面是要在 partitionIt()方法中做的另一个细微的改变。如果想要对所有与枢纽相等的数据项运
@@ -241,7 +252,8 @@ public class Sort {
          * 的讲解顺序,先列出快速排序的Java代码。
          */
         quickSort1();
-        PrintUtil.sep();
+        sep();
+
         /**
          * 如上面代码，有三个步骤：
          *      1.把数组或者子数组划分成左边(较小的关键字)的一组和右边(较大的关键字)的一组
@@ -312,7 +324,7 @@ public class Sort {
          * 项。这应该是理想的枢纽选择,可是由于这个过程需要比排序本身更长的时间,因此它不可行
          *      折衷的方法是找到数组里第一个、最后一个以及中间位置数据项的居中数据项值,并且设此数
          * 据项为枢纽。选择第一个、最后一个以及中间位置数据项的中值被称为“三数据项取中”
-         * ( median-of- three)方法
+         * ( median-of-three)方法
          *      查找三个数据项的中值数据项自然比查找所有数据项的中值数据项快很多,同时这也有效地避
          * 免了在数据已经有序或者逆序的情况下,选择最大的或者最小的数据项作为枢纽的机会。很可能存
          * 在一些很特殊的数据排列使得三数据项取中的方法很低效,但是通常情况下,对于选择枢纽它都是
@@ -334,7 +346,7 @@ public class Sort {
          * 也提高了划分算法内部循环的执行速度,并稍稍减少了必须要划分的数据项数目。
          */
         quickSort2();
-        PrintUtil.sep();
+        sep();
         /**
          *      程序使用了另一个新方法 manualSort(),对只有三个或者更少数据项的子数组进行排序。当子
          * 数组中只有一个数据项(或者更少)时方法立即返回,有两个数据项时,如果需要则交换这两个数
@@ -365,8 +377,8 @@ public class Sort {
          *
          * 快速排序之后的插入排序
          *      另一个选择是对数组整个使用快速排序,不去考虑小于界限的划分的排序。在quickSort(方法
-         * 中的注释部分表明了这种做法。(如果使用这种做法,那么应该从 recQuickSorto中删除对方法
-         * insertion SortO的调用。)当快速排序结束时,数组已经是基本有序的了。然后可以对整个数组应用
+         * 中的注释部分表明了这种做法。(如果使用这种做法,那么应该从 recQuickSort()中删除对方法
+         * insertionSort()的调用。)当快速排序结束时,数组已经是基本有序的了。然后可以对整个数组应用
          * 插入排序。插入排序对基本有序的数组执行效率很高,而且很多专家都提倡使用这个方法,但是在
          * 我们的设置中,这个方法运行得很慢。插入排序显然更合适做很多小规模的排序,而不是一个大的
          * 排序。
@@ -386,7 +398,7 @@ public class Sort {
 
         /**
          * 基数排序
-         *      前面的排序算法都是对简单数值型关键字的处理，处理,也就是通过比较关键字的值来实现排
+         *      前面的排序算法都是对简单数值型关键字的处理,也就是通过比较关键字的值来实现排
          * 序的。基数排序则是把关键字拆分成数字位。并且按数字位的值对数据项进行排序。奇怪的是,实现
          * 基数排序不需要比较操作。
          *
@@ -440,86 +452,90 @@ public class Sort {
          */
     }
 
-    public static void quickSort3()
-    {
-        int maxSize = 16;             // array size
-        ArrayIns arr;
-        arr = new ArrayIns(maxSize);  // create array
+    private static void shellSort2(int[] arr) {
+        int h=1;
+        while(3*h+1<arr.length)
+            h = 3*h+1;
 
-        for(int j=0; j<maxSize; j++)  // fill array with
-        {                          // random numbers
-            long n = (int)(Math.random()*99);
-            arr.insert(n);
+        while(h>0) {
+            for(int i=h; i<arr.length; i++) {
+                int temp = arr[i];
+                int j = i;
+                while(j-h>=0 && arr[j-h]>temp) {
+                    arr[j] = arr[j-h];
+                    j -= h;
+                }
+                arr[j] = temp;
+            }
+            h = (h-1)/3;
         }
-        arr.display();                // display items
+    }
+
+    public static void quickSort3() {
+        println("快速排序,选取三个数字中位数为pivot,插入排序处理小于10个数据项的子数组：");
+        SimpleArray arr = getRandomSimpleArray(20, 199);
         arr.quickSort3();              // quicksort them
         arr.display();                // display them again
-    }  // end main()
+    }
 
-    public static void quickSort2()
-    {
-        int maxSize = 16;             // array size
-        ArrayIns arr;
-        arr = new ArrayIns(maxSize);  // create array
-
-        for(int j=0; j<maxSize; j++)  // fill array with
-        {                          // random numbers
-            long n = (int)(Math.random()*99);
-            arr.insert(n);
-        }
-        arr.display();                // display items
+    public static void quickSort2() {
+        println("快速排序,选取三个数字中位数为pivot：");
+        SimpleArray arr = getRandomSimpleArray(20, 199);
         arr.quickSort2();              // quicksort them
         arr.display();                // display them again
-    }  // end main()
+    }
 
-    public static void quickSort1()
-    {
-        int maxSize = 16;             // array size
-        ArrayIns arr;
-        arr = new ArrayIns(maxSize);  // create array
+    public static void quickSort1() {
+        println("快速排序,选取最右侧为pivot：");
+        SimpleArray arr = getRandomSimpleArray(16, 199);
+        arr.quickSort1();
+        arr.display();
 
-        for(int j=0; j<maxSize; j++)  // fill array with
-        {                          // random numbers
-            long n = (int)(Math.random()*99);
-            arr.insert(n);
-        }
-        arr.display();                // display items
-        arr.quickSort();              // quicksort them
-        arr.display();                // display them again
-    }  // end main()
+        println("快速排序,选取最右侧为pivot 2：");
+        arr = new SimpleArray(10);
+        arr.insert(154, 142, 165, 135, 131, 180, 154);
+        arr.display();
+        arr.quickSort1();
+        arr.display();
+    }
 
-    public static void partion(int maxSize) {
-        ArrayPar arr = new ArrayPar(maxSize);  // create the array
-
-        for(int j=0; j<maxSize; j++)  // fill array with
-        {                          // random numbers
-            long n = (int)(Math.random()*199);
-            arr.insert(n);
-        }
-        arr.display();                // display unsorted array
-
+    public static void partition(int maxSize) {
+        SimpleArray arr = getRandomSimpleArray(maxSize, 199);
         long pivot = 99;              // pivot value
-        System.out.print("Pivot is " + pivot);
+        print("Pivot is " + pivot);
         int size = arr.size();
         // partition array
         int partDex = arr.partitionIt(0, size-1, pivot);
+        println(", Partition is at index " + partDex);
+        arr.display();
 
-        System.out.println(", Partition is at index " + partDex);
-        arr.display();                // display partitioned array
+        println("不用空操作的循环");
+        arr = getRandomSimpleArray(maxSize, 199);
+        pivot =99;             // pivot value
+        print("Pivot is " + pivot);
+        size = arr.size();
+        // partition array
+        partDex = arr._partitionIt(0, size-1, pivot);
+        println(", Partition is at index " + partDex);
+        arr.display();
+
+        arr = new SimpleArray(10);
+        arr.insert(154, 142, 165, 135, 131, 180, 154);
+        pivot = 154;  ;
+        print("Pivot is " + pivot);
+        size = arr.size();
+        // partition array
+        partDex = arr._partitionIt(0, size-1, pivot);
+        println(", Partition is at index " + partDex);
+        arr.display();
+
+
     }  // end main()
 
     public static void shellSort(int maxSize){
-        ArraySh arr = new ArraySh(maxSize);   // create the array
-
-        for(int j=0; j<maxSize; j++)  // fill array with
-        {                          // random numbers
-            long n = (int)(Math.random()*99);
-            arr.insert(n);
-        }
-        arr.display();                // display unsorted array
+        SimpleArray arr = getRandomSimpleArray(maxSize, 99);
         arr.shellSort();              // shell sort the array
         arr.display();                // display sorted array
     }  // end main()
-
 
 }

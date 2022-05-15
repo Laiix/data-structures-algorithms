@@ -153,16 +153,7 @@ public class Arrays {
         OrderedArray arr;                  // reference to array
         arr = new OrderedArray(maxSize);   // create the array
         // insert 10 items
-        arr.insert(77);
-        arr.insert(99);
-        arr.insert(44);
-        arr.insert(55);
-        arr.insert(22);
-        arr.insert(88);
-        arr.insert(11);
-        arr.insert(0);
-        arr.insert(66);
-        arr.insert(33);
+        arr.insert(77, 99, 44, 55, 22, 88, 11, 0, 66, 33);
         print("After insert: ");
         arr.display();
         // search for item

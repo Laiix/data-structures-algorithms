@@ -1,11 +1,11 @@
 package com.eussi.ch06_recursion;
 
-import com.eussi.data._02.DisorderedArray;
+import com.eussi.data._02.SimpleArray;
 import com.eussi.data._02.OrderedArray;
 import com.eussi.data._04.StackX;
 import com.eussi.data._06.*;
 
-import static com.eussi.util.Func.getDisorderedArray;
+import static com.eussi.util.Func.getSimpleArray;
 import static com.eussi.util.PrintUtil.*;
 
 /**
@@ -340,7 +340,7 @@ public class Recursion {
 
     public static void mergeSort() {
         println("归并排序：");
-        DisorderedArray arr = getDisorderedArray();
+        SimpleArray arr = getSimpleArray();
         arr.mergeSort();               // merge sort the array
         arr.display();                 // display items again
     }  // end main()
@@ -419,22 +419,7 @@ public class Recursion {
     public static void binarySearch() {
         int maxSize = 100;
         OrderedArray arr = new OrderedArray(maxSize);
-        arr.insert(72);
-        arr.insert(90);
-        arr.insert(45);
-        arr.insert(126);
-        arr.insert(54);
-        arr.insert(99);
-        arr.insert(144);
-        arr.insert(27);
-        arr.insert(135);
-        arr.insert(81);
-        arr.insert(18);
-        arr.insert(108);
-        arr.insert(9);
-        arr.insert(117);
-        arr.insert(63);
-        arr.insert(36);
+        arr.insert(72, 90, 45, 126, 54, 99, 144, 27, 135, 81, 18, 108, 9, 117, 63, 36);
 
         arr.display();                 // display array
 

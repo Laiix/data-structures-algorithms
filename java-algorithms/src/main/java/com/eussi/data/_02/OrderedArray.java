@@ -72,8 +72,7 @@ public class OrderedArray {
      * 线性查找插入
      * @param value
      */
-    public void insert(long value) // put element into array
-    {
+    public void insert(long value) {
         int j;
         for (j = 0; j < nElems; j++)
             // find where it goes
@@ -84,7 +83,14 @@ public class OrderedArray {
             a[k] = a[k - 1];
         a[j] = value; // insert it
         nElems++; // increment size
-    } // end insert()
+    }
+
+    public void insert(long... values) {
+        for (long value : values) {
+            insert(value);
+        }
+    }
+
 
     /**
      * 二分法查找插入

@@ -1,9 +1,9 @@
 package com.eussi.ch02_arrays;
 
-import com.eussi.data._02.DisorderedArray;
+import com.eussi.data._02.SimpleArray;
 import com.eussi.data._02.OrderedArray;
 
-import static com.eussi.util.Func.getDisorderedArray;
+import static com.eussi.util.Func.getSimpleArray;
 import static com.eussi.util.PrintUtil.*;
 
 /**
@@ -13,7 +13,7 @@ import static com.eussi.util.PrintUtil.*;
  */
 public class Exercise {
     public static void main(String[] args) {
-        DisorderedArray disorderedArray = getDisorderedArray();
+        SimpleArray simpleArray = getSimpleArray();
 
         /**
          * 2.1 向 DisorderedArray.java程序的 DisorderedArray 类添加一个名为getMax()的方法，它返回
@@ -21,23 +21,23 @@ public class Exercise {
          *  可以假设所有关键字都是正数。
          */
         sepExercise("2.1");
-        exercise_1(disorderedArray);
+        exercise_1(simpleArray);
 
         /**
          * 2.2 修改编程作业2.1中的方法，使之不仅返回最大的关键字，而且还将该关键字从数组中删除。
          *     将这个方法命名为removeMax()。
          */
         sepExercise("2.2");
-        exercise2(disorderedArray);
+        exercise2(simpleArray);
 
         /**
          * 2.3 编程作业2.2中的removeMax()方法提供了一种通过关键字值进行数组排序的方法。实现一个
-         *     排序方案，要求不修改HighArray类，只需对main()中的代码进行修改。这个方法需要第二个
+         *     排序方案，要求不修改SimpleArray类，只需对main()中的代码进行修改。这个方法需要第二个
          *     数组，在排序结束时数组数据项是逆序排列的。（这个方法是第3章“简单排序”中选择排序的
          *     一个变体。）
          */
         sepExercise("2.3");
-        exercise_3(disorderedArray);
+        exercise_3(simpleArray);
 
         /**
          * 2.4 修改 OrderedArray.java程序（清单2.4）使insert()、delete()与find()方法一样都使用
@@ -68,10 +68,10 @@ public class Exercise {
 
     }
 
-    private static void exercise_3(DisorderedArray highArray) {
+    private static void exercise_3(SimpleArray highArray) {
         // p50(69) 编程作业2.3
         int maxSize = 1000; // array size
-        DisorderedArray sortedArr = new DisorderedArray(maxSize);
+        SimpleArray sortedArr = new SimpleArray(maxSize);
         long max = highArray.removeMax();
         while (max != -1) {//max初始值
             sortedArr.insert(max);
@@ -81,14 +81,14 @@ public class Exercise {
         sortedArr.display();
     }
 
-    private static void exercise2(DisorderedArray disorderedArray) {
+    private static void exercise2(SimpleArray disorderedArray) {
         // p50(69) 编程作业2.2
         disorderedArray.removeMax();
         print("After remove max: ");
         disorderedArray.display();
     }
 
-    private static void exercise_1(DisorderedArray disorderedArray) {
+    private static void exercise_1(SimpleArray disorderedArray) {
         // p50(69) 编程作业2.1
         long max = disorderedArray.getMax();
         println("Found max is " + max);
@@ -123,28 +123,13 @@ public class Exercise {
         // 编程作业2.4 p50(69)
         int maxSize = 100; // array size
         OrderedArray arr = new OrderedArray(maxSize); // create the array
-        arr.insert(4); // insert 10 items
-        arr.insert(6);
-        arr.insert(8);
-        arr.insert(1);
-        arr.insert(33);
-        arr.insert(0);
-        arr.insert(22);
-        arr.insert(13);
-        arr.insert(59);
-        arr.insert(9);
+        arr.insert(4, 6, 8, 1, 33, 0, 22, 13, 59, 9);
         print("Arr1 after insert: ");
         arr.display(); // display items again
 
         // 编程作业2.5 p50(69)
         OrderedArray arr1 = new OrderedArray(maxSize); // create the array
-        arr1.insert(10);
-        arr1.insert(20);
-        arr1.insert(30);
-        arr1.insert(40);
-        arr1.insert(50);
-        arr1.insert(60);
-        arr1.insert(70);
+        arr1.insert(10, 20, 30, 40, 50, 60, 70);
         print("Arr2 after insert: ");
         arr1.display();
 
@@ -162,13 +147,9 @@ public class Exercise {
 
     private static void exercise_6() {
         int maxSize = 100; // array size
-        DisorderedArray arr; // reference to array
-        arr = new DisorderedArray(maxSize); // create the array
-        arr.insert(5); // insert 10 items
-        arr.insert(5);
-        arr.insert(5);
-        arr.insert(5);
-        arr.insert(5);
+        SimpleArray arr; // reference to array
+        arr = new SimpleArray(maxSize); // create the array
+        arr.insert(5, 5, 5, 5, 5); // insert 10 items
         println("加入重复值后：");
         arr.display();
         arr.noDup();
@@ -177,10 +158,7 @@ public class Exercise {
 
 
         // 重复值
-        arr.insert(3);
-        arr.insert(3);
-        arr.insert(4);
-        arr.insert(5);
+        arr.insert(3, 3, 4, 5);
 
         println("加入重复值后：");
         arr.display();

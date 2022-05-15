@@ -1,6 +1,6 @@
 package com.eussi.ch03_simple_sort;
 
-import com.eussi.data._02.DisorderedArray;
+import com.eussi.data._02.SimpleArray;
 
 import static com.eussi.util.Func.*;
 import static com.eussi.util.PrintUtil.*;
@@ -80,26 +80,26 @@ public class Exercise {
     }
 
     private static void exercise_1() {
-        DisorderedArray arr = getDisorderedArray();
+        SimpleArray arr = getSimpleArray();
         arr.bubbleSort1();
         print("after two-way bubble sort: ");
         arr.display();                // display them again
     }
 
     private static void exercise_2() {
-        DisorderedArray arr = getDisorderedArray();
+        SimpleArray arr = getSimpleArray();
         println("media: " + arr.median());
     }
 
     private static void exercise_4() {
-        DisorderedArray arr = getDisorderedArray();
+        SimpleArray arr = getSimpleArray();
         arr.oddEvenSort();
         print("after oddEven sort: ");
         arr.display();                // display them again
     }
 
     private static void exercise_5() {
-        DisorderedArray arr = getDisorderedArray();
+        SimpleArray arr = getSimpleArray();
         int count = arr.insertionSortAndCount();
         print("after insert sort: ");
         arr.display();                // display them again
@@ -107,12 +107,12 @@ public class Exercise {
     }
 
     private static void exercise_6() {
-        DisorderedArray arr = getDisorderedArrayWithDupData();
+        SimpleArray arr = getSimpleArrayWithDupData();
         arr.noDupByInsertionSort();
         print("after noDupByInsertionSort sort: ");
         arr.display();                // display them again
         println("反向插入排序，减少最后一次移动：");
-        arr = getDisorderedArrayWithDupData();
+        arr = getSimpleArrayWithDupData();
         arr.noDupByInsertionSort2();
         print("after noDupByInsertionSort sort: ");
         arr.display();                // display them again
