@@ -1,9 +1,9 @@
 package com.eussi.ch08_binary_tree;
 
-import com.eussi.ch08_binary_tree.util.Node;
-import com.eussi.ch08_binary_tree.util.Tree;
+import com.eussi.data._08.TreeNode;
+import com.eussi.data._08.Tree;
 
-import java.io.IOException;
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -121,14 +121,14 @@ public class BinaryTree {
          * 斜线符号指定,如C:\)是树的根。根目录下面的一层目录是根的子节点。子目录有许多层。文件
          * 代表叶节点;它们没有自己的子节点
          *      显然,分级文件结构不是二叉树,因为一个目录下可以有很多子节点。一个完整的路径名称,
-         * 如C:\SALES\EAST\NOVEMEBER\SMITH DAT,对应着从根到SMITH.DAT叶的路径。应用于文件
+         * 如C:\SALES\EAST\NOVEMEBER\SMITH.DAT,对应着从根到SMITH.DAT叶的路径。应用于文件
          * 结构的术语,如根和路径等,是从树的理论中借来的
          *      分级文件结构和本章下面要讨论的树有明显的不同。文件结构中,子目录中不含有数据:它们
          * 只有其他子目录或文件的引用。只有文件中包含数据。而在树中,每个节点都包含数据(员工记录、
          * 汽车零件说明等等)。而且除了包含数据,除了叶子节点之外,每个节点还包含指向其他节点的引用。
          *
          * 非平衡树
-         *      注意有些树是非平衡的；也就是说，他们大部分的节点在根的一边后者另一边。
+         *      注意有些树是非平衡的；也就是说，他们大部分的节点在根的一边或者另一边。
          *      树变得不平衡是由数据项插入的顺序造成的。如果关键字值是随机插入的,树会或多或少更平
          * 衡一点。但是,如果插入序列是升序(像11,18,33,42,65,等等)或是降序,则所有的值都是
          * 右子节点(升序时)或者都是左子节点(降序时),这样树就会不平衡了。
@@ -163,7 +163,7 @@ public class BinaryTree {
          * 二叉搜索树最常用的遍历方法是中序遍历,所以先来看看中序遍历,再简要地学习其他那两种遍历方
          * 法
          *  - 中序遍历
-         *      中序遍历二叉搜索树会使所有的节点按关键字值升序被访问到。如果希望在二又树中创建有序
+         *      中序遍历二叉搜索树会使所有的节点按关键字值升序被访问到。如果希望在二叉树中创建有序
          * 的数据序列,这是一种方法
          *      遍历树的最简单方法是用递归的方法(第6章中介绍过)。用递归的方法遍历整棵树要用一个
          * 节点作为参数。初始化时这个节点是根。这个方法只需要做三件事:
@@ -220,7 +220,8 @@ public class BinaryTree {
          * 节点都比初始节点的关键字值大,因为这是二叉搜索树所定义的。现在要找到这棵子树中值最小的节点。因此,
          * 这个算法可以找到比初始节点大的最小的节点;它就是要找的后继。
          *      后继节点可能与current有两种位置关系, current就是要删除的节点。后继可能是 current的右子
-         * 节点,或者也可能是 current右子节点的左子孙节点。下面来依次看看这两种情况。
+         * 节点,或者也可能是 current右子节点的左子孙节点。下面来依次看看这两种情况：
+         *
          *  -- 后继节点是 delNode的右子节点
          *      如果后继是 current的右子节点,情况就简单了一点,因为只需要把后继为根的子树移到删除的
          * 节点的位置。此时current的左子节点肯定为null。
@@ -230,6 +231,21 @@ public class BinaryTree {
          * 下面是执行这两个步骤的代码语句,是从 delete()中摘出来的:
          *      1. parent.rightChild = successor;(或parent.leftChild = successor;)
          *      2. successor.leftchild = current.leftChild;
+         *                               50             <--parent
+         *                                \
+         *                                75            <--delNode/current
+         *                              /    \
+         *                             62    87         <--successor
+         *                                      \
+         *                                      93
+         *
+         *                               删除后
+         *                               50
+         *                                \
+         *                                87
+         *                              /    \
+         *                             62    93
+         *
          *  -- 后继节点是delNode右子节点的左后代
          *      如果 Successor是要删除节点右子节点的左后代,执行删除操作需要以下四个步骤
          *      1.把后继父节点的 leftChild字段置为successor的右子节点
@@ -358,7 +374,7 @@ public class BinaryTree {
 
         /**
          * 哈夫曼( Huffman)编码
-         *      二叉树并不全是搜索树。很多二叉树用于其他的情况。图例如：二叉树表示了一个代数表
+         *      二叉树并不全是搜索树。很多二叉树用于其他的情况。例如：二叉树表示一个代数表
          * 达式。
          *      接下来讲解一个算法,它使用二叉树以令人惊讶的方式来压缩数据。1952年 David huffman发现
          * 这种方法后,就称它为哈夫曼编码。数据压缩在很多领域中都是非常重要的。例如要通过互联网发
@@ -394,6 +410,7 @@ public class BinaryTree {
          *          换行符                      1
          *    ---------------------------------------------------
          *      编码时，出现次数最多的字符所占位数应该最少。
+         *
          *                  哈夫曼编码
          *      字符                             编码
          *   ---------------------------------------------------
@@ -404,7 +421,7 @@ public class BinaryTree {
          *      T                               0110
          *      U                               01111
          *      Y                               1110
-         *      空格符                          00
+         *      空格符                           00
          *      换行                            01110
          *  -----------------------------------------------------
          *      用10表示S,用00表示空格后,就不能再用01和11了,因为它们是其他字符的前缀。那三
@@ -470,64 +487,64 @@ public class BinaryTree {
     }
 
     public static void tree() {
-        Tree theTree = new Tree();
-
-        theTree.insert(50, 1.5);
-        theTree.insert(25, 1.2);
-        theTree.insert(75, 1.7);
-        theTree.insert(12, 1.5);
-        theTree.insert(37, 1.2);
-        theTree.insert(43, 1.7);
-        theTree.insert(30, 1.5);
-        theTree.insert(33, 1.2);
-        theTree.insert(87, 1.7);
-        theTree.insert(93, 1.5);
-        theTree.insert(97, 1.5);
-
+        Tree<Integer> theTree = new Tree<>();
+        println("insert 50, 25, 75, 12, 37, 43, 30, 33, 87, 93, 97: ");
+        theTree.insert(50, 25, 75, 12, 37, 43, 30, 33, 87, 93, 97);
         theTree.displayTree();
-        theTree.insert(11, 11.9);
-        theTree.insert(66, 66.9);
 
+        sep();
+        println("insert 11, 66: ");
+        theTree.insert(11, 66);
         theTree.displayTree();
-        Node found = theTree.find(100);
-        if(found != null)
-        {
-            System.out.print("Found: ");
+
+        sep();
+        println("查找: ");
+        int key = 111;
+        TreeNode<Integer> found = theTree.find(key);
+        if(found != null) {
+            print("Found: ");
             found.displayNode();
-            System.out.print("\n");
+            println();
         } else {
-            System.out.println("not found 100");
+            println("not found " + key);
         }
 
-        found = theTree.find(37);
-        if(found != null)
-        {
-            System.out.print("Found: ");
+        key = 37;
+        found = theTree.find(key);
+        if(found != null) {
+            print("Found: ");
             found.displayNode();
-            System.out.print("\n");
+            println();
         } else {
-            System.out.println("not found 37");
+            println("not found " + key);
         }
 
-        boolean didDelete = theTree.delete(33);
+        sep();
+        println("删除: ");
+        key = 33;
+        boolean didDelete = theTree.delete(key);
         if(didDelete)
-            System.out.println("Deleted " + 33 + '\n');
+            println("Deleted " + key + '\n');
         else
-            System.out.println("Could not delete ");
-        didDelete = theTree.delete(1000);
-        if(didDelete)
-            System.out.println("Deleted " + 1000 + '\n');
-        else
-            System.out.println("Could not delete ");
+            println("Could not delete " + key);
 
+        key = 1000;
+        didDelete = theTree.delete(key);
+        if(didDelete)
+            println("Deleted " + key + '\n');
+        else
+            println("Could not delete " + key);
         theTree.displayTree();
 
+        sep();
+        println("遍历: ");
         theTree.traverse(1);
         theTree.traverse(2);
         theTree.traverse(3);
 
 
-        System.out.println("\n========================\n");
-        theTree.displayTree2();
+        sep();
+        println("通过队列实现遍历: ");
+        theTree.displayTreeByQueue();
     }  // end main()
 }

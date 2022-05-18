@@ -75,4 +75,14 @@ public class Func {
         return arr;
     }
 
+    public static void repeatPrint(int n, String repeat) {
+        for (int j = 0; j < n; j++)
+            print(repeat);
+    }
+
+    public static void repeatPrintln(int n, String repeat) {
+        repeatPrint(n, repeat);
+        println();
+    }
+
 }
