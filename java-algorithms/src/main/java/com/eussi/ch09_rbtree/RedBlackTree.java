@@ -10,7 +10,7 @@ import static com.eussi.util.PrintUtil.sep;
  * @create 2020-02-09 2:23
  * @description
  */
-public class RBTreeIntro {
+public class RedBlackTree {
     /**
      *      在第8章“二叉树”中已经讲过,普通的二叉搜索树作为数据存储工具有重要的优势:可以快
      * 速地找到一个给定关键字的数据项,并且可以快速地插入和删除数据项。其他的数据存储结构,例
@@ -710,11 +710,5 @@ public class RBTreeIntro {
          * 在下一章中介绍2-3-4树。关于多路树的一个问题是每个节点都必须比二叉树的大,因为它需要保
          * 存它的每个子节点的引用。
          */
-        rbTree = new RBTree<>();
-        for(int i=0; i<20; i++) {
-            rbTree.insert(i);
-        }
-
-        rbTree.display();
     }
 }
