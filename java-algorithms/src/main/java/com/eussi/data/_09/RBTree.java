@@ -1,9 +1,5 @@
 package com.eussi.data._09;
 
-import com.eussi.data._08.TreeNode;
-import com.eussi.util.Func;
-import com.eussi.util.PrintUtil;
-
 import java.util.Stack;
 
 import static com.eussi.util.Func.repeatPrint;

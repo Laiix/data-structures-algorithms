@@ -3,9 +3,7 @@ package com.eussi.ch08_binary_tree;
 import com.eussi.data._04.StackX;
 import com.eussi.data._08.Tree;
 import com.eussi.data._08.TreeNode;
-import com.eussi.data._08.TreeWeight;
 import com.eussi.data._08.Huffman;
-import com.eussi.util.PrintUtil;
 
 import static com.eussi.util.PrintUtil.*;
 
