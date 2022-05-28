@@ -30,7 +30,7 @@ public class Tree<T extends Comparable<T>> {
 
     public TreeNode<T> find(T key) {                           // (assumes non-empty tree)
         TreeNode<T> current = root;               // start at root
-        while (!current.data.equals(key)) {
+        while (current!=null && !current.data.equals(key)) {
             if (key.compareTo(current.data) < 0)         // go left?
                 current = current.leftChild;
             else                            // or go right?

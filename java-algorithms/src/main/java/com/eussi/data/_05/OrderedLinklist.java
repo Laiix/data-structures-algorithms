@@ -55,4 +55,30 @@ public class OrderedLinklist<T extends Comparable<T>> {
         }
         println("");
     }
+
+    public void delete(T key) {
+        Link<T> previous = null;          // start at first
+        Link<T> current = first;
+        // until end of list,
+        while (current != null && key.compareTo(current.data)!=0) {                           // or key == current,
+            previous = current;
+            current = current.next;     // go to next link
+        }
+        // disconnect link
+        if (previous == null)             //   if beginning of list
+            first = first.next;         //      delete first link
+        else                           //   not at beginning
+            previous.next = current.next; //    delete current link
+    }
+
+    public Link<T> find(T key) {
+        Link<T> current = first;          // start at first
+        // until end of list,
+        while (current != null && current.data.compareTo(key)<=0) {                           // or key too small,
+            if (current.data == key)    // is this the link?
+                return current;          // found it, return link
+            current = current.next;     // go to next item
+        }
+        return null;                   // didn't find it
+    }
 }

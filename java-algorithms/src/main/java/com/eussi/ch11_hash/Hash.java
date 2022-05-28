@@ -1,7 +1,12 @@
 package com.eussi.ch11_hash;
 
-import com.eussi.ch11_hash.util.*;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._11.ChainHashTable;
+import com.eussi.data._11.DataItem;
+import com.eussi.data._11.HashTable;
+
+import java.util.Arrays;
+
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -266,8 +271,9 @@ public class Hash {
          * 坏。然而,如果超过这个界限,随着聚集越来越严重,性能下降也很严重。因此,设计哈希表的关键是确保它不会超过
          * 整个数组容量的一半,最多到三分之二。(在本章最后将讨哈希表的装填数据的程度和探测长度的数学关系。)
          */
-        TestHash_1();
-        PrintUtil.sep();
+        testHashTable(HashTable.FuncEnum.linear);
+        sep();
+
         /**
          * 扩展数组
          *      当哈希表变得太满时,一个选择是扩展数组。在Java中,数组有固定的大小,而且不能扩展。
@@ -280,17 +286,19 @@ public class Hash {
          * 比两倍的容量多一点。计算新数组的容量是重新哈希化的一部分。
          *      下面是帮助找到新数组容量(或原始的数组容量,因为可能会怀疑用户没有选择一个质数,这
          * 种情况经常发生)的几个例程。
-         */
-        System.out.println("大于100的第一个质数是：");
-        System.out.println(getPrime(100));
-        findPrime();
-        PrintUtil.sep();
-        /**
          *      例程最终不会混合。例如,在 getPrime(方法中,可以检查2,然后只检查奇数,而不是每个数
          * 字。然而,这种优化没有多少用,因为只需检查几个数字,就会找到一个质数
          *      Java提供了 Vector类,这个类似数组的数据结构的类可以扩展。然而,它没有太大帮助,因为
          * 数组容量改变后需要重新哈希化所有数据项。
-         *
+         */
+        println("大于100的第一个质数是：");
+        println(getPrime(100));
+        int n = 150;
+        println(n + "以内质数是：");
+        findPrime(n);
+        sep();
+
+        /**
          * 二次探测
          *      前面已经看到,在开放地址法的线性探测中会发生聚集。一旦聚集形成,它会变得越来越大
          * 那些哈希化后的落在聚集范围内的数据项,都要一步一步移动,并且插在聚集的最后,因此使聚集
@@ -342,8 +350,9 @@ public class Hash {
          *      其中, constant是质数,且小于数组容量。例如,
          *          stepSize=5 - (key % 5);
          */
-        TestHash_2();
-        PrintUtil.sep();
+        testHashTable(HashTable.FuncEnum.rehash);
+        sep();
+
         /**
          *  - 表的容量是一个质数
          *      再哈希法要求哈希表的容量是一个质数。为了考察为什么会有这个限制,假设表的容量不是质
@@ -355,6 +364,7 @@ public class Hash {
          * 何数想整除它都是不可能的,因此探测序列最终会捡査所有单元。
          *      类似的影响在二次探测中也存在。然而,由于每步的步长都在变化,且最终会超出变量的范围,
          * 所以避免了无限的循环
+         *
          *      使用开放地址策略时,探测序列通常用再哈希法生成
          *
          * 链地址法
@@ -397,7 +407,7 @@ public class Hash {
          * 时称为桶。然而,这个方法不如链表有效,因为桶容量不好选择。如果容量太小,可能会溢出。如
          * 果太大,又浪费空间。链表是动态分配的,所以没有这个问题。
          */
-        TestHash_3();
+        testChainHashTable();
 
         /**
          * 哈希函数
@@ -632,7 +642,7 @@ public class Hash {
          * 因此,一个块可容纳16个记录。哈希表的每个条目指向某个块。假设一个特殊的文件有100个块。
          *      内存中的索引(哈希表)记录了文件块的指针,第一个块为0,一直到99。
          *      在外部哈希化中,重要的是块不要填满。因此,每个块平均存储8个记录。有的块多些,有的
-         * 少些。在文件中大概有800个记录。排列如图11.15所示
+         * 少些。在文件中大概有800个记录。
          *      所有关键字映射为同一个值的记录都定位到相同块。为找到特定关键字的一个记录,搜索算法
          * 哈希化关键字,用哈希值作为哈希表的下标,得到某个下标中的块号,然后读取这个块
          *      这个过程是有效的,因为定位一个特定的数据项,只需要访问一次块。缺点是相当多的磁盘空
@@ -652,6 +662,7 @@ public class Hash {
          * 的范围。
          *
          */
+
         /**
          * 小结
          * - 哈希表基于数组
@@ -693,148 +704,102 @@ public class Hash {
          */
     }
 
-    public static void TestHash_3()
-    {
-        int aKey;
-        Link aDataItem;
-        int size = 11;
-        int n = 4;
-        int keysPerCell = 100;
-        // get sizes
-        System.out.println("size of hash table: " + size);
-        System.out.println("initial number of items: " + n);
-        // make table
-        ChainHashTable theHashTable = new ChainHashTable(size);
-
-        for(int j=0; j<n; j++)         // insert data
-        {
-            aKey = (int)(Math.random() *
-                    keysPerCell * size);
-            aDataItem = new Link(aKey);
-            theHashTable.insert(aDataItem);
-        }
-
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new Link(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to delete: " + aKey);
-        theHashTable.delete(aKey);
-        theHashTable.displayTable();
-
-        aKey = 12;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new Link(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new Link(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 13;
-        System.out.println("key value to find: " + aKey);
-        aDataItem = theHashTable.find(aKey);
-        if(aDataItem != null)
-        {
-            System.out.println("Found " + aKey);
-        }
-        else
-            System.out.println("Could not find " + aKey);
-
-
-        aKey = 11;
-        System.out.println("key value to find: " + aKey);
-        aDataItem = theHashTable.find(aKey);
-        if(aDataItem != null)
-        {
-            System.out.println("Found " + aKey);
-        }
-        else
-            System.out.println("Could not find " + aKey);
-    }
-
-    private static void TestHash_2() {
-        DataItem aDataItem;
+    public static void testHashTable(HashTable.FuncEnum funcEnum) {
         int size = 11;
         int n = 4;
         int aKey, keysPerCell; //关键字范围比例
         // get sizes
-        System.out.println("size of hash table: " + size);
-        System.out.println("initial number of items: " + n);
+        println("size of hash table: " + size + ", funcEnum: " + funcEnum.name());
         keysPerCell = 10;
         // make table
-        DoubleHashTable theHashTable = new DoubleHashTable(size);
+        HashTable theHashTable = new HashTable(size, funcEnum);
         theHashTable.displayTable();
+        println();
 
-        for(int j=0; j<n; j++)        // insert data
-        {
-            aKey = (int)(Math.random() *
-                    keysPerCell * size);
+        println("initial number of items: " + n);
+        DataItem aDataItem;
+        for(int j=0; j<n; j++) {
+            aKey = (int)(Math.random() * keysPerCell * size);
             aDataItem = new DataItem(aKey);
             theHashTable.insert(aDataItem);
         }
-
         theHashTable.displayTable();
+        println();
 
-        aKey = 11;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new DataItem(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to delete: " + aKey);
-        theHashTable.delete(aKey);
-        theHashTable.displayTable();
-
-        aKey = 12;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new DataItem(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new DataItem(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 13;
-        System.out.println("key value to find: " + aKey);
-        aDataItem = theHashTable.find(aKey);
-        if(aDataItem != null)
-        {
-            System.out.println("Found " + aKey);
+        for (Integer insertKey : Arrays.asList(11, 12, 45, 11)) {
+            println("key value to insert: " + insertKey);
+            aDataItem = new DataItem(insertKey);
+            theHashTable.insert(aDataItem);
+            theHashTable.displayTable();
+            println();
         }
-        else
-            System.out.println("Could not find " + aKey);
 
+        int deleteKey = 45;
+        println("key value to delete: " + deleteKey);
+        theHashTable.delete(deleteKey);
+        theHashTable.displayTable();
+        println();
 
-        aKey = 11;
-        System.out.println("key value to find: " + aKey);
-        aDataItem = theHashTable.find(aKey);
-        if(aDataItem != null)
-        {
-            System.out.println("Found " + aKey);
+        for (Integer findKey : Arrays.asList(13, 11)) {
+            println("key value to find: " + findKey);
+            aDataItem = theHashTable.find(findKey);
+            if(aDataItem != null)
+                println("Found " + findKey);
+            else
+                println("Could not find " + findKey);
+            println();
         }
-        else
-            System.out.println("Could not find " + aKey);
-
     }
 
-    private static void findPrime() {
+    public static void testChainHashTable() {
+        int size = 11;
+        int n = 4;
+        int aKey, keysPerCell; //关键字范围比例
+        // get sizes
+        println("size of chain hash table: " + size);
+        keysPerCell = 10;
+        // make table
+        ChainHashTable theHashTable = new ChainHashTable(size);
+        theHashTable.displayTable();
+        println();
+
+        println("initial number of items: " + n);
+        for(int j=0; j<n; j++) {
+            aKey = (int)(Math.random() * keysPerCell * size);
+            theHashTable.insert(aKey);
+        }
+        theHashTable.displayTable();
+        println();
+
+        for (Integer insertKey : Arrays.asList(11, 12, 45, 11)) {
+            println("key value to insert: " + insertKey);
+            theHashTable.insert(insertKey);
+            theHashTable.displayTable();
+            println();
+        }
+
+        int deleteKey = 45;
+        println("key value to delete: " + deleteKey);
+        theHashTable.delete(deleteKey);
+        theHashTable.displayTable();
+        println();
+
+        for (Integer findKey : Arrays.asList(13, 11)) {
+            println("key value to find: " + findKey);
+            Integer item = theHashTable.find(findKey);
+            if(item != null)
+                println("Found " + findKey);
+            else
+                println("Could not find " + findKey);
+            println();
+        }
+    }
+
+    private static void findPrime(int n) {
         //质数是指在大于1的自然数中，除了1和它本身以外不再有其他因数的自然数。
-        for (int i=2; i<1000; i++) {
+        for (int i=2; i<n; i++) {
             if(isPrime(i))
-                System.out.print(i + " ");
+                print(i + " ");
         }
     }
 
@@ -852,72 +817,5 @@ public class Hash {
         return true;
     }
 
-    private static void TestHash_1() {
-        DataItem aDataItem;
-        int size = 11;
-        int n = 4;
-        int aKey, keysPerCell; //关键字范围比例
-        // get sizes
-        System.out.println("size of hash table: " + size);
-        System.out.println("initial number of items: " + n);
-        keysPerCell = 10;
-        // make table
-        HashTable theHashTable = new HashTable(size);
-        theHashTable.displayTable();
 
-        for(int j=0; j<n; j++)        // insert data
-        {
-            aKey = (int)(Math.random() *
-                    keysPerCell * size);
-            aDataItem = new DataItem(aKey);
-            theHashTable.insert(aDataItem);
-        }
-
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new DataItem(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to delete: " + aKey);
-        theHashTable.delete(aKey);
-        theHashTable.displayTable();
-
-        aKey = 12;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new DataItem(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 11;
-        System.out.println("key value to insert: " + aKey);
-        aDataItem = new DataItem(aKey);
-        theHashTable.insert(aDataItem);
-        theHashTable.displayTable();
-
-        aKey = 13;
-        System.out.println("key value to find: " + aKey);
-        aDataItem = theHashTable.find(aKey);
-        if(aDataItem != null)
-        {
-            System.out.println("Found " + aKey);
-        }
-        else
-            System.out.println("Could not find " + aKey);
-
-
-        aKey = 11;
-        System.out.println("key value to find: " + aKey);
-        aDataItem = theHashTable.find(aKey);
-        if(aDataItem != null)
-        {
-            System.out.println("Found " + aKey);
-        }
-        else
-            System.out.println("Could not find " + aKey);
-
-    }
 }
