@@ -314,4 +314,38 @@ public class Tree<T extends Comparable<T>> {
         return root.data + "";
     }
 
+
+    // 编程作业 12.4
+    public TreeNode<T> removeMax() {
+        TreeNode<T> grandParent = root;
+        TreeNode<T> parent = root;
+        TreeNode<T> current = root;
+        while (current != null) {
+            grandParent = parent;
+            parent = current;
+            current = current.rightChild;
+        }
+        // parent是否为根
+        if (parent == root) { // 是根节点
+            root = root.leftChild;
+        } else { // 不是根节点
+            grandParent.rightChild = parent.leftChild;
+        }
+        return parent;
+    }
+
+    public TreeNode<T> peekMax() {
+        TreeNode<T> parent = root;
+        TreeNode<T> current = root;
+        while (current != null) {
+            parent = current;
+            current = current.rightChild;
+        }
+        return parent;
+    }
+
+    public boolean isEmpty() {
+        return root == null;
+    }
+
 }

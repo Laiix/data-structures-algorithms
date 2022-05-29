@@ -1,8 +1,9 @@
 package com.eussi.ch12_heap;
 
-import com.eussi.ch12_heap.util.Heap;
-import com.eussi.ch12_heap.util.Node;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._12.Heap;
+import com.eussi.data._12.HeapNode;
+
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -40,11 +41,12 @@ public class HeapApp {
          * 堆的介绍
          *      堆是有如下特点的二叉树
          *       - 它是完全二叉树。这也就是说,除了树的最后一层节点不需要是满的,其他的每一层从左
-         * 到右都完全是满的。图121显示了完全二叉树和非完全二叉树。
+         * 到右都完全是满的。
          *       - 它常常用一个数组实现。第8章中介绍了如何用数组而不是由引用连接起来的各个节点来
          * 存储二叉树
          *       - 堆中的每一个节点都满足堆的条件,也就是说每一个节点的关键字都大于(或等于)这个
          * 节点子节点的关键字。
+         *
          *      堆在存储器中表示的是数组，堆只是概念上的一个表示。注意树是完全二叉树，并且所有的
          * 节点都满足堆的条件。
          *      堆是完全二叉树的事实说明了表示堆的数组中没有“洞”，从下标0到N-1,每一个数据单元都
@@ -147,13 +149,15 @@ public class HeapApp {
          *       - 它的父节点的下标为(x-1)/2
          *       - 它的左子节点的下标为2*x+1。
          *       - 它的右子节点的下标为2*x+2。
+         *
          * 数组的大小
          *      应该注意,数组的大小,也就是记录堆中节点的数目,是Heap类中关于堆状态的一个很重要
          * 的信息,也是Heap类中关键的字段。从最后一个位置复制的节点并不清除,所以对于算法来说,
          * 判断最后一个堆占用单元位置的惟一方法是根据数组当前的大小求得。
          */
-        TestHeap();
-        PrintUtil.sep();
+        testHeap(Heap.Sort.desc);
+        sep();
+
         /**
          * 扩展堆数组
          *      在程序运行的过程中,如果插入太多的数据项,超出了堆数组的容量会发生什么情况呢?可以
@@ -200,7 +204,7 @@ public class HeapApp {
          * 在一个数组或者字符串中,就是二进制码字(最小有效位对应路径的最底端。)下面就是执行运算
          * 的代码
          *          while(n >=1) {
-         *              path[j++] = n % 21
+         *              path[j++] = n % 2;
          *              n = n / 2;
          *          }
          *      也可以使用递归的方法来实现,每次由方法调用自身来求出余数并且每次返回时决定适当的方
@@ -313,101 +317,86 @@ public class HeapApp {
     }
 
     public static void heapSort() {
-        int size = 10, j;
+        int size = 10;
+        println("HeapSort, Enter number of items: " + size);
+        Heap<Integer> theHeap = new Heap<>(size);
 
-        System.out.println("Enter number of items: " + size);
-        Heap theHeap = new Heap(size);
-
-        for (j = 0; j < size; j++)       // fill array with
-        {                        //    random nodes
+        for (int j = 0; j < size; j++) {       //    random nodes
             int random = (int) (Math.random() * 100);
-            Node newNode = new Node(random);
+            HeapNode<Integer> newNode = new HeapNode<>(random);
             theHeap.insertAt(j, newNode);
             theHeap.incrementSize();
         }
-
-        System.out.print("Random: ");
+        print("Random: ");
         theHeap.displayArray();  // display random array
 
         // size / 2 - 1 从最后一个元素的父元素开始排，因为单个元素不需要排，已经是堆了
-        for (j = size / 2 - 1; j >= 0; j--)  // make random array into heap
+        for (int j = size / 2 - 1; j >= 0; j--)  // make random array into heap
             theHeap.trickleDown(j);
-
         theHeap.displayHeap();      // display heap
 
-        for (j = size - 1; j >= 0; j--)    // remove from heap and
-        {                        //    store at array end
-            Node biggestNode = theHeap.remove();
+        for (int j = size - 1; j >= 0; j--){                        //    store at array end
+            HeapNode<Integer> biggestNode = theHeap.remove();
             theHeap.insertAt(j, biggestNode);
         }
-        System.out.print("Sorted: ");
+        print("Sorted: ");
         theHeap.displayArray();     // display sorted array
-    }  // end main()
+    }
 
 
-
-    public static void TestHeap() {
-        Heap theHeap = new Heap(31);  // make a HeapApp; max size 31
+    public static void testHeap(Heap.Sort sort) {
+        Heap<Integer> theHeap = new Heap<>(31, sort);  // make a HeapApp; max size 31
         boolean success;
 
-        theHeap.insert(70);           // insert 10 items
-        theHeap.insert(40);
-        theHeap.insert(50);
-        theHeap.insert(20);
-        theHeap.insert(60);
-        theHeap.insert(100);
-        theHeap.insert(80);
-        theHeap.insert(30);
-        theHeap.insert(10);
-        theHeap.insert(90);
-
+        theHeap.insert(70, 40, 50, 20, 60, 100, 80, 30, 10, 90);
         theHeap.displayHeap();
+
 
         int key = 11;
-        System.out.println("Enter value to insert: " + key);
+        println("Enter value to insert: " + key);
         success = theHeap.insert(key);
         if( !success )
-            System.out.println("Can't insert; heap full:" + key);
+            println("Can't insert; heap full:" + key);
         theHeap.displayHeap();
 
-        key = 12;
-        System.out.println("Enter value to insert: " + key);
+        key = 85;
+        println("Enter value to insert: " + key);
         success = theHeap.insert(key);
         if( !success )
-            System.out.println("Can't insert; heap full:" + key);
+            println("Can't insert; heap full:" + key);
         theHeap.displayHeap();
 
         if( !theHeap.isEmpty() ) {
-            System.out.println("remove:" + theHeap.remove());
+            println("remove:" + theHeap.remove());
             theHeap.displayHeap();
         } else
-            System.out.println("Can't remove; heap empty");
+            println("Can't remove; heap empty");
 
         if( !theHeap.isEmpty() ) {
-            System.out.println("remove:" + theHeap.remove());
+            println("remove:" + theHeap.remove());
             theHeap.displayHeap();
         } else
-            System.out.println("Can't remove; heap empty");
+            println("Can't remove; heap empty");
 
 
         key = 8;
         int newKey = 200;
-        System.out.println("Enter current index of item: " + key);
-        System.out.println("Enter new key: " + newKey);
+        println("Enter current index of item: " + key);
+        println("Enter new key: " + newKey);
         success = theHeap.change(key, newKey);
         if( !success )
-            System.out.println("Invalid index");
+            println("Invalid index");
         else
             theHeap.displayHeap();
 
         key = 0;
         newKey = 3;
-        System.out.println("Enter current index of item: " + key);
-        System.out.println("Enter new key: " + newKey);
+        println("Enter current index of item: " + key);
+        println("Enter new key: " + newKey);
         success = theHeap.change(key, newKey);
         if( !success )
-            System.out.println("Invalid index");
+            println("Invalid index");
         else
             theHeap.displayHeap();
-    }  // end main()
+    }
 }
