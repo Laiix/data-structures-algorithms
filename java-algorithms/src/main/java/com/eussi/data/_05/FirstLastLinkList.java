@@ -17,6 +17,15 @@ public class FirstLastLinkList<T> {
         last = null;
     }
 
+    public Link<T> getFirst() {
+        return first;
+    }
+
+    public FirstLastLinkList(T t) {
+        Link<T> link = new Link<>(t);
+        first = last = link;
+    }
+
     public boolean isEmpty() {
         return first == null;
     }

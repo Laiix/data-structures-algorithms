@@ -1,8 +1,9 @@
 package com.eussi.ch13_graph;
 
-import com.eussi.ch13_graph.util.Graph;
-import com.eussi.ch13_graph.util.GraphD;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._13.Graph;
+import com.eussi.data._13.GraphD;
+
+import static com.eussi.util.PrintUtil.*;
 
 /**
  * @author wangxueming
@@ -36,13 +37,12 @@ public class GraphApp {
          *
          * 定义
          *      下图是模拟美国加利福尼亚 San Jose周边地区的简化的高速公路网的图。
-         *      在图中,字母代表高速公路的交汇点,连接圆圈的直线代表高速公路段。字母是顶点,线是边。
+         *      在图中,字母代表高速公路的交汇点,连接字母的直线代表高速公路段。字母是顶点,线是边。
          * 顶点通常用一些方法来标识——正如图中显示的那样,用字母表中的字母来表示。每条边由两个顶
          * 点作为两端。
          *      图并不是要试图反映地图上的地理位置;它只是显示了顶点和边的关系——即,哪些边连接着
-         * 哪些顶点。它本身不涉及物理的远近和方向。而且一条边可能代表几条不同的公路,例如从I到H
-         * 的情形中,就包含了101号公路、84号公路和280号公路。两个交叉点间的连通性(或不连通性)
-         * 是重要的,而实际的路线并不重要。
+         * 哪些顶点。它本身不涉及物理的远近和方向。而且一条边可能代表几条不同的公路,两个交叉点间
+         * 的连通性(或不连通性)是重要的,而实际的路线并不重要。
          *
          *         I——————————————————J
          *         |\                / \
@@ -83,19 +83,19 @@ public class GraphApp {
          * 历史的笔记
          *      研究图最早的数学家之一是18世纪的欧拉( Leonhard euler)。他解决了一个著名的难题,关于
          * 波兰 Konigsberg镇的桥的问题。这个镇有一个小岛和七座桥，简化如下图：
-         *                                   ————C
-         *                                 /   /   \
-         *                           c  /     /      \ g
-         *                          /      /d          \
+         *                                ——————-----C
+         *                              /   /         \
+         *                           c/    /           \ g
+         *                         /      /d            \
          *                      /       /                \
          *                    A  ———————————————————————— D
-         *                    | \          e             /
-         *                     \  \                    /
-         *                       \   \               /
-         *                       a \   \ b         / f
-         *                           \   \       /
-         *                             \   \   /
-         *                              ————B
+         *                    |   \          e           /
+         *                     \   \                    /
+         *                      \   \                 /
+         *                       \   \ b            / f
+         *                        \   \           /
+         *                         \   \         /
+         *                          ————-------B
          *
          *      这个问题已经被市民讨论很多次了,它要寻找到一条走遍所有桥的路线,但不允许包含任何交
          * 叉路线。在这里不打算叙述 Euler的解决方案,它的结果是没有这样一条通路。然而,解决问题的
@@ -188,7 +188,7 @@ public class GraphApp {
          *      在图中,顶点代表每个针脚,边代表每条连线。在电路板上,有许多线路是互不相连的,所以
          * 图绝不是连通图。因此,设计过程中,创建一个图,利用它找到哪些针脚连接到同一电路中,真是
          * 太有用了。
-         *      假设巳经创建了这么一个图。现在需要一种算法来提供系统的方法,从某个特定顶点开始,沿
+         *      假设已经创建了这么一个图。现在需要一种算法来提供系统的方法,从某个特定顶点开始,沿
          * 首边移动到其他顶点。移动完毕后,要保证访问了和起始点相连的每一个顶点。正如在第8章“二
          * 叉树”中讨论的二叉树一样,访问意味着在顶点上的某种操作,例如显示操作。
          *      有两种常用的方法可用来搜索图:即深度优先搜索(DFS)和广度优先搜索(BFS)它们最终
@@ -247,7 +247,8 @@ public class GraphApp {
          *      线代表栈:它“记住”了走向某个特定点的路径
          */
         dfs();
-        PrintUtil.sep();
+        sep();
+
         /**
          * 深度优先搜索和游戏仿真
          *      深度优先搜索通常用在游戏仿真中(以及真实世界中与游戏相似的情况)。在一般的游戏中
@@ -256,7 +257,7 @@ public class GraphApp {
          * 表边,由它可以到达下一个选择顶点。
          *      想像一个名为tic-tac-toe的游戏。如果你先走,可以在九种可能的移动中选择一种。而对手只
          * 能在八种可能的移动中选择一种,依此类推。每次移动都导致了对手可以对当时的情况做出选择,
-         * 而她的选择乂影响到你下一步的走向,直到最后一个方块被填充。
+         * 而她的选择又影响到你下一步的走向,直到最后一个方块被填充。
          *      当考虑如何走时,一种方法是在心中默想一步移动,然后对手可能的对策,然后是自己的对策,一
          * 直进行下去。可以通过考察哪一步移动能产生最好的结果来选择下一步怎么走。在 tic-tac-toe这
          * 种简单游戏中,可能的移动选择很有限,所以可以很轻松地沿每种路径考虑到游戏的最后一步。当
@@ -332,14 +333,16 @@ public class GraphApp {
          * (飞机航线)的所有顶点被访问,然后是相距两条边的所有顶点被访问,依此类推。
          */
         bfs();
-        PrintUtil.sep();
+        sep();
+
         /**
          *      广度优先搜索有一个有趣的属性:它首先找到与起始点相距一条边的所有顶点,然后是与起始
          * 点相距两条边的顶点,依此类推。如果要寻找起始顶点到指定顶点的最短距离,那么这个属性非常
          * 有用。首先执行BFS,当找到指定顶点时,就可以说这条路径是到这个顶点的最短路径。如果有更
          * 短的路径,BFS算法就应该已经找到过它了。
-         *
-         * 最小生成树
+         */
+
+        /** 最小生成树
          *      假设我们设计了一个的印刷电路板，可能需要确定是否使用了最少的连线。也就
          * 是说，针脚之间不要有多余的连接；多余的连接必定占用多余的空间，使布线变得更加困难。
          *      对于针脚和连线的联通部分（用图中的术语说就是顶点和边)，如果有一种算法可以去
@@ -350,14 +353,15 @@ public class GraphApp {
          *          E=V-1
          *      记住，不必关心边的长度。并不需要找到一条最短路径，而是要找最少数量的边。(在下一章
          * 讨论带权图时，这点就会发生改变。)
-         *      创建最小生成树的算法与搜索的算法几乎是相同的。它同样可以基于广度优先搜索或深度优先
-         * 搜索，本例中使用深度优先搜索。
+         *      创建最小生成树的算法与搜索的算法几乎是相同的。它同样可以基于**广度优先搜索或深度优先
+         * 搜索**，本例中使用深度优先搜索。
          *      在执行深度优先搜索过程中，记录走过的边，就可以创建一棵最小生成树，这可能会使人感到
          * 有些奇怪。下面要看到的最小生成树算法mst() 和前面看到的深度优先搜索算法dfs() 之间的惟一区
          * 别就是mst() 方法必须记录走过的边。
          */
         mst();
-        PrintUtil.sep();
+        sep();
+
         /**
          *      注意，这里仅是能够创建的众多最小生成树中的一种可能。例如，用不同的起始点，可以产生
          * 不同的树。所以可以在代码中作些小的调整， 例如在getAdjUnvisitedVertex()方法中从数组vertexList[]
@@ -417,7 +421,7 @@ public class GraphApp {
          *      CFBAEDGH
          *      这也满足优先关系。而且还有许多其他的排序关系也符合。当用算法生成一个拓扑序列时，使
          * 用的方法和代码的细节决定了产生哪种拓扑序列。
-         *      除了课程优先关系以外，拓扑抹序还可以对其他情况进行建模。工作进度是一个重要的例子。
+         *      除了课程优先关系以外，拓扑排序还可以对其他情况进行建模。工作进度是一个重要的例子。
          * 如果正在制造小汽车，就需要对工序进行排列，使得刹车片在安装车轮前安装，以及在上底盘前组装
          * 好发动机。汽车制造商用图来模拟制造过程中的上千个操作。这样可以保证每件事按恰当的顺序进行。
          *      用图对工作进度建模叫做关键路径分析。尽管这里没有提到带权图，但是会用到它（下一章讨
@@ -454,14 +458,15 @@ public class GraphApp {
          * 课程B是课程C的先修课程，C是 D的先修课程，D是B的先修课程。
          *      不包含环的图叫做树。本书前面讨论的二叉树和多叉树就是这个意义上的树。然而在图中提出的树比二
          * 叉树和多叉树更具有一般意义，因为二叉树和多叉树定死了子节点的最大个数。在图中，树的顶点可以连接任
-         * 意数童的顶点，只要不存在环即可。
+         * 意数量的顶点，只要不存在环即可。
          *      要计算出无向图是否存在环也很简单。如果有N个顶点的图有超过N-1条边，那么它必定存在环。可以尝
          * 试着画一个没有环而有N个顶点，N条边的图，这样就可以理解这个问题了。
          *      拓扑排序必须在无环的有向图中进行。这样的图叫做有向无环图，缩写为DAG(directed acyclic graph)。
          */
         topo();
+
         /**
-         *      主要工作在GraphD类中的topo方法中的while循环中进行。这个循环直到顶点数目为0时才退出。下面是步骤：
+         * 主要工作在GraphD类中的topo方法中的while循环中进行。这个循环直到顶点数目为0时才退出。下面是步骤：
          *          1.	调用noSuccessors()找到任意一个没有后继的顶点。
          *          2.	如果找到一个这样的顶点，把顶点放入数组sortedArray[]，并且从图中删除顶点。
          *          3.	如果没有这样的顶点，则图必然存在环。
@@ -483,10 +488,10 @@ public class GraphApp {
          * 有的连通点时，事情变得更加复杂了。因为不能从任意一个顶点开始，并期望找到所有其他的连通的顶点。
          *
          *                                        B
-         *                                     ↙   \
+         *                                     ↙    \
          *                                   A       \      D
-         *                                     ↘     ↘  ↙
-         *                                       C  ←   E
+         *                                     ↘       ↘  ↙
+         *                                       C  ←-- E
          *
          *      考虑上图。如果从A开始，可以到达C,但是不能到达其他任何顶点。如果从B开始，就不能到达D，如果从C开始，更不
          * 能到达其他顶点。关于连通性的问题是：如果从一个指定顶点出发，能够到达哪些顶点？
@@ -517,7 +522,7 @@ public class GraphApp {
          *                 C    0       0       0       0       0
          *                 D    0       0       0       0       1
          *                 E    0       0       1       0       0
-         *      可以使用Warshall算法把邻接矩阵变成图的传递闭包。算法用有限的几行做了很多工作。它基
+         *      可以使用 Warshall 算法把邻接矩阵变成图的传递闭包。算法用有限的几行做了很多工作。它基
          * 于一个简单的思想：
          *      如果能从顶点L到M，并且能从顶点M到N，那么可以从L到N。
          *      这里已经从两个一步路径得到个两步路径。邻接矩阵显示了所有的一步路径，所以它可以很好地
@@ -588,14 +593,7 @@ public class GraphApp {
 
     public static void topo() {
         GraphD theGraph = new GraphD();
-        theGraph.addVertex('A');    // 0
-        theGraph.addVertex('B');    // 1
-        theGraph.addVertex('C');    // 2
-        theGraph.addVertex('D');    // 3
-        theGraph.addVertex('E');    // 4
-        theGraph.addVertex('F');    // 5
-        theGraph.addVertex('G');    // 6
-        theGraph.addVertex('H');    // 7
+        theGraph.addVertex('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H');    // 7
 
         //上面课程关系拓扑图
         theGraph.addEdge(0, 3);     // AD
@@ -610,14 +608,9 @@ public class GraphApp {
         theGraph.topo();            // do the sort
     }
 
-    public static void mst()
-    {
+    public static void mst() {
         Graph theGraph = new Graph();
-        theGraph.addVertex('A');    // 0  (start for mst)
-        theGraph.addVertex('B');    // 1
-        theGraph.addVertex('C');    // 2
-        theGraph.addVertex('D');    // 3
-        theGraph.addVertex('E');    // 4
+        theGraph.addVertex('A', 'B', 'C', 'D', 'E');    // 4
 
         theGraph.addEdge(0, 1);     // AB
         theGraph.addEdge(0, 2);     // AC
@@ -630,48 +623,38 @@ public class GraphApp {
         theGraph.addEdge(2, 4);     // CE
         theGraph.addEdge(3, 4);     // DE
 
-        System.out.print("Minimum spanning tree(dfs): ");
-        theGraph.mst();             // minimum spanning tree
-        System.out.print("\nMinimum spanning tree(bfs): ");
-        theGraph.mst2();
-        System.out.println();
+        print("Minimum spanning tree(dfs): ");
+        theGraph.mstByDfs();             // minimum spanning tree
+        print("\nMinimum spanning tree(bfs): ");
+        theGraph.mstByBfs();
+        println();
     }
 
-    public static void bfs()
-    {
+    public static void bfs() {
         Graph theGraph = new Graph();
-        theGraph.addVertex('A');    // 0  (start for bfs)
-        theGraph.addVertex('B');    // 1
-        theGraph.addVertex('C');    // 2
-        theGraph.addVertex('D');    // 3
-        theGraph.addVertex('E');    // 4
+        theGraph.addVertex('A', 'B', 'C', 'D', 'E');    // 4
 
         theGraph.addEdge(0, 1);     // AB
         theGraph.addEdge(1, 2);     // BC
         theGraph.addEdge(0, 3);     // AD
         theGraph.addEdge(3, 4);     // DE
 
-        System.out.print("BFS(breadth-first search) Visits: ");
+        print("BFS(breadth-first search) Visits: ");
         theGraph.bfs();             // breadth-first search
-        System.out.println();
-    }  // end main()
+        println();
+    }
 
-    public static void dfs()
-    {
+    public static void dfs() {
         Graph theGraph = new Graph();
-        theGraph.addVertex('A');    // 0  (start for dfs)
-        theGraph.addVertex('B');    // 1
-        theGraph.addVertex('C');    // 2
-        theGraph.addVertex('D');    // 3
-        theGraph.addVertex('E');    // 4
+        theGraph.addVertex('A', 'B', 'C', 'D', 'E');
 
         theGraph.addEdge(0, 1);     // AB
         theGraph.addEdge(1, 2);     // BC
         theGraph.addEdge(0, 3);     // AD
         theGraph.addEdge(3, 4);     // DE
 
-        System.out.print("DFS(depth-first search) Visits: ");
+        print("DFS(depth-first search) Visits: ");
         theGraph.dfs();             // depth-first search
-        System.out.println();
-    }  // end main()
+        println();
+    }
 }

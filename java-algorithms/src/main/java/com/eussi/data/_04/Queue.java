@@ -13,6 +13,14 @@ public class Queue<T> {
     private int rear;
 //   private int nItems;
 
+    public Queue() {         // constructor
+        maxSize = 20 + 1;
+        queArray = (T[]) new Object[maxSize];
+        front = 0;
+        rear = 0;
+//      nItems = 0;
+    }
+
     public Queue(int s) {         // constructor
         maxSize = s + 1;
         queArray = (T[]) new Object[maxSize];

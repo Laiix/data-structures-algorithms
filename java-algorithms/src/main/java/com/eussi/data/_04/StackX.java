@@ -12,6 +12,12 @@ public class StackX<T> {
     private T[] stackArray;
     private int top;            // top of stack
 
+    public StackX() {       // constructor
+        maxSize = 20;             // set default array size
+        stackArray = (T[]) new Object[maxSize];  // create array
+        top = -1;                // no items yet
+    }
+
     public StackX(int s) {       // constructor
         maxSize = s;             // set array size
         stackArray = (T[]) new Object[maxSize];  // create array
