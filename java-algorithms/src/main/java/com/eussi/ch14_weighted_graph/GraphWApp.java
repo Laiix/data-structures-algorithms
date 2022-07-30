@@ -4,6 +4,8 @@ import com.eussi.ch14_weighted_graph.util.Graph;
 import com.eussi.ch14_weighted_graph.util.GraphD;
 import com.eussi.util.PrintUtil;
 
+import static com.eussi.util.PrintUtil.*;
+
 /**
  * @author wangxueming
  * @create 2020-03-09 19:25
@@ -33,27 +35,28 @@ public class GraphWApp {
          *      假设要在一个虚拟的国家Magnaguena的6个城市之间架有线电视网，把它们都连接起来。
          * 五条边可以连接六个点，但是应该是哪五条边呢？连接每两个城市的造价不同，所以必须仔细
          * 选择线路使得总体造价最低。
-         *
-         *                        B  ——  C             六个顶点两两相连，线的方向代表连接点，线上数字代表权重
-         *                   6/   7\   8/   \6
-         *                A     7|   \  5|    F
-         *                   4\     /  \   /7
-         *                        D  ——  E
+         *                            10
+         *                       B  --——-    C       六个顶点两两相连，线的方向代表连接点，线上数字代表权重
+         *                  6/   | 7\    /  |  \6
+         *                A     7|   \ /   |     F
+         *                  4\   |  8/\   5|    /7
+         *                    \  | /   \   |  /
+         *                      D  ——---   E
          *                           12
          *
          *      上图显示了一个有6个顶点的带权图，代表6个城市，A、B、C、D、E和F。每条边有一个
          * 权值，标记在边的旁边。假设这些数字代表在两城市间架设电缆的造价，1 代表一百万元。
          * （注意，由于地形原因会导致距离太远，所以一些边是不必要的；例如，假设从A到C或从D到F
-         * 距离太远， 所以这些边不予考虑，也没有出现在图中。）
+         * 距离太远，所以这些边不予考虑，也没有出现在图中。）
          *      选择哪些边架设电缆，能使得安装有线电视系统的造价最低呢？答案是利用最小生成树。
          * 它将有五条边（比城市的数量少1)，连接六个城市，并具有建立连接所需的最小代价。通过看
          * 上图，能否直接找出这些边呢？
          *      通过算法可以看出如下最小生成树：
          *                        B       C
-         *                   6/   7\        \6
-         *                A          \  5|    F
-         *                   4\        \
-         *                       D       E
+         *                   6/   7\      | \6
+         *                A         \   5|    F
+         *                   4\      \   |
+         *                      D      E
          * 派遣调查员
          *      构造最小生成树的算法有些棘手，为了介绍这个算法先引入一个有线电视雇员的例子。现
          * 在有一个雇员（当然是经理）和一些调查员。
@@ -193,7 +196,8 @@ public class GraphWApp {
          * 反一下优先级队列的设计思想。
          */
         mstw(); // minimum spanning tree weighted
-        PrintUtil.sep();
+        sep();
+
         /**
          *      算法在while循环中执行，循环结束条件是所有顶点都己在树中。循环中完成下面的操作：
          *          1.当前顶点放在树中。
@@ -219,6 +223,7 @@ public class GraphWApp {
          * 如果老边的权值小，就不需要作什么变化。如果新边有更小的权值，就要把老边从队列中删除，把新边
          * 放进去。
          */
+
         /**
          * 最短路径问题
          *      可能在带权图中最常遇到的问题就是，寻找两点间的最短路径问题。这个问题的解决方法可应用
@@ -483,8 +488,7 @@ public class GraphWApp {
          */
     }
 
-    public static void path()
-    {
+    public static void path() {
         GraphD theGraph = new GraphD();
         theGraph.addVertex('A');     // 0  (start)
         theGraph.addVertex('B');     // 1
@@ -501,13 +505,12 @@ public class GraphWApp {
         theGraph.addEdge(3, 4, 70);  // DE 70
         theGraph.addEdge(4, 1, 50);  // EB 50
 
-        System.out.println("Shortest paths");
+        println("Shortest paths");
         theGraph.path();             // shortest paths
-        System.out.println();
-    }  // end main()
+        println();
+    }
 
-    public static void mstw()
-    {
+    public static void mstw() {
         Graph theGraph = new Graph();
         theGraph.addVertex('A');    // 0  (start for mst)
         theGraph.addVertex('B');    // 1
@@ -527,9 +530,8 @@ public class GraphWApp {
         theGraph.addEdge(3, 4, 12); // DE 12
         theGraph.addEdge(4, 5, 7);  // EF  7
 
-        System.out.print("Minimum spanning tree: ");
+        print("Minimum spanning tree: ");
         theGraph.mstw();            // minimum spanning tree
-        System.out.println();
-    }  //
+    }
 }
 
