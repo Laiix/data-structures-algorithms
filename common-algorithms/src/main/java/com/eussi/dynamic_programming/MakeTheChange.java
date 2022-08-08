@@ -1,15 +1,17 @@
 package com.eussi.dynamic_programming;
 
+import java.util.Arrays;
+
 /**
  * @author wangxueming
  * @create 2020-04-19 13:10
- * @description
+ * @description leetcode 322
  */
 public class MakeTheChange {
     public static void main(String[] args) {
         //凑零钱问题
         System.out.println("凑零钱问题");
-        coinChange(new int[]{1,2,5}, 11);
+        coinChange(new int[]{1, 2, 5}, 11);
     }
     /**
      * 给你 k 种面值的硬币，面值分别为 c1, c2 ... ck ，每种硬
@@ -25,61 +27,90 @@ public class MakeTheChange {
         System.out.println(dp_2(coins, amount));
         //迭代解法
         System.out.println(dp_3(coins, amount));
+        //leet优化解法
+        System.out.println(dp_4(coins, amount));
     }
 
     public static int dp_1(int[] coins, int amount) {
-        if(amount==0) return 0;
-        if(amount<0) return -1;
+        if(amount==0) {
+            return 0;
+        } else if(amount==-1) {
+            return -1; //无解
+        }
 
         int res = Integer.MAX_VALUE;
-        for(int i=0; i<coins.length; i++) {
-            int subProblem = dp_1(coins, amount-coins[i]);
-            if(subProblem<0) continue;
-
-            if(res>subProblem+1)
-                res = subProblem+1;
+        for (int coin : coins) {
+            int sub;
+            if(amount-coin<0 || (sub = dp_1(coins, amount-coin))==-1) {
+                continue;
+            }
+            res = Math.min(res, 1+sub);
         }
-        return res;
+        return res==Integer.MAX_VALUE?-1:res;
     }
 
     public static int dp_2(int[] coins, int amount) {
-        if(amount==0) return 0;
-        if(amount<0) return -1;
+        int[] memo = new int[amount+1];
+        return helper(coins, amount, memo);
+    }
+
+
+    public static int helper(int[] coins, int amount, int[] memo) {
+        if (amount == 0) {
+            return 0;
+        } else if (amount == -1) {
+            return -1; //无解
+        }
 
         int res = Integer.MAX_VALUE;
-        int[] memo = new int[amount+1];
-        for(int i=0; i<coins.length; i++) {
-            int subProblem = -1;
-            if(memo[amount-coins[i]]>0)
-                subProblem = memo[amount-coins[i]];
-            else {
-                subProblem = dp_1(coins, amount-coins[i]);
-                memo[amount-coins[i]] = subProblem;
+        for (int coin : coins) {
+            int sub;
+            if (amount - coin < 0) {
+                continue;
             }
-            if(subProblem<0) continue;
-            if(res>subProblem+1)
-                res = subProblem+1;
+            if (memo[amount-coin]>0) {
+                sub = memo[amount-coin];
+            } else {
+                sub = helper(coins, amount-coin, memo);
+                memo[amount-coin] = sub;
+            }
+            if(sub==-1) {
+                continue;
+            }
+            res = Math.min(res, 1+sub);
         }
-        return res;
+        return res==Integer.MAX_VALUE?-1:res;
     }
 
 
     //dp[i]=x 表示，当目前金额为i时，
     public static int dp_3(int[] coins, int amount) {
         int[] dp = new int[amount+1];
-
-        for(int i=0; i<dp.length; i++) {
-
-            dp[i] = i==0?0:Integer.MAX_VALUE;
-            // 内层 for 在求所有子问题 +1 的最小值
-            for(int j=0; j<coins.length; j++) {
-                //子问题无解
-                if(i-coins[j]<0) continue;
-
-                if(dp[i] > 1+dp[i-coins[j]])
-                    dp[i] = 1+dp[i-coins[j]];
+        dp[0] = 0;
+        for(int i=1; i<dp.length; i++) {
+            dp[i] = Integer.MAX_VALUE;
+            for (int coin : coins) {
+                if(i-coin<0 || dp[i-coin]==-1) {
+                    continue;
+                }
+                dp[i] = Math.min(dp[i], 1+dp[i-coin]);
+            }
+            if(dp[i]==Integer.MAX_VALUE) {
+                dp[i] = -1;
             }
         }
-        return dp[amount]==Integer.MAX_VALUE?-1:dp[amount];
+        return dp[amount];
+    }
+
+    public static int dp_4(int[] coins, int amount) {
+        int[] dp = new int[amount+1];
+        Arrays.fill(dp, amount+1);
+        dp[0] = 0;
+        for(int coin:coins){
+            for(int i=coin;i<=amount;i++){
+                dp[i] = Math.min(dp[i-coin]+1, dp[i]);
+            }
+        }
+        return dp[amount] == amount+1?-1:dp[amount];
     }
 }
