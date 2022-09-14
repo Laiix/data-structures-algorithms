@@ -1,8 +1,7 @@
 package com.eussi.ch14_weighted_graph;
 
-import com.eussi.ch14_weighted_graph.util.Graph;
-import com.eussi.ch14_weighted_graph.util.GraphD;
-import com.eussi.util.PrintUtil;
+import com.eussi.data._13.Graph;
+import com.eussi.data._13.GraphD;
 
 import static com.eussi.util.PrintUtil.*;
 
@@ -165,7 +164,7 @@ public class GraphWApp {
          * 成后，表中包含了所有的边，这些边都是从树中顶点到它们的不在树中的邻接点（边缘点）的连接，
          *
          * 无用边
-         *      在表剩余条目中，想要把某些连接删除比较困难，它们都是从当前城市到已经拥有办事处的城
+         *      在表示剩余条目中，想要把某些连接删除比较困难，它们都是从当前城市到已经拥有办事处的城
          * 市的连接。但是如果不做这个工作，就可能会导致安装不必要的有线电缆。
          *      在程序的算法中，也要确保优先级队列中不能有连接己在树中的顶点的边。每次向树中增加顶
          * 点后，都要遍历优先级队列査找并删除这样的边。这样做了以后，要使优先级队列中在任意时刻只保
@@ -266,7 +265,7 @@ public class GraphWApp {
          * 有向图中如何解决。
          *
          * Dijkstra 算法
-         *      为解决最短路径问题而提出的方法叫做Djikstra算法，Edsger Dijkstra在1959年首次解决了这
+         *      为解决最短路径问题而提出的方法叫做Djikstra(迪杰斯特拉)算法，Edsger Dijkstra在1959年首次解决了这
          * 个问题。这个算法的实现基于图的邻接矩阵表示法。让人感到有些惊奇的是它不仅能够找到任意两点间的
          * 最短路径，还可以找到某个指定点到其他所有顶点的最短路径。
          *
@@ -307,7 +306,7 @@ public class GraphWApp {
          *      在某个城市有代理人后，可以确定这个代理人走过的路线是费用最低的路线。为什么呢？考虑现在的情
          * 形。如果有另外一条线路比从A到B的直接连接更便宜，它需要通过其他的城市。但是从A出发的另一条路线是
          * 到达,它己经比到B的直接连接更贵了。加上从D到B的费用，使得这条路线更加昂贵。
-         *      因此可以确定，从现在开始，不需要改动从A到B的最低贲用。不管找到什么城市，这个费用都不会改变。
+         *      因此可以确定，从现在开始，不需要改动从A到B的最低费用。不管找到什么城市，这个费用都不会改变。
          * 在它旁边标注一个*,表示在这个城市有一个代理人，并且到它的最低费用是固定的。
          *      三种城市
          *          和最小生成树算法一样，需要把城市分成三种类型：
@@ -366,7 +365,7 @@ public class GraphWApp {
          * 在带权图中，可以回答第二个问题，这个问题在Hubris航线柜台前等待时可能会产生：这趟旅行的花费是多少？
          *      为了看出某条路线是否可能，需要创建一个连通表。在带权图中，用一张表给出任意两个顶点间的最低耗
          * 费，这对顶点可能通过几条边相连。这种问题叫做每一对顶点之间的最短路径问题。
-         *      依次用每个顶点做起始点，执行path.java程序，就可以得到这样一张表。如下表所示：
+         *      依次用每个顶点做起始点，执行path()程序，就可以得到这样一张表。如下表所示：
          *              A       B       C       D       E
          *         A    -       50      100     80      140
          *         B    -       -       60      90      100
@@ -397,7 +396,7 @@ public class GraphWApp {
          *                            A
          *                            B  70            10
          *                            C  30
-         *                            D  50            20
+         *                            D  50         20
          *      D行出现了一个有趣的情况：可以得到一个比已存在的权值更低的权值。在列A为50,在B行D列为10,所以知道
          * 从B到A的路径权值为60。然而，在这个单元已经有一个数字——70。那么 该怎么办？因为60小于70,所以用60取代70。
          * 在这种两点间多路径的情况下，要求这个表要保持有最小耗费的路径。
@@ -489,12 +488,9 @@ public class GraphWApp {
     }
 
     public static void path() {
-        GraphD theGraph = new GraphD();
-        theGraph.addVertex('A');     // 0  (start)
-        theGraph.addVertex('B');     // 1
-        theGraph.addVertex('C');     // 2
-        theGraph.addVertex('D');     // 3
-        theGraph.addVertex('E');     // 4
+        int infinity = 1000000;
+        GraphD theGraph = new GraphD(infinity);
+        theGraph.addVertex('A', 'B', 'C', 'D', 'E');
 
         theGraph.addEdge(0, 1, 50);  // AB 50
         theGraph.addEdge(0, 3, 80);  // AD 80
@@ -511,13 +507,9 @@ public class GraphWApp {
     }
 
     public static void mstw() {
-        Graph theGraph = new Graph();
-        theGraph.addVertex('A');    // 0  (start for mst)
-        theGraph.addVertex('B');    // 1
-        theGraph.addVertex('C');    // 2
-        theGraph.addVertex('D');    // 3
-        theGraph.addVertex('E');    // 4
-        theGraph.addVertex('F');    // 5
+        int infinity = 1000000;
+        Graph theGraph = new Graph(infinity);
+        theGraph.addVertex('A', 'B', 'C', 'D', 'E', 'F');
 
         theGraph.addEdge(0, 1, 6);  // AB  6
         theGraph.addEdge(0, 3, 4);  // AD  4

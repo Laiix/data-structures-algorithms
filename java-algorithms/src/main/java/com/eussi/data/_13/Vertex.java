@@ -8,9 +8,12 @@ package com.eussi.data._13;
 public class Vertex {
     public char label;        // label (e.g. 'A')
     public boolean wasVisited;
+    //mstw
+    public boolean isInTree;
 
     public Vertex(char lab) {
         label = lab;
         wasVisited = false;
+        isInTree = false;
     }
 }

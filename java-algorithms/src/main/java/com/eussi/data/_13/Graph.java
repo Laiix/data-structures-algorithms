@@ -1,9 +1,12 @@
 package com.eussi.data._13;
 
+import com.eussi.data._14.Edge;
 import com.eussi.data._04.Queue;
 import com.eussi.data._04.StackX;
+import com.eussi.data._14.PriorityQ;
 
 import static com.eussi.util.PrintUtil.print;
+import static com.eussi.util.PrintUtil.println;
 
 /**
  * @author wangxueming
@@ -17,17 +20,31 @@ public class Graph {
     private int nVerts;          // current number of vertices
     private StackX<Integer> theStack;
     private Queue<Integer> theQueue;
+    //mstw
+    private int currentVert;
+    private int nTree;
+    private int infinity;
+    private PriorityQ thePQ;
+
+    //14.5
+    private int vertexs[];		// array for index of vertex in vertexList
 
     public Graph() {
+        this(0);
+    }  // end constructor
+
+    public Graph(int initValue) {
         vertexList = new Vertex[MAX_VERTS];
         // adjacency(毗邻；四周；邻接物) matrix
         adjMat = new int[MAX_VERTS][MAX_VERTS];
         nVerts = 0;
         for (int y = 0; y < MAX_VERTS; y++)      // set adjacency
             for (int x = 0; x < MAX_VERTS; x++)   //    matrix to 0
-                adjMat[x][y] = 0;
+                adjMat[x][y] = initValue;
         theStack = new StackX<>();
         theQueue = new Queue<>();
+        thePQ = new PriorityQ();
+        infinity = initValue;
     }  // end constructor
 
     public void addVertex(char... lab) {
@@ -43,6 +60,11 @@ public class Graph {
     public void addEdge(int start, int end) {
         adjMat[start][end] = 1;
         adjMat[end][start] = 1;
+    }
+
+    public void addEdge(int start, int end, int weight) {
+        adjMat[start][end] = weight;
+        adjMat[end][start] = weight;
     }
 
     public void displayVertex(int v) {
@@ -172,4 +194,108 @@ public class Graph {
                 return j;
         return -1;
     }  // end getAdjUnvisitedVertex()
+
+
+    public void mstw() {
+        currentVert = 0;          // start at 0
+
+        while(nTree < nVerts-1) {                      // put currentVert in tree
+            vertexList[currentVert].isInTree = true;
+            nTree++;
+
+            // insert edges adjacent to currentVert into PQ
+            for(int j=0; j<nVerts; j++) {
+                if(j==currentVert)         // skip if it's us
+                    continue;
+                if(vertexList[j].isInTree) // skip if in the tree
+                    continue;
+                int distance = adjMat[currentVert][j];
+                if( distance == infinity)  // skip if no edge
+                    continue;
+                putInPQ(j, distance);      // put it in PQ (maybe)
+            }
+            if(thePQ.size()==0) {
+                println(" GRAPH NOT CONNECTED");
+                return;
+            }
+            // remove edge with minimum distance, from PQ
+            Edge theEdge = thePQ.removeMin();
+            int sourceVert = theEdge.srcVert;
+            currentVert = theEdge.destVert;
+
+            // display edge from source to current
+            print( vertexList[sourceVert].label);
+            print( vertexList[currentVert].label);
+            print( adjMat[sourceVert][currentVert]);
+            print(" ");
+        }  // end while(not all verts in tree)
+
+        // mst is complete
+        for(int j=0; j<nVerts; j++)     // unmark vertices
+            vertexList[j].isInTree = false;
+    }
+
+    public void putInPQ(int newVert, int newDist) {
+        // is there another edge with the same destination vertex?
+        int queueIndex = thePQ.find(newVert);
+        if(queueIndex != -1) {
+            Edge tempEdge = thePQ.peekN(queueIndex);  // get edge
+            int oldDist = tempEdge.distance;
+            if(oldDist > newDist) {
+                thePQ.removeN(queueIndex);  // remove old edge
+                Edge theEdge = new Edge(currentVert, newVert, newDist);
+                thePQ.insert(theEdge);      // insert new edge
+            }
+            // else no action; just leave the old vertex there
+        } else {  // no edge with same destination vertex
+            Edge theEdge = new Edge(currentVert, newVert, newDist);
+            thePQ.insert(theEdge);
+        }
+    }
+
+    public void travelingSalesman() {
+        vertexs = new int[nVerts];
+        for (int i = 0; i < nVerts; i++) {
+            vertexs[i] = i;
+        }
+        doAnagram(vertexs.length);
+    }
+
+    public void doAnagram(int newSize) {
+        if (newSize == 1) {                    // if too small,
+            for (int i = 0; i < nVerts - 1; i++) {
+                if (adjMat[vertexs[i]][vertexs[i + 1]] == infinity) {
+                    return;
+                }
+            }
+            if (adjMat[vertexs[nVerts - 1]][vertexs[0]] != infinity) {// 最后一个顶点到起始点
+                displayWord();
+            }
+            return;
+        }                          // go no further
+        for (int j = 0; j < newSize; j++)         // for each position,
+        {
+            doAnagram(newSize - 1);             // anagram remaining
+            rotate(newSize);
+        }
+    }
+
+    public void displayWord() {
+        for (int j = 0; j < nVerts; j++) {
+            print(" " + vertexList[vertexs[j]].label);
+        }
+        println(" " + vertexList[vertexs[0]].label);
+    }
+
+    public void rotate(int newSize)
+    // rotate left all chars from position to end
+    {
+        int j;
+        int position = nVerts - newSize;
+        int temp = vertexs[position];       // save first letter
+        for (j = position + 1; j < nVerts; j++)
+            // shift others left
+            vertexs[j - 1] = vertexs[j];
+        vertexs[j - 1] = temp;                 // put first on right
+    }
 }
